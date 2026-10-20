@@ -55,6 +55,7 @@
 #include "constants/tv.h"
 #include "constants/union_room.h"
 #include "constants/vars.h"
+#include "constants/tilt.h"
 #include "constants/weather.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
@@ -581,6 +582,8 @@ gStdScripts_End::
 	.include "data/scripts/trainer_battle.inc"
 	.include "data/scripts/new_game.inc"
 	.include "data/scripts/tilt.inc"
+	.include "data/scripts/tilt_wizard.inc"
+	.include "data/scripts/tilt_story.inc"
 	.include "data/scripts/hall_of_fame.inc"
 
 EventScript_WhiteOut::

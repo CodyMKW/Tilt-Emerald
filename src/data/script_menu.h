@@ -782,6 +782,36 @@ struct MultichoiceListStruct
     u8 count;
 };
 
+static const u8 sText_TiltRules[] = _("Rules");
+static const u8 sText_TiltStats[] = _("Table stats");
+static const u8 sText_TiltShop[] = _("Coin shop");
+static const u8 sText_TiltHeal[] = _("Free heal");
+static const u8 sText_TiltExit[] = _("Exit");
+static const u8 sText_TiltCandy[] = _("Rare Candy 100");
+static const u8 sText_TiltSaver[] = _("Ball Saver 200");
+static const u8 sText_TiltPPMax[] = _("PP Max 350");
+static const u8 sText_TiltEgg[] = _("Lucky Egg 500");
+static const u8 sText_TiltMaster[] = _("Master Ball 2000");
+
+static const struct MenuAction MultichoiceList_TiltMain[] =
+{
+    {sText_TiltRules},
+    {sText_TiltStats},
+    {sText_TiltShop},
+    {sText_TiltHeal},
+    {sText_TiltExit},
+};
+
+static const struct MenuAction MultichoiceList_TiltShop[] =
+{
+    {sText_TiltCandy},
+    {sText_TiltSaver},
+    {sText_TiltPPMax},
+    {sText_TiltEgg},
+    {sText_TiltMaster},
+    {sText_TiltExit},
+};
+
 static const struct MultichoiceListStruct sMultichoiceLists[] =
 {
     [MULTI_BRINEY_ON_DEWFORD]          = MULTICHOICE(MultichoiceList_BrineyOnDewford),
@@ -898,6 +928,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_TILT_MAIN]                  = MULTICHOICE(MultichoiceList_TiltMain),
+    [MULTI_TILT_SHOP]                  = MULTICHOICE(MultichoiceList_TiltShop),
 };
 
 const u8 *const gStdStrings[] =
