@@ -376,9 +376,24 @@ static u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
+static u16 PickTiltSpecies(void)
+{
+    u16 species;
+
+    do
+    {
+        species = (Random() % SPECIES_CHIMECHO) + 1;
+    } while (species >= SPECIES_OLD_UNOWN_B && species <= SPECIES_OLD_UNOWN_Z);
+
+    return species;
+}
+
 static void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
+
+    // TILT MODE: every wild encounter is a random Pokemon (the ball bounces anywhere)
+    species = PickTiltSpecies();
 
     ZeroEnemyPartyMons();
     checkCuteCharm = TRUE;

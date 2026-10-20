@@ -169,8 +169,8 @@ void NewGameInitData(void)
     ResetGabbyAndTy();
     ClearSecretBases();
     ClearBerryTrees();
-    SetMoney(&gSaveBlock1Ptr->money, 3000);
-    SetCoins(0);
+    SetMoney(&gSaveBlock1Ptr->money, 5000);
+    SetCoins(500);
     ResetLinkContestBoolean();
     ResetGameStats();
     ClearAllContestWinnerPics();
@@ -184,6 +184,7 @@ void NewGameInitData(void)
     ClearRoamerLocationData();
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
+    AddBagItem(ITEM_COIN_CASE, 1);
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();

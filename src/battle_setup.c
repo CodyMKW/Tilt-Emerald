@@ -11,6 +11,9 @@
 #include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "random.h"
+#include "item.h"
+#include "coins.h"
+#include "money.h"
 #include "starter_choose.h"
 #include "script_pokemon_util.h"
 #include "palette.h"
@@ -599,10 +602,48 @@ void StartRegiBattle(void)
     TryUpdateGymLeaderRematchFromWild();
 }
 
+#define VAR_TILT_COMBO VAR_UNUSED_0x404E
+
+// Pinball-style combo: each consecutive wild win/catch pays out more.
+// Every 5th hit is a coin jackpot, every 10th is a Rare Candy jackpot.
+static void UpdateTiltCombo(void)
+{
+    u16 combo = VarGet(VAR_TILT_COMBO);
+
+    if (gBattleOutcome == B_OUTCOME_WON || gBattleOutcome == B_OUTCOME_CAUGHT)
+    {
+        if (combo < 9999)
+            combo++;
+        VarSet(VAR_TILT_COMBO, combo);
+        AddMoney(&gSaveBlock1Ptr->money, combo * 100);
+        if (combo % 10 == 0)
+        {
+            AddBagItem(ITEM_RARE_CANDY, 1);
+            AddCoins(100);
+            PlaySE(SE_SHINY);
+        }
+        else if (combo % 5 == 0)
+        {
+            AddCoins(50);
+            PlaySE(SE_EXP_MAX);
+        }
+        else
+        {
+            PlaySE(SE_PIN);
+        }
+    }
+    else
+    {
+        // ball drained: combo lost
+        VarSet(VAR_TILT_COMBO, 0);
+    }
+}
+
 static void CB2_EndWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
+    UpdateTiltCombo();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
