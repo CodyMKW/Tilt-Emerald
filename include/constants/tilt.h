@@ -10,6 +10,10 @@
 #define VAR_TILT_STORY VAR_UNUSED_0x409B // Oldale mini story state (0-4)
 #define VAR_TILT_WIZARD_MET VAR_UNUSED_0x40A1 // has talked to the Pinball Wizard
 
+#define VAR_TILT_STEVEN VAR_UNUSED_0x40A8 // Steven Route 102 scene (0 = not seen, 1 = done)
+#define FLAG_TILT_STEVEN_HIDE FLAG_UNUSED_0x020 // set = Steven hidden
+// FLAG_UNUSED_0x022..0x02C are used by the scattered Tilt NPCs (tilt_npcs.inc)
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1
