@@ -20,6 +20,7 @@
 #include "constants/game_stat.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
+#include "constants/tilt.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_RepelWoreOff[];
@@ -395,7 +396,32 @@ static void CreateWildMon(u16 species, u8 level)
     // TILT MODE: every wild encounter is a random Pokemon (the ball bounces anywhere)
     species = PickTiltSpecies();
 
+    // TILT MODE: the higher the combo, the stronger the wild Pokemon (+1 level per 3 combo, max +20)
+    {
+        u16 bonus = VarGet(VAR_TILT_COMBO) / 3;
+        if (bonus > 20)
+            bonus = 20;
+        if (level + bonus > 100)
+            level = 100;
+        else
+            level += bonus;
+    }
+
     ZeroEnemyPartyMons();
+
+    // TILT MODE: MULTIBALL - the encounter after every 7th combo hit is a guaranteed shiny
+    if (VarGet(VAR_TILT_COMBO) % 7 == 6)
+    {
+        u32 otId = gSaveBlock2Ptr->playerTrainerId[0]
+                 | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
+                 | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
+                 | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+        u32 personality = Random32();
+
+        personality ^= GET_SHINY_VALUE(otId, personality) & 0xFFFF; // force shiny
+        CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
+        return;
+    }
     checkCuteCharm = TRUE;
 
     switch (gSpeciesInfo[species].genderRatio)

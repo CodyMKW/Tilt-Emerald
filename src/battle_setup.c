@@ -46,6 +46,7 @@
 #include "constants/game_stat.h"
 #include "constants/items.h"
 #include "constants/songs.h"
+#include "constants/tilt.h"
 #include "constants/map_types.h"
 #include "constants/trainers.h"
 #include "constants/trainer_hill.h"
@@ -602,11 +603,18 @@ void StartRegiBattle(void)
     TryUpdateGymLeaderRematchFromWild();
 }
 
-#define VAR_TILT_COMBO VAR_UNUSED_0x404E
+extern const u8 TiltEmerald_EventScript_ComboMessage[];
+
+static u16 sTiltCombo;
+static u16 sTiltPayout;
+static u16 sTiltResult;
+static u16 sTiltMultiball;
 
 // Pinball-style combo: each consecutive wild win/catch pays out more.
-// Every 5th hit is a coin jackpot, every 10th is a Rare Candy jackpot.
-static void UpdateTiltCombo(void)
+// 5th hit: coins. 10th: Rare Candy + coins + heal. 25th: Master Ball + coins + heal.
+// Every 7th hit sets up a MULTIBALL (next wild encounter is shiny).
+// Returns TRUE when a message should be shown after returning to the field.
+static bool8 UpdateTiltCombo(void)
 {
     u16 combo = VarGet(VAR_TILT_COMBO);
 
@@ -615,44 +623,101 @@ static void UpdateTiltCombo(void)
         if (combo < 9999)
             combo++;
         VarSet(VAR_TILT_COMBO, combo);
-        AddMoney(&gSaveBlock1Ptr->money, combo * 100);
-        if (combo % 10 == 0)
+        if (combo > VarGet(VAR_TILT_BEST))
+            VarSet(VAR_TILT_BEST, combo);
+
+        sTiltCombo = combo;
+        sTiltPayout = (combo > 600) ? 60000 : combo * 100;
+        AddMoney(&gSaveBlock1Ptr->money, sTiltPayout);
+        sTiltMultiball = (combo % 7 == 6);
+        sTiltResult = TILT_RESULT_HIT;
+
+        if (combo % 25 == 0)
+        {
+            AddBagItem(ITEM_MASTER_BALL, 1);
+            AddCoins(250);
+            HealPlayerParty();
+            sTiltResult = TILT_RESULT_SUPER;
+            PlaySE(SE_SHINY);
+        }
+        else if (combo % 10 == 0)
         {
             AddBagItem(ITEM_RARE_CANDY, 1);
             AddCoins(100);
+            HealPlayerParty();
+            sTiltResult = TILT_RESULT_CANDY;
             PlaySE(SE_SHINY);
         }
         else if (combo % 5 == 0)
         {
             AddCoins(50);
+            sTiltResult = TILT_RESULT_COINS;
             PlaySE(SE_EXP_MAX);
         }
         else
         {
             PlaySE(SE_PIN);
         }
+        return TRUE;
+    }
+
+    if (combo == 0)
+        return FALSE;
+
+    sTiltCombo = combo;
+    sTiltPayout = 0;
+    sTiltMultiball = FALSE;
+    if (VarGet(VAR_TILT_SAVER) > 0)
+    {
+        // Ball Saver: the drain is cancelled and the combo survives
+        VarSet(VAR_TILT_SAVER, VarGet(VAR_TILT_SAVER) - 1);
+        sTiltResult = TILT_RESULT_SAVED;
     }
     else
     {
-        // ball drained: combo lost
         VarSet(VAR_TILT_COMBO, 0);
+        sTiltResult = TILT_RESULT_DRAIN;
     }
+    return TRUE;
+}
+
+static void Task_TiltMessage(u8 taskId)
+{
+    if (!gPaletteFade.active && IsWeatherNotFadingIn() == TRUE)
+    {
+        DestroyTask(taskId);
+        gSpecialVar_0x8004 = sTiltCombo;
+        gSpecialVar_0x8005 = sTiltPayout;
+        gSpecialVar_0x8006 = sTiltResult;
+        gSpecialVar_0x8007 = sTiltMultiball;
+        ScriptContext_SetupScript(TiltEmerald_EventScript_ComboMessage);
+    }
+}
+
+static void FieldCB_TiltMessage(void)
+{
+    LockPlayerFieldControls();
+    Overworld_PlaySpecialMapMusic();
+    FadeInFromBlack();
+    CreateTask(Task_TiltMessage, 10);
 }
 
 static void CB2_EndWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
-    UpdateTiltCombo();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
+        VarSet(VAR_TILT_COMBO, 0); // whiteout drains the ball (no Ball Saver)
         SetMainCallback2(CB2_WhiteOut);
     }
     else
     {
         SetMainCallback2(CB2_ReturnToField);
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
+        if (UpdateTiltCombo())
+            gFieldCallback = FieldCB_TiltMessage;
     }
 }
 
