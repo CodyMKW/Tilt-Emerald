@@ -16,6 +16,8 @@
 
 // Cody's Gym: FLAG_UNUSED_0x02D (guard gone), 0x02E/0x02F/0x030 (Cody rewards 1-3 given)
 
+// Littleroot Pokémon Center: FLAG_UNUSED_0x031 (clerk intro seen)
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1
