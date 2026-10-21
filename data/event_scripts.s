@@ -586,6 +586,7 @@ gStdScripts_End::
 	.include "data/scripts/tilt_story.inc"
 	.include "data/scripts/tilt_steven.inc"
 	.include "data/scripts/tilt_npcs.inc"
+	.include "data/scripts/tilt_gym.inc"
 	.include "data/scripts/hall_of_fame.inc"
 
 EventScript_WhiteOut::

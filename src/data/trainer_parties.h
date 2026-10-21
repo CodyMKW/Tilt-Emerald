@@ -12434,3 +12434,116 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayLinkPlaceholder[] = {
     .species = SPECIES_KYOGRE,
     }
 };
+
+static const struct TrainerMonItemCustomMoves sParty_TiltCody[] = {
+    {
+    .iv = 255,
+    .lvl = 74,
+    .species = SPECIES_VIBRAVA,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROCK_SLIDE, MOVE_SANDSTORM}
+    },
+    {
+    .iv = 255,
+    .lvl = 80,
+    .species = SPECIES_ALTARIA,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_DRAGON_DANCE, MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE}
+    },
+    {
+    .iv = 255,
+    .lvl = 82,
+    .species = SPECIES_DRAGONITE,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_OUTRAGE, MOVE_EARTHQUAKE, MOVE_THUNDER_PUNCH, MOVE_AERIAL_ACE}
+    },
+    {
+    .iv = 255,
+    .lvl = 82,
+    .species = SPECIES_SALAMENCE,
+    .heldItem = ITEM_CHOICE_BAND,
+    .moves = {MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE, MOVE_FIRE_BLAST, MOVE_ROCK_SLIDE}
+    },
+    {
+    .iv = 255,
+    .lvl = 80,
+    .species = SPECIES_FLYGON,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FIRE_BLAST}
+    },
+    {
+    .iv = 255,
+    .lvl = 88,
+    .species = SPECIES_FLYGON,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FIRE_BLAST, MOVE_ROCK_SLIDE}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltDraco[] = {
+    {
+    .iv = 220,
+    .lvl = 68,
+    .species = SPECIES_DRAGONAIR,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_DRAGON_BREATH, MOVE_SURF, MOVE_ICE_BEAM, MOVE_BODY_SLAM}
+    },
+    {
+    .iv = 220,
+    .lvl = 70,
+    .species = SPECIES_FLYGON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROCK_SLIDE, MOVE_FIRE_BLAST}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltSandra[] = {
+    {
+    .iv = 220,
+    .lvl = 68,
+    .species = SPECIES_VIBRAVA,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_BREATH, MOVE_ROCK_SLIDE, MOVE_SANDSTORM}
+    },
+    {
+    .iv = 220,
+    .lvl = 70,
+    .species = SPECIES_ALTARIA,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_DRAGON_CLAW, MOVE_AERIAL_ACE, MOVE_EARTHQUAKE, MOVE_DRAGON_DANCE}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltRyu[] = {
+    {
+    .iv = 220,
+    .lvl = 68,
+    .species = SPECIES_GYARADOS,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_BODY_SLAM}
+    },
+    {
+    .iv = 220,
+    .lvl = 70,
+    .species = SPECIES_KINGDRA,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SURF, MOVE_DRAGON_BREATH, MOVE_ICE_BEAM, MOVE_HYDRO_PUMP}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltMira[] = {
+    {
+    .iv = 220,
+    .lvl = 66,
+    .species = SPECIES_SHELGON,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_DRAGON_CLAW, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_BODY_SLAM}
+    },
+    {
+    .iv = 220,
+    .lvl = 72,
+    .species = SPECIES_FLYGON,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FIRE_BLAST, MOVE_ROCK_SLIDE}
+    },
+};

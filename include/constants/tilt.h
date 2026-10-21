@@ -14,6 +14,8 @@
 #define FLAG_TILT_STEVEN_HIDE FLAG_UNUSED_0x020 // set = Steven hidden
 // FLAG_UNUSED_0x022..0x02C are used by the scattered Tilt NPCs (tilt_npcs.inc)
 
+// Cody's Gym: FLAG_UNUSED_0x02D (guard gone), 0x02E/0x02F/0x030 (Cody rewards 1-3 given)
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1

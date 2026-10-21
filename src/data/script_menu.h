@@ -812,6 +812,19 @@ static const struct MenuAction MultichoiceList_TiltShop[] =
     {sText_TiltExit},
 };
 
+static const u8 sText_TiltQuiz0[] = _("Bounce high, dig deeper");
+static const u8 sText_TiltQuiz1[] = _("Bounce high, fly higher");
+static const u8 sText_TiltQuiz2[] = _("Burn bright, fly higher");
+static const u8 sText_TiltQuiz3[] = _("Dig deep, fly higher");
+
+static const struct MenuAction MultichoiceList_TiltQuiz[] =
+{
+    {sText_TiltQuiz0},
+    {sText_TiltQuiz1},
+    {sText_TiltQuiz2},
+    {sText_TiltQuiz3},
+};
+
 static const struct MultichoiceListStruct sMultichoiceLists[] =
 {
     [MULTI_BRINEY_ON_DEWFORD]          = MULTICHOICE(MultichoiceList_BrineyOnDewford),
@@ -930,6 +943,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
     [MULTI_TILT_MAIN]                  = MULTICHOICE(MultichoiceList_TiltMain),
     [MULTI_TILT_SHOP]                  = MULTICHOICE(MultichoiceList_TiltShop),
+    [MULTI_TILT_QUIZ]                  = MULTICHOICE(MultichoiceList_TiltQuiz),
 };
 
 const u8 *const gStdStrings[] =
