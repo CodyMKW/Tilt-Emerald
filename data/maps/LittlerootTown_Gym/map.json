@@ -506,6 +506,13 @@
       "elevation": 0,
       "dest_map": "MAP_LITTLEROOT_TOWN_GYM",
       "dest_warp_id": "15"
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_LITTLEROOT_TOWN_GYM",
+      "dest_warp_id": "4"
     }
   ],
   "coord_events": [],

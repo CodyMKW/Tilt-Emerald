@@ -361,6 +361,8 @@ TiltGym_Text_CodyLocked1:
 TiltGym_Text_CodyLocked2:
 	.string "But I only battle trainers who\n"
 	.string "hold all 8 BADGES.\p"
+	.string "The pad by the wall behind me takes\n"
+	.string "you back to the entrance.\p"
 	.string "Prove yourself across the region.\n"
 	.string "Then come back. I'll be waiting.$"
 
@@ -387,6 +389,8 @@ TiltGym_Text_CodyRewards:
 	.string "FLYGON trusts the most.\p"
 	.string "The DRAGON SCALE carries the power\n"
 	.string "of the desert wind.\p"
+	.string "The pad by the wall behind me takes\n"
+	.string "you back to the entrance.\p"
 	.string "Come back anytime. FLYGON and I\n"
 	.string "would love a rematch!$"
 
@@ -397,4 +401,6 @@ TiltGym_Text_CodyBagFull:
 TiltGym_Text_CodyPost:
 	.string "FLYGON and I are training for\n"
 	.string "our next rematch.\p"
+	.string "The pad by the wall behind me takes\n"
+	.string "you back to the entrance.\p"
 	.string "Bounce high, fly higher!$"
