@@ -74,6 +74,7 @@ TiltJoseph_EventScript_StoryOffer::
 	setobjectxy LOCALID_TILTJOSEPH, 11, 12
 	setobjectxy OBJ_EVENT_ID_PLAYER, 11, 13
 	turnobject LOCALID_TILTJOSEPH, DIR_WEST
+	turnobject LOCALID_TILTJOSEPH_PIKACHU, DIR_WEST
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	clearflag FLAG_UNUSED_0x033
 	addobject LOCALID_TILTJOSEPH_GRUNT1
@@ -105,6 +106,7 @@ TiltJoseph_EventScript_ReadyPrompt::
 	removeobject LOCALID_TILTJOSEPH_GRUNT2
 	fadescreen FADE_FROM_BLACK
 	applymovement LOCALID_TILTJOSEPH, Common_Movement_FaceDown
+	applymovement LOCALID_TILTJOSEPH_PIKACHU, Common_Movement_FaceDown
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
 	msgbox TiltJoseph_Text_HealFirst, MSGBOX_DEFAULT
@@ -143,6 +145,7 @@ TiltJoseph_EventScript_TagWon::
 	removeobject LOCALID_TILTJOSEPH_GRUNT2
 	fadescreen FADE_FROM_BLACK
 	applymovement LOCALID_TILTJOSEPH, Common_Movement_FaceDown
+	applymovement LOCALID_TILTJOSEPH_PIKACHU, Common_Movement_FaceDown
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
 	msgbox TiltJoseph_Text_TagThanks, MSGBOX_DEFAULT
@@ -186,6 +189,22 @@ TiltJoseph_EventScript_Grunt2Trainer::
 LittlerootTown_West_OnTransition:
 	setflag FLAG_UNUSED_0x033
 	end
+
+@ JOSEPH's PIKACHU, waiting beside him
+TiltJoseph_EventScript_Pikachu::
+	lock
+	faceplayer
+	waitmovement 0
+	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
+	msgbox TiltJoseph_Text_PikachuCry, MSGBOX_DEFAULT
+	waitmoncry
+	applymovement LOCALID_TILTJOSEPH_PIKACHU, Common_Movement_FaceDown
+	waitmovement 0
+	release
+	end
+
+TiltJoseph_Text_PikachuCry:
+	.string "PIKACHU: Pika pika!$"
 
 @ The grunts themselves do nothing if the player somehow talks to them.
 TiltJoseph_EventScript_GruntIdle::
