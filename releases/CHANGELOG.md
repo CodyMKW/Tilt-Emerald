@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v10.8
+- Wizard room: you can now walk behind both plants under the bookshelves. The plant tops draw in front of you and the tile behind each plant is walkable.
+
 ## v10.7
 - Fixed the gym hedges in the Littleroot yard: the bottoms were cut off, they now have rounded end caps.
 - Fixed Joseph turning all black in Littleroot (the palette fix from v10.6 only works in Petalburg; Littleroot uses the normal sprite again).
