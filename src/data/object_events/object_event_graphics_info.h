@@ -1880,7 +1880,9 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_EnemyZigzagoon = {
 };
 
 // Same look as Red, but patched into the NPC special *reflection* palette slot (11) so that he can
-// stand next to TILT FLYGON, which owns the one normal NPC special slot (10).
+// stand next to TILT FLYGON, which owns the one normal NPC special slot (10). Only use this in maps
+// that reserve palette slots 0-11 (Petalburg). Maps without reflections reserve fewer slots, so the
+// Littleroot yard uses the plain OBJ_EVENT_GFX_RED for him instead.
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_TiltJoseph = {
     .tileTag = TAG_NONE,
     .paletteTag = OBJ_EVENT_PAL_TAG_RED_LEAF,

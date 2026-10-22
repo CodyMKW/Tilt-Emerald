@@ -3,6 +3,12 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v10.7
+- Fixed the gym hedges in the Littleroot yard: the bottoms were cut off, they now have rounded end caps.
+- Fixed Joseph turning all black in Littleroot (the palette fix from v10.6 only works in Petalburg; Littleroot uses the normal sprite again).
+- Fixed the two cut-off potted plants in the Pinball Wizard's room (their tops were missing).
+- From this version on the ROM inside each zip is simply named `Tilt Emerald.gba`.
+
 ## v10.6
 - Fixed Flygon's colours: it shared a palette slot with Joseph's sprite, so Joseph now has his own copy of the sprite on a separate slot.
 - Moved the Petalburg reunion trigger to two tiles below Cody (x 20-22, y 11).
