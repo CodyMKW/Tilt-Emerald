@@ -965,6 +965,18 @@ static const struct SpriteFrameImage sPicTable_EnemyZigzagoon[] = {
     overworld_frame(gObjectEventPic_EnemyZigzagoon, 4, 4, 8),
 };
 
+static const struct SpriteFrameImage sPicTable_TiltFlygon[] = {
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+    overworld_frame(gObjectEventPic_TiltFlygon, 4, 4, 0),
+};
+
 static const struct SpriteFrameImage sPicTable_Poochyena[] = {
     overworld_frame(gObjectEventPic_Poochyena, 4, 4, 0),
     overworld_frame(gObjectEventPic_Poochyena, 4, 4, 1),

@@ -2,6 +2,9 @@
 @
 @   VAR_TILT_JOSEPH (VAR_UNUSED_0x40B8): 0 = not beaten yet, 1 = beaten (story available), 2 = story done
 @   FLAG_UNUSED_0x033 = the two Aqua grunts are hidden (re-set on every map load)
+@   VAR_TILT_JOSEPH 2 = Aqua story done (Joseph + Pikachu move to Petalburg City), 3 = Petalburg reunion with Cody seen
+@   FLAG_UNUSED_0x036 = Petalburg reunion group (Cody, Flygon, Joseph, Pikachu) hidden
+@   FLAG_UNUSED_0x037 = Joseph + Pikachu hidden in the Littleroot yard
 @   FLAG_UNUSED_0x035 = story reward part 1 given (Rare Candies), FLAG_UNUSED_0x034 = reward fully given (PP Max)
 @   Trainer slots 860 (JOSEPH), 861/862 (Aqua grunts, used only in the tag battle)
 @
@@ -44,7 +47,19 @@ TiltJoseph_EventScript_RematchWon::
 
 TiltJoseph_EventScript_AfterDefeat::
 	goto_if_eq VAR_TILT_JOSEPH, 1, TiltJoseph_EventScript_StoryOffer
-	goto TiltJoseph_EventScript_RematchPrompt
+	goto TiltJoseph_EventScript_LorePrompt
+	end
+
+@ After the story: offer the Holy City legend, then the rematch.
+TiltJoseph_EventScript_LorePrompt::
+	msgbox TiltJoseph_Text_LoreAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, TiltJoseph_EventScript_RematchPrompt
+	msgbox TiltJoseph_Text_Lore1, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Lore2, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Lore3, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Lore4, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Lore5, MSGBOX_DEFAULT
+	release
 	end
 
 TiltJoseph_EventScript_RematchPrompt::
@@ -150,12 +165,13 @@ TiltJoseph_EventScript_TagWon::
 	waitmovement 0
 	msgbox TiltJoseph_Text_TagThanks, MSGBOX_DEFAULT
 	setvar VAR_TILT_JOSEPH, 2
+	setvar VAR_0x8009, 0
 	goto TiltJoseph_EventScript_GiveReward
 	end
 
 @ Given one at a time and remembered with a flag, so nothing is lost if the bag is full.
 TiltJoseph_EventScript_GiveReward::
-	goto_if_set FLAG_UNUSED_0x034, TiltJoseph_EventScript_RewardDone
+	goto_if_set FLAG_UNUSED_0x034, TiltJoseph_EventScript_RewardAlreadyDone
 	goto_if_set FLAG_UNUSED_0x035, TiltJoseph_EventScript_RewardPPMax
 	checkitemspace ITEM_RARE_CANDY, 3
 	goto_if_eq VAR_RESULT, FALSE, TiltJoseph_EventScript_RewardBagFull
@@ -166,8 +182,23 @@ TiltJoseph_EventScript_RewardPPMax::
 	goto_if_eq VAR_RESULT, FALSE, TiltJoseph_EventScript_RewardBagFull
 	giveitem ITEM_PP_MAX
 	setflag FLAG_UNUSED_0x034
-TiltJoseph_EventScript_RewardDone::
+	goto TiltJoseph_EventScript_Depart
+	end
+
+TiltJoseph_EventScript_RewardAlreadyDone::
+	release
+	end
+
+@ Joseph and Pikachu head off to Petalburg City
+TiltJoseph_EventScript_Depart::
+	goto_if_eq VAR_0x8009, 1, TiltJoseph_EventScript_RewardAlreadyDone
 	msgbox TiltJoseph_Text_RewardDone, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	setflag FLAG_UNUSED_0x037
+	removeobject LOCALID_TILTJOSEPH
+	removeobject LOCALID_TILTJOSEPH_PIKACHU
+	fadescreen FADE_FROM_BLACK
 	release
 	end
 
@@ -188,7 +219,23 @@ TiltJoseph_EventScript_Grunt2Trainer::
 @ The grunts are never standing there when the map loads (also covers whiteouts mid-scene).
 LittlerootTown_West_OnTransition:
 	setflag FLAG_UNUSED_0x033
+	clearflag FLAG_UNUSED_0x037
+	call_if_ge VAR_TILT_JOSEPH, 2, TiltJoseph_EventScript_HideLittlerootJoseph
 	end
+
+TiltJoseph_EventScript_HideLittlerootJoseph::
+	setflag FLAG_UNUSED_0x037
+	return
+
+@ Petalburg City: Cody, Flygon, Joseph and Pikachu only stand there once the Aqua story is done.
+TiltJoseph_EventScript_PetalburgInit::
+	setflag FLAG_UNUSED_0x036
+	call_if_ge VAR_TILT_JOSEPH, 2, TiltJoseph_EventScript_ShowReunionGroup
+	return
+
+TiltJoseph_EventScript_ShowReunionGroup::
+	clearflag FLAG_UNUSED_0x036
+	return
 
 @ JOSEPH's PIKACHU, waiting beside him
 TiltJoseph_EventScript_Pikachu::
@@ -328,9 +375,10 @@ TiltJoseph_Text_TagThanks:
 	.string "Thanks, partner. Please take this.$"
 
 TiltJoseph_Text_RewardDone:
-	.string "JOSEPH: Anytime you want a rematch,\n"
-	.string "just say the word.\p"
-	.string "Stay charged!$"
+	.string "JOSEPH: I'm meeting CODY in PETALBURG\n"
+	.string "CITY. Come by and say hi!\p"
+	.string "And if you want a rematch, just\n"
+	.string "find me there. Stay charged!$"
 
 TiltJoseph_Text_BagFull:
 	.string "JOSEPH: Your BAG is full!\n"
@@ -338,3 +386,191 @@ TiltJoseph_Text_BagFull:
 
 TiltJoseph_Text_GruntIdle:
 	.string "...$"
+
+@ ---- Petalburg City reunion: CODY + FLYGON, JOSEPH + PIKACHU ----
+
+@ Walking up to them starts the chat the first time (VAR_TILT_JOSEPH == 2)
+TiltJoseph_EventScript_ReunionTrigger::
+	lockall
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, TiltJoseph_EventScript_ReunionSkip
+	call TiltJoseph_EventScript_ReunionBody
+	releaseall
+	end
+
+TiltJoseph_EventScript_ReunionSkip::
+	releaseall
+	end
+
+TiltJoseph_EventScript_ReunionBody::
+	msgbox TiltJoseph_Text_Reunion1, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion2, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion3, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion4, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion5, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion6, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion7, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion8, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_Reunion9, MSGBOX_DEFAULT
+	playmoncry SPECIES_FLYGON, CRY_MODE_NORMAL
+	applymovement LOCALID_TILTREUNION_FLYGON, Common_Movement_ExclamationMark
+	waitmoncry
+	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
+	applymovement LOCALID_TILTREUNION_PIKACHU, Common_Movement_ExclamationMark
+	waitmoncry
+	waitmovement 0
+	playse SE_PIN
+	applymovement LOCALID_TILTREUNION_CODY, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_TILTREUNION_CODY, Common_Movement_FacePlayer
+	applymovement LOCALID_TILTREUNION_JOSEPH, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox TiltJoseph_Text_Reunion10, MSGBOX_DEFAULT
+	setvar VAR_TILT_JOSEPH, 3
+	return
+
+@ Talking to either of them
+TiltJoseph_EventScript_JosephPetalburg::
+	lock
+	faceplayer
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, TiltJoseph_EventScript_NoMon
+	goto_if_unset FLAG_UNUSED_0x034, TiltJoseph_EventScript_PetalburgReward
+	goto_if_eq VAR_TILT_JOSEPH, 2, TiltJoseph_EventScript_JosephReunionTalk
+	goto_if_defeated TRAINER_TILT_JOSEPH, TiltJoseph_EventScript_LorePrompt
+	goto TiltJoseph_EventScript_RematchPrompt
+	end
+
+TiltJoseph_EventScript_PetalburgReward::
+	setvar VAR_0x8009, 1
+	goto TiltJoseph_EventScript_GiveReward
+	end
+
+TiltJoseph_EventScript_JosephReunionTalk::
+	call TiltJoseph_EventScript_ReunionBody
+	release
+	end
+
+TiltJoseph_EventScript_CodyPetalburg::
+	lock
+	faceplayer
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, TiltJoseph_EventScript_NoMon
+	goto_if_eq VAR_TILT_JOSEPH, 2, TiltJoseph_EventScript_JosephReunionTalk
+	msgbox TiltJoseph_Text_CodyChat, MSGBOX_DEFAULT
+	applymovement LOCALID_TILTREUNION_CODY, Common_Movement_FaceRight
+	waitmovement 0
+	release
+	end
+
+TiltJoseph_EventScript_FlygonPetalburg::
+	lock
+	playmoncry SPECIES_FLYGON, CRY_MODE_NORMAL
+	msgbox TiltJoseph_Text_FlygonCry, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+TiltJoseph_EventScript_PikachuPetalburg::
+	lock
+	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
+	msgbox TiltJoseph_Text_PikachuCry, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+TiltJoseph_Text_LoreAsk:
+	.string "JOSEPH: Hey! Want to hear the legend\n"
+	.string "of the HOLY CITY of PIKACHUS?$"
+
+TiltJoseph_Text_Lore1:
+	.string "JOSEPH: Three years ago, I followed\n"
+	.string "a thunderstorm into a hidden valley.\p"
+	.string "In the middle stood a city built by\n"
+	.string "PIKACHU. Lightning rods for towers.\l"
+	.string "Streets that hum with static.\p"
+	.string "That's the HOLY CITY of PIKACHUS.$"
+
+TiltJoseph_Text_Lore2:
+	.string "JOSEPH: The legend says the first\n"
+	.string "PIKACHU stole a spark from a storm\l"
+	.string "to light a lamp for a lost traveler.\p"
+	.string "That lamp is the ETERNAL SPARK.\n"
+	.string "It still burns in the city's heart.$"
+
+TiltJoseph_Text_Lore3:
+	.string "JOSEPH: While I was there, a huge\n"
+	.string "GYARADOS rose from the lake.\p"
+	.string "It was furious, and it wanted to\n"
+	.string "put out the ETERNAL SPARK!$"
+
+TiltJoseph_Text_Lore4:
+	.string "JOSEPH: So my PIKACHU and I stood\n"
+	.string "at the gate for three nights.\p"
+	.string "Thunderbolt after Thunderbolt!\n"
+	.string "The whole valley lit up like day.$"
+
+TiltJoseph_Text_Lore5:
+	.string "JOSEPH: At dawn, the GYARADOS gave\n"
+	.string "up and swam away.\p"
+	.string "The ETERNAL SPARK was still burning.\n"
+	.string "The elders named my buddy the\l"
+	.string "city's guardian.\p"
+	.string "Keep it secret. Only the lightning\n"
+	.string "knows the way there.$"
+
+TiltJoseph_Text_Reunion1:
+	.string "CODY: Man, I still think about that\n"
+	.string "FORTNITE match, Joseph.$"
+
+TiltJoseph_Text_Reunion2:
+	.string "JOSEPH: Don't remind me! Those two\n"
+	.string "players completely destroyed us.$"
+
+TiltJoseph_Text_Reunion3:
+	.string "CODY: We got wiped in thirty seconds.\n"
+	.string "Thirty! I counted!$"
+
+TiltJoseph_Text_Reunion4:
+	.string "JOSEPH: They were cheating.\n"
+	.string "Probably. Nobody builds a tower\l"
+	.string "that fast.$"
+
+TiltJoseph_Text_Reunion5:
+	.string "CODY: Totally cheating. No way that\n"
+	.string "was legit.$"
+
+TiltJoseph_Text_Reunion6:
+	.string "JOSEPH: What if we ran into them\n"
+	.string "again, though?$"
+
+TiltJoseph_Text_Reunion7:
+	.string "CODY: Easy. I'm a GYM LEADER.\n"
+	.string "I'd beat them in a heartbeat.$"
+
+TiltJoseph_Text_Reunion8:
+	.string "JOSEPH: Ha! I'm the trainer who\n"
+	.string "protected the HOLY CITY of PIKACHUS\l"
+	.string "three years ago.\p"
+	.string "They wouldn't stand a chance!$"
+
+TiltJoseph_Text_Reunion9:
+	.string "CODY: Bet you lunch we'd win.\p"
+	.string "JOSEPH: You're on!$"
+
+TiltJoseph_Text_Reunion10:
+	.string "CODY: Oh! Didn't see you there.\p"
+	.string "JOSEPH: We were just reminiscing.\n"
+	.string "Long story.\p"
+	.string "If you ever want to hear about the\n"
+	.string "HOLY CITY of PIKACHUS, just ask me.\p"
+	.string "And I'm always up for a rematch!$"
+
+TiltJoseph_Text_CodyChat:
+	.string "CODY: Joseph still owes me lunch.\n"
+	.string "I'm sure of it.\p"
+	.string "FLYGON and I are training hard.\n"
+	.string "Come by the GYM anytime!$"
+
+TiltJoseph_Text_FlygonCry:
+	.string "FLYGON: Flyyy-gon!$"
