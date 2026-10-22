@@ -19,10 +19,20 @@ LittlerootTown_PokemonCenter_2F_MapScripts::
 	.byte 0
 
 TiltPC_EventScript_Nurse::
+	lock
+	faceplayer
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, TiltPC_EventScript_NurseNoMon
 	setvar VAR_0x800B, LOCALID_TILTPC_NURSE
 	call Common_EventScript_PkmnCenterNurse
 	waitmessage
 	waitbuttonpress
+	release
+	end
+
+@ No POKéMON yet: the healing machine would have nothing to heal (and can soft-lock), so she waits.
+TiltPC_EventScript_NurseNoMon::
+	msgbox TiltPC_Text_NurseNoMon, MSGBOX_DEFAULT
 	release
 	end
 
@@ -87,6 +97,13 @@ TiltPC_EventScript_YardKid::
 	end
 
 @ ---------------- Text ----------------
+
+TiltPC_Text_NurseNoMon:
+	.string "Welcome to our POKéMON CENTER!\p"
+	.string "Oh? You don't have a POKéMON with\n"
+	.string "you yet.\p"
+	.string "Come back once you have a partner\n"
+	.string "and I'll be happy to heal them!$"
 
 TiltPC_Text_ClerkIntro1:
 	.string "Welcome! I'm a clerk from the\n"
