@@ -18,6 +18,8 @@
 
 // Littleroot Pokémon Center: FLAG_UNUSED_0x031 (clerk intro seen)
 
+// FLAG_UNUSED_0x032: Pinball Wizard's old spot in Littleroot is hidden (he lives in the Pokémon Center 2F now)
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1

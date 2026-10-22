@@ -4430,6 +4430,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/LittlerootTown_West/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_West/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_TOWN_WIZARD_ROOM",
+      "name": "LittlerootTown_WizardRoom_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/LittlerootTown_WizardRoom/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_WizardRoom/map.bin"
     }
   ]
 }
