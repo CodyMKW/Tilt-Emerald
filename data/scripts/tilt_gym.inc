@@ -9,6 +9,7 @@
 @   FLAG_UNUSED_0x030 = Cody reward 3 given (Dragon Scale)
 
 LittlerootTown_West_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_West_OnTransition
 	.byte 0
 
 LittlerootTown_Gym_MapScripts::

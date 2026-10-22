@@ -6754,6 +6754,10 @@ const u8 *GetTrainerPartnerName(void)
         {
             return gTrainers[TRAINER_STEVEN].trainerName;
         }
+        else if (gPartnerTrainerId == TRAINER_JOSEPH_PARTNER)
+        {
+            return gTrainers[TRAINER_TILT_JOSEPH].trainerName;
+        }
         else
         {
             GetFrontierTrainerName(gStringVar1, gPartnerTrainerId);

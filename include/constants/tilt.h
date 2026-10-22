@@ -20,6 +20,10 @@
 
 // FLAG_UNUSED_0x032: Pinball Wizard's old spot in Littleroot is hidden (he lives in the Pokémon Center 2F now)
 
+// Joseph (Pikachu trainer, Littleroot yard): VAR_TILT_JOSEPH 0 = not beaten, 1 = beaten (story available), 2 = story done
+#define VAR_TILT_JOSEPH VAR_UNUSED_0x40B8
+// FLAG_UNUSED_0x033 = Aqua grunts hidden, 0x034 = Joseph reward complete, 0x035 = Joseph reward part 1 given
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1

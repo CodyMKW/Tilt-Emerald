@@ -38,6 +38,8 @@
 #include "constants/moves.h"
 
 extern const u8 MossdeepCity_SpaceCenter_2F_EventScript_MaxieTrainer[];
+extern const u8 TiltJoseph_EventScript_Grunt1Trainer[];
+extern const u8 TiltJoseph_EventScript_Grunt2Trainer[];
 extern const u8 MossdeepCity_SpaceCenter_2F_EventScript_TabithaTrainer[];
 
 // EWRAM vars.
@@ -761,7 +763,7 @@ static const u8 *const *const sPartnerApprenticeTextTables[NUM_APPRENTICES] =
     sPartnerApprenticeTexts16
 };
 
-struct
+struct ScriptedPartnerMon
 {
     u16 species;
     u8 fixedIV;
@@ -769,7 +771,9 @@ struct
     u8 nature;
     u8 evs[NUM_STATS];
     u16 moves[MAX_MON_MOVES];
-} static const sStevenMons[MULTI_PARTY_SIZE] =
+};
+
+static const struct ScriptedPartnerMon sStevenMons[MULTI_PARTY_SIZE] =
 {
     {
         .species = SPECIES_METANG,
@@ -794,6 +798,35 @@ struct
         .nature = NATURE_ADAMANT,
         .evs = {0, 252, 0, 0, 252, 6},
         .moves = {MOVE_THUNDER, MOVE_PROTECT, MOVE_SOLAR_BEAM, MOVE_DRAGON_CLAW}
+    }
+};
+
+// Tilt Emerald: Joseph's tag-team mons (his bench for the Aqua ambush)
+static const struct ScriptedPartnerMon sJosephMons[MULTI_PARTY_SIZE] =
+{
+    {
+        .species = SPECIES_RAICHU,
+        .fixedIV = MAX_PER_STAT_IVS,
+        .level = 76,
+        .nature = NATURE_TIMID,
+        .evs = {6, 0, 0, 252, 252, 0},
+        .moves = {MOVE_THUNDERBOLT, MOVE_SURF, MOVE_PROTECT, MOVE_QUICK_ATTACK}
+    },
+    {
+        .species = SPECIES_JOLTEON,
+        .fixedIV = MAX_PER_STAT_IVS,
+        .level = 76,
+        .nature = NATURE_TIMID,
+        .evs = {6, 0, 0, 252, 252, 0},
+        .moves = {MOVE_THUNDER, MOVE_SHADOW_BALL, MOVE_PROTECT, MOVE_HELPING_HAND}
+    },
+    {
+        .species = SPECIES_PIKACHU,
+        .fixedIV = MAX_PER_STAT_IVS,
+        .level = 80,
+        .nature = NATURE_JOLLY,
+        .evs = {6, 252, 0, 252, 0, 0},
+        .moves = {MOVE_VOLT_TACKLE, MOVE_THUNDERBOLT, MOVE_PROTECT, MOVE_QUICK_ATTACK}
     }
 };
 
@@ -1450,6 +1483,10 @@ u8 GetFrontierOpponentClass(u16 trainerId)
     {
         trainerClass = gTrainers[TRAINER_STEVEN].trainerClass;
     }
+    else if (trainerId == TRAINER_JOSEPH_PARTNER)
+    {
+        trainerClass = gTrainers[TRAINER_TILT_JOSEPH].trainerClass;
+    }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
         trainerClass = gFacilityClassToTrainerClass[gFacilityTrainers[trainerId].facilityClass];
@@ -1530,6 +1567,11 @@ void GetFrontierTrainerName(u8 *dst, u16 trainerId)
     {
         for (i = 0; i < PLAYER_NAME_LENGTH; i++)
             dst[i] = gTrainers[TRAINER_STEVEN].trainerName[i];
+    }
+    else if (trainerId == TRAINER_JOSEPH_PARTNER)
+    {
+        for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+            dst[i] = gTrainers[TRAINER_TILT_JOSEPH].trainerName[i];
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
@@ -2111,6 +2153,18 @@ void DoSpecialTrainerBattle(void)
         CreateTask(Task_StartBattleAfterTransition, 1);
         PlayMapChosenOrBattleBGM(0);
         BattleTransition_StartOnField(GetSpecialBattleTransition(B_TRANSITION_GROUP_B_PYRAMID));
+        break;
+    case SPECIAL_BATTLE_JOSEPH:
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
+        FillPartnerParty(TRAINER_JOSEPH_PARTNER);
+        gApproachingTrainerId = 0;
+        BattleSetup_ConfigureTrainerBattle(TiltJoseph_EventScript_Grunt1Trainer + 1);
+        gApproachingTrainerId = 1;
+        BattleSetup_ConfigureTrainerBattle(TiltJoseph_EventScript_Grunt2Trainer + 1);
+        gPartnerTrainerId = TRAINER_JOSEPH_PARTNER;
+        CreateTask(Task_StartBattleAfterTransition, 1);
+        PlayMapChosenOrBattleBGM(0);
+        BattleTransition_StartOnField(B_TRANSITION_AQUA);
         break;
     case SPECIAL_BATTLE_PIKE_DOUBLE:
         gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS;
@@ -2955,6 +3009,7 @@ void TryHideBattleTowerReporter(void)
 }
 
 #define STEVEN_OTID 61226
+#define JOSEPH_OTID 40417
 
 static void FillPartnerParty(u16 trainerId)
 {
@@ -2966,30 +3021,34 @@ static void FillPartnerParty(u16 trainerId)
     u8 trainerName[PLAYER_NAME_LENGTH + 1];
     SetFacilityPtrsGetLevel();
 
-    if (trainerId == TRAINER_STEVEN_PARTNER)
+    if (trainerId == TRAINER_STEVEN_PARTNER || trainerId == TRAINER_JOSEPH_PARTNER)
     {
+        const struct ScriptedPartnerMon *partnerMons = (trainerId == TRAINER_JOSEPH_PARTNER) ? sJosephMons : sStevenMons;
+        u32 partnerOtId = (trainerId == TRAINER_JOSEPH_PARTNER) ? JOSEPH_OTID : STEVEN_OTID;
+        const u8 *partnerName = (trainerId == TRAINER_JOSEPH_PARTNER) ? gTrainers[TRAINER_TILT_JOSEPH].trainerName : gTrainers[TRAINER_STEVEN].trainerName;
+
         for (i = 0; i < MULTI_PARTY_SIZE; i++)
         {
             do
             {
                 j = Random32();
-            } while (IsShinyOtIdPersonality(STEVEN_OTID, j) || sStevenMons[i].nature != GetNatureFromPersonality(j));
+            } while (IsShinyOtIdPersonality(partnerOtId, j) || partnerMons[i].nature != GetNatureFromPersonality(j));
             CreateMon(&gPlayerParty[MULTI_PARTY_SIZE + i],
-                      sStevenMons[i].species,
-                      sStevenMons[i].level,
-                      sStevenMons[i].fixedIV,
+                      partnerMons[i].species,
+                      partnerMons[i].level,
+                      partnerMons[i].fixedIV,
                       TRUE,
                       #ifdef BUGFIX
                       j,
                       #else
                       i, // BUG: personality was stored in the 'j' variable. As a result, Steven's Pokémon do not have the intended natures.
                       #endif
-                      OT_ID_PRESET, STEVEN_OTID);
+                      OT_ID_PRESET, partnerOtId);
             for (j = 0; j < PARTY_SIZE; j++)
-                SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_HP_EV + j, &sStevenMons[i].evs[j]);
+                SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_HP_EV + j, &partnerMons[i].evs[j]);
             for (j = 0; j < MAX_MON_MOVES; j++)
-                SetMonMoveSlot(&gPlayerParty[MULTI_PARTY_SIZE + i], sStevenMons[i].moves[j], j);
-            SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_OT_NAME, gTrainers[TRAINER_STEVEN].trainerName);
+                SetMonMoveSlot(&gPlayerParty[MULTI_PARTY_SIZE + i], partnerMons[i].moves[j], j);
+            SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_OT_NAME, partnerName);
             j = MALE;
             SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_OT_GENDER, &j);
             CalculateMonStats(&gPlayerParty[MULTI_PARTY_SIZE + i]);

@@ -12547,3 +12547,96 @@ static const struct TrainerMonItemCustomMoves sParty_TiltMira[] = {
     .moves = {MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FIRE_BLAST, MOVE_ROCK_SLIDE}
     },
 };
+
+static const struct TrainerMonItemCustomMoves sParty_TiltJoseph[] = {
+    {
+    .iv = 255,
+    .lvl = 74,
+    .species = SPECIES_PLUSLE,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_HELPING_HAND, MOVE_ENCORE, MOVE_SWIFT}
+    },
+    {
+    .iv = 255,
+    .lvl = 82,
+    .species = SPECIES_MANECTRIC,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_THUNDERBOLT, MOVE_CRUNCH, MOVE_QUICK_ATTACK, MOVE_PROTECT}
+    },
+    {
+    .iv = 255,
+    .lvl = 82,
+    .species = SPECIES_JOLTEON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDER, MOVE_SHADOW_BALL, MOVE_DOUBLE_KICK, MOVE_PROTECT}
+    },
+    {
+    .iv = 255,
+    .lvl = 84,
+    .species = SPECIES_AMPHAROS,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_THUNDERBOLT, MOVE_FIRE_PUNCH, MOVE_THUNDER_WAVE, MOVE_FOCUS_PUNCH}
+    },
+    {
+    .iv = 255,
+    .lvl = 84,
+    .species = SPECIES_RAICHU,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_SURF, MOVE_FOCUS_PUNCH, MOVE_QUICK_ATTACK}
+    },
+    {
+    .iv = 255,
+    .lvl = 90,
+    .species = SPECIES_PIKACHU,
+    .heldItem = ITEM_LIGHT_BALL,
+    .moves = {MOVE_VOLT_TACKLE, MOVE_THUNDERBOLT, MOVE_SURF, MOVE_QUICK_ATTACK}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltAquaGruntA[] = {
+    {
+    .iv = 200,
+    .lvl = 68,
+    .species = SPECIES_SHARPEDO,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_CRUNCH, MOVE_SURF, MOVE_ICE_BEAM, MOVE_SWAGGER}
+    },
+    {
+    .iv = 200,
+    .lvl = 68,
+    .species = SPECIES_CROBAT,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_AIR_CUTTER, MOVE_TOXIC, MOVE_CONFUSE_RAY, MOVE_SHADOW_BALL}
+    },
+    {
+    .iv = 200,
+    .lvl = 70,
+    .species = SPECIES_MUK,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SLUDGE_BOMB, MOVE_BRICK_BREAK, MOVE_SHADOW_BALL, MOVE_MINIMIZE}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltAquaGruntB[] = {
+    {
+    .iv = 200,
+    .lvl = 68,
+    .species = SPECIES_MIGHTYENA,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_CRUNCH, MOVE_SHADOW_BALL, MOVE_ROAR, MOVE_ROCK_TOMB}
+    },
+    {
+    .iv = 200,
+    .lvl = 68,
+    .species = SPECIES_WALREIN,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_BODY_SLAM, MOVE_ROCK_TOMB}
+    },
+    {
+    .iv = 200,
+    .lvl = 70,
+    .species = SPECIES_GOLBAT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_AIR_CUTTER, MOVE_POISON_FANG, MOVE_CONFUSE_RAY, MOVE_SHADOW_BALL}
+    },
+};

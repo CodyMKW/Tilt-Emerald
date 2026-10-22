@@ -15,6 +15,8 @@
 #define TRAINER_LINK_OPPONENT               2048
 #define TRAINER_UNION_ROOM                  3072
 #define TRAINER_STEVEN_PARTNER              3075
+#define TRAINER_JOSEPH_PARTNER              3076 // Tilt Emerald: tag-team partner, shares Steven's multi-battle code path
+#define IS_SCRIPTED_PARTNER(id)             ((id) == TRAINER_STEVEN_PARTNER || (id) == TRAINER_JOSEPH_PARTNER)
 
 #define TRAINER_PIC_HIKER                  0
 #define TRAINER_PIC_AQUA_GRUNT_M           1
