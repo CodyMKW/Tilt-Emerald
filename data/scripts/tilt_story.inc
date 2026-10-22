@@ -11,17 +11,135 @@ TiltEmerald_EventScript_StoryTrigger::
 	lockall
 	applymovement LOCALID_TILT_NOVA, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush
+	@ Nova runs up to wherever the player is standing on the crossing
+	getplayerxy VAR_0x8004, VAR_0x8005
+	switch VAR_0x8004
+	case 2, TiltEmerald_EventScript_NovaRush2
+	case 3, TiltEmerald_EventScript_NovaRush3
+	case 4, TiltEmerald_EventScript_NovaRush4
+	case 9, TiltEmerald_EventScript_NovaRush9
+	case 10, TiltEmerald_EventScript_NovaRush10
+	case 11, TiltEmerald_EventScript_NovaRush11
+	case 12, TiltEmerald_EventScript_NovaRush12
+	case 13, TiltEmerald_EventScript_NovaRush13
+	goto TiltEmerald_EventScript_NovaRush11
+
+TiltEmerald_EventScript_NovaRush2::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush2
 	waitmovement 0
-	applymovement LOCALID_TILT_NOVA, Common_Movement_FacePlayer
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush3::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush3
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush4::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush4
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush9::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush9
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush10::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush10
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush11::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush11
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush12::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush12
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaRush13::
+	applymovement LOCALID_TILT_NOVA, TiltEmerald_Movement_NovaRush13
+	waitmovement 0
+	goto TiltEmerald_EventScript_NovaArrived
+
+TiltEmerald_EventScript_NovaArrived::
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	applymovement LOCALID_TILT_NOVA, Common_Movement_FaceDown
 	waitmovement 0
 	call TiltEmerald_EventScript_IntroBody
 	releaseall
 	end
 
-TiltEmerald_Movement_NovaRush:
+TiltEmerald_Movement_NovaRush2:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_down
+	step_end
+
+TiltEmerald_Movement_NovaRush3:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_down
+	step_end
+
+TiltEmerald_Movement_NovaRush4:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_down
+	step_end
+
+TiltEmerald_Movement_NovaRush9:
 	walk_fast_down
 	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+TiltEmerald_Movement_NovaRush10:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	step_end
+
+TiltEmerald_Movement_NovaRush11:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+TiltEmerald_Movement_NovaRush12:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	step_end
+
+TiltEmerald_Movement_NovaRush13:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
 	step_end
 
 TiltEmerald_EventScript_IntroBody::

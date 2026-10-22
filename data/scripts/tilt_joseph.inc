@@ -70,6 +70,11 @@ TiltJoseph_EventScript_StoryOffer::
 	applymovement LOCALID_TILTJOSEPH, Common_Movement_ExclamationMark
 	waitmovement 0
 	fadescreen FADE_TO_BLACK
+	@ JOSEPH and the player line up side by side, both facing the grunts
+	setobjectxy LOCALID_TILTJOSEPH, 11, 12
+	setobjectxy OBJ_EVENT_ID_PLAYER, 11, 13
+	turnobject LOCALID_TILTJOSEPH, DIR_WEST
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	clearflag FLAG_UNUSED_0x033
 	addobject LOCALID_TILTJOSEPH_GRUNT1
 	addobject LOCALID_TILTJOSEPH_GRUNT2
@@ -99,6 +104,9 @@ TiltJoseph_EventScript_ReadyPrompt::
 	removeobject LOCALID_TILTJOSEPH_GRUNT1
 	removeobject LOCALID_TILTJOSEPH_GRUNT2
 	fadescreen FADE_FROM_BLACK
+	applymovement LOCALID_TILTJOSEPH, Common_Movement_FaceDown
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	waitmovement 0
 	msgbox TiltJoseph_Text_HealFirst, MSGBOX_DEFAULT
 	release
 	end
@@ -134,7 +142,8 @@ TiltJoseph_EventScript_TagWon::
 	removeobject LOCALID_TILTJOSEPH_GRUNT1
 	removeobject LOCALID_TILTJOSEPH_GRUNT2
 	fadescreen FADE_FROM_BLACK
-	applymovement LOCALID_TILTJOSEPH, Common_Movement_FacePlayer
+	applymovement LOCALID_TILTJOSEPH, Common_Movement_FaceDown
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
 	msgbox TiltJoseph_Text_TagThanks, MSGBOX_DEFAULT
 	setvar VAR_TILT_JOSEPH, 2
