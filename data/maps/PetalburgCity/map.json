@@ -189,7 +189,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_TILT_FLYGON",
       "x": 20,
-      "y": 13,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -203,7 +203,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_DRAKE",
       "x": 21,
-      "y": 13,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -217,7 +217,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_RED",
       "x": 22,
-      "y": 13,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -231,7 +231,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_PIKACHU",
       "x": 23,
-      "y": 13,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
