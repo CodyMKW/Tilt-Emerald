@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v11.1
+- Mart exterior: added the missing top row of the roof, removed the tree in front of the door, and added a dirt path in front of the mart that joins the main path (matching the Pokémon Center).
+
 ## v11
 - New Littleroot Poké Mart building across the path from the Pokémon Center, with its own interior (clerk, a shopper and a boy).
 - The mart clerk moves out of the Pokémon Center into the new mart, with a new intro about finally having a real shop. Same inventory as before.
