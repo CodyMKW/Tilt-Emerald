@@ -12640,3 +12640,99 @@ static const struct TrainerMonItemCustomMoves sParty_TiltAquaGruntB[] = {
     .moves = {MOVE_AIR_CUTTER, MOVE_POISON_FANG, MOVE_CONFUSE_RAY, MOVE_SHADOW_BALL}
     },
 };
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltPip[] = {
+    {
+    .iv = 0,
+    .lvl = 5,
+    .species = SPECIES_RATTATA,
+    },
+    {
+    .iv = 0,
+    .lvl = 6,
+    .species = SPECIES_RATTATA,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltRick[] = {
+    {
+    .iv = 0,
+    .lvl = 9,
+    .species = SPECIES_MACHOP,
+    },
+    {
+    .iv = 0,
+    .lvl = 9,
+    .species = SPECIES_MAKUHITA,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltSue[] = {
+    {
+    .iv = 0,
+    .lvl = 9,
+    .species = SPECIES_LOTAD,
+    },
+    {
+    .iv = 0,
+    .lvl = 10,
+    .species = SPECIES_SHROOMISH,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltRunner[] = {
+    {
+    .iv = 0,
+    .lvl = 13,
+    .species = SPECIES_MEDITITE,
+    },
+    {
+    .iv = 0,
+    .lvl = 14,
+    .species = SPECIES_MAKUHITA,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltTrav[] = {
+    {
+    .iv = 0,
+    .lvl = 13,
+    .species = SPECIES_VOLTORB,
+    },
+    {
+    .iv = 0,
+    .lvl = 14,
+    .species = SPECIES_ELECTRIKE,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltGlitch[] = {
+    {
+    .iv = 0,
+    .lvl = 7,
+    .species = SPECIES_VOLTORB,
+    },
+    {
+    .iv = 0,
+    .lvl = 9,
+    .species = SPECIES_MAGNEMITE,
+    },
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_TiltGlitch2[] = {
+    {
+    .iv = 0,
+    .lvl = 20,
+    .species = SPECIES_MAGNEMITE,
+    },
+    {
+    .iv = 0,
+    .lvl = 21,
+    .species = SPECIES_ELECTRODE,
+    },
+    {
+    .iv = 0,
+    .lvl = 22,
+    .species = SPECIES_MAGNETON,
+    },
+};

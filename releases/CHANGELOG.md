@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v12
+- The scattered NPC challengers (Pip, Rick, Sue, the Maze Runner, Trav) and Dr. Glitch (boss and rematch) are now real trainer battles with trainer sprites and small teams instead of single wild POKéMON. Rewards and story progress are unchanged. Existing saves stay valid.
+
 ## v11.2
 - Joseph won't battle you until you have beaten Cody. You can still talk to him, and he explains why. Saves that already beat Joseph are unaffected.
 

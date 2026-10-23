@@ -428,17 +428,7 @@ TiltEmerald_EventScript_GlitchAfter::
 TiltEmerald_EventScript_GlitchBoss::
 	msgbox TiltEmerald_Text_GlitchIntro1, MSGBOX_DEFAULT
 	msgbox TiltEmerald_Text_GlitchIntro2, MSGBOX_DEFAULT
-	msgbox TiltEmerald_Text_GlitchIntro3, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_MAGNEMITE, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_MAGNEMITE, 8
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltEmerald_EventScript_GlitchBeaten
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltEmerald_EventScript_GlitchBeaten
-	msgbox TiltEmerald_Text_GlitchRetry, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_GLITCH, TiltEmerald_Text_GlitchIntro3, TiltEmerald_Text_GlitchDefeat, TiltEmerald_EventScript_GlitchBeaten
 	release
 	end
 
@@ -454,16 +444,8 @@ TiltEmerald_EventScript_GlitchBeaten::
 TiltEmerald_EventScript_GlitchRematch::
 	msgbox TiltEmerald_Text_GlitchRematchAsk, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_GlitchRematchNo
-	waitse
-	playmoncry SPECIES_MAGNETON, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_MAGNETON, 22
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltEmerald_EventScript_GlitchRematchWon
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltEmerald_EventScript_GlitchRematchWon
-	msgbox TiltEmerald_Text_GlitchRematchLost, MSGBOX_DEFAULT
+	cleartrainerflag TRAINER_TILT_GLITCH_2
+	trainerbattle_single TRAINER_TILT_GLITCH_2, TiltEmerald_Text_GlitchRematchIntro, TiltEmerald_Text_GlitchRematchDefeat, TiltEmerald_EventScript_GlitchRematchWon
 	release
 	end
 
@@ -645,6 +627,16 @@ TiltEmerald_Text_GlitchIntro2:
 	.string "magnificent shake!\p"
 	.string "Now every POKéMON bounces\n"
 	.string "wherever it likes!$"
+
+TiltEmerald_Text_GlitchDefeat:
+	.string "My TILT-BOT! Short-circuited!$"
+
+TiltEmerald_Text_GlitchRematchIntro:
+	.string "Behold my upgraded TILT-BOTS!\n"
+	.string "Maximum voltage!$"
+
+TiltEmerald_Text_GlitchRematchDefeat:
+	.string "Tilted again!$"
 
 TiltEmerald_Text_GlitchIntro3:
 	.string "You want it fixed? Then defeat\n"

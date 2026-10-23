@@ -44,17 +44,7 @@ TiltNpc_RookiePip_EventScript::
 	goto_if_eq VAR_RESULT, FALSE, TiltNpc_RookiePip_EventScript_Full
 	msgbox TiltNpc_RookiePip_Text_Ask, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltNpc_RookiePip_EventScript_Decline
-	msgbox TiltNpc_RookiePip_Text_Pre, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_RATTATA, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_RATTATA, 5
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltNpc_RookiePip_EventScript_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltNpc_RookiePip_EventScript_Won
-	msgbox TiltNpc_RookiePip_Text_Lost, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_PIP, TiltNpc_RookiePip_Text_Pre, TiltNpc_RookiePip_Text_Defeat, TiltNpc_RookiePip_EventScript_Won
 	release
 	end
 
@@ -83,6 +73,9 @@ TiltNpc_RookiePip_EventScript_Full::
 
 TiltNpc_RookiePip_Text_Ask:
 	.string "Hey! Want to test your combo?\nOne bounce, one battle!$"
+
+TiltNpc_RookiePip_Text_Defeat:
+	.string "Whoa, I got bounced!$"
 
 TiltNpc_RookiePip_Text_Pre:
 	.string "Go, my trusty RATTATA!$"
@@ -142,17 +135,7 @@ TiltNpc_BrawlerRick_EventScript::
 	goto_if_eq VAR_RESULT, FALSE, TiltNpc_BrawlerRick_EventScript_Full
 	msgbox TiltNpc_BrawlerRick_Text_Ask, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltNpc_BrawlerRick_EventScript_Decline
-	msgbox TiltNpc_BrawlerRick_Text_Pre, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_MACHOP, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_MACHOP, 9
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltNpc_BrawlerRick_EventScript_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltNpc_BrawlerRick_EventScript_Won
-	msgbox TiltNpc_BrawlerRick_Text_Lost, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_RICK, TiltNpc_BrawlerRick_Text_Pre, TiltNpc_BrawlerRick_Text_Defeat, TiltNpc_BrawlerRick_EventScript_Won
 	release
 	end
 
@@ -181,6 +164,9 @@ TiltNpc_BrawlerRick_EventScript_Full::
 
 TiltNpc_BrawlerRick_Text_Ask:
 	.string "HOO-HAH! My MACHOP is pumped!\nCare for a quick bout?$"
+
+TiltNpc_BrawlerRick_Text_Defeat:
+	.string "My guts weren't enough!$"
 
 TiltNpc_BrawlerRick_Text_Pre:
 	.string "MACHOP, show them your guts!$"
@@ -249,17 +235,7 @@ TiltNpc_SurferSue_EventScript::
 	goto_if_eq VAR_RESULT, FALSE, TiltNpc_SurferSue_EventScript_Full
 	msgbox TiltNpc_SurferSue_Text_Ask, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltNpc_SurferSue_EventScript_Decline
-	msgbox TiltNpc_SurferSue_Text_Pre, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_SHROOMISH, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_SHROOMISH, 10
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltNpc_SurferSue_EventScript_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltNpc_SurferSue_EventScript_Won
-	msgbox TiltNpc_SurferSue_Text_Lost, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_SUE, TiltNpc_SurferSue_Text_Pre, TiltNpc_SurferSue_Text_Defeat, TiltNpc_SurferSue_EventScript_Won
 	release
 	end
 
@@ -289,6 +265,9 @@ TiltNpc_SurferSue_EventScript_Full::
 TiltNpc_SurferSue_Text_Ask:
 	.string "I bet my SHROOMISH can out-\nbounce any POKéMON in town!\p"
 	.string "Want to try?$"
+
+TiltNpc_SurferSue_Text_Defeat:
+	.string "Wiped out!$"
 
 TiltNpc_SurferSue_Text_Pre:
 	.string "SHROOMISH, spore the dance floor!$"
@@ -398,17 +377,7 @@ TiltNpc_MazeRunner_EventScript::
 	goto_if_eq VAR_RESULT, FALSE, TiltNpc_MazeRunner_EventScript_Full
 	msgbox TiltNpc_MazeRunner_Text_Ask, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltNpc_MazeRunner_EventScript_Decline
-	msgbox TiltNpc_MazeRunner_Text_Pre, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_MAKUHITA, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_MAKUHITA, 14
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltNpc_MazeRunner_EventScript_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltNpc_MazeRunner_EventScript_Won
-	msgbox TiltNpc_MazeRunner_Text_Lost, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_RUNNER, TiltNpc_MazeRunner_Text_Pre, TiltNpc_MazeRunner_Text_Defeat, TiltNpc_MazeRunner_EventScript_Won
 	release
 	end
 
@@ -437,6 +406,9 @@ TiltNpc_MazeRunner_EventScript_Full::
 TiltNpc_MazeRunner_Text_Ask:
 	.string "I train my MAKUHITA by slamming\ninto walls all day!\p"
 	.string "Want to see the result?$"
+
+TiltNpc_MazeRunner_Text_Defeat:
+	.string "I hit a dead end!$"
 
 TiltNpc_MazeRunner_Text_Pre:
 	.string "MAKUHITA, harden up!$"
@@ -496,17 +468,7 @@ TiltNpc_NinjaTrav_EventScript::
 	goto_if_eq VAR_RESULT, FALSE, TiltNpc_NinjaTrav_EventScript_Full
 	msgbox TiltNpc_NinjaTrav_Text_Ask, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltNpc_NinjaTrav_EventScript_Decline
-	msgbox TiltNpc_NinjaTrav_Text_Pre, MSGBOX_DEFAULT
-	waitse
-	playmoncry SPECIES_ELECTRIKE, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	setwildbattle SPECIES_ELECTRIKE, 14
-	dowildbattle
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TiltNpc_NinjaTrav_EventScript_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, TiltNpc_NinjaTrav_EventScript_Won
-	msgbox TiltNpc_NinjaTrav_Text_Lost, MSGBOX_DEFAULT
+	trainerbattle_single TRAINER_TILT_TRAV, TiltNpc_NinjaTrav_Text_Pre, TiltNpc_NinjaTrav_Text_Defeat, TiltNpc_NinjaTrav_EventScript_Won
 	release
 	end
 
@@ -535,6 +497,9 @@ TiltNpc_NinjaTrav_EventScript_Full::
 
 TiltNpc_NinjaTrav_Text_Ask:
 	.string "My ELECTRIKE crackles with\nstatic. Fight me!$"
+
+TiltNpc_NinjaTrav_Text_Defeat:
+	.string "Too fast for me!$"
 
 TiltNpc_NinjaTrav_Text_Pre:
 	.string "ELECTRIKE, charge up!$"
