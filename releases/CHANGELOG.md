@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v11.2
+- Joseph won't battle you until you have beaten Cody. You can still talk to him, and he explains why. Saves that already beat Joseph are unaffected.
+
 ## v11.1
 - Mart exterior: added the missing top row of the roof, removed the tree in front of the door, and added a dirt path in front of the mart that joins the main path (matching the Pokémon Center).
 

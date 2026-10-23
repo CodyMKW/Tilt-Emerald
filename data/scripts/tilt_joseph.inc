@@ -17,9 +17,17 @@ TiltJoseph_EventScript_Joseph::
 	goto_if_eq VAR_RESULT, 0, TiltJoseph_EventScript_NoMon
 	goto_if_defeated TRAINER_TILT_JOSEPH, TiltJoseph_EventScript_AfterDefeat
 	goto_if_ne VAR_TILT_JOSEPH, 0, TiltJoseph_EventScript_RematchPrompt
+	@ Joseph is as strong as the gym leader: no battle until CODY has been beaten (talking is fine)
+	goto_if_not_defeated TRAINER_TILT_CODY, TiltJoseph_EventScript_NeedCody
 	msgbox TiltJoseph_Text_Challenge, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltJoseph_EventScript_Decline
 	trainerbattle_single TRAINER_TILT_JOSEPH, TiltJoseph_Text_Intro, TiltJoseph_Text_Defeat, TiltJoseph_EventScript_Won
+	release
+	end
+
+TiltJoseph_EventScript_NeedCody::
+	msgbox TiltJoseph_Text_NeedCody1, MSGBOX_DEFAULT
+	msgbox TiltJoseph_Text_NeedCody2, MSGBOX_DEFAULT
 	release
 	end
 
@@ -257,6 +265,20 @@ TiltJoseph_Text_PikachuCry:
 TiltJoseph_EventScript_GruntIdle::
 	msgbox TiltJoseph_Text_GruntIdle, MSGBOX_NPC
 	end
+
+TiltJoseph_Text_NeedCody1:
+	.string "Yo! I'm JOSEPH. I train POKéMON.\n"
+	.string "Mostly the electric kind.\p"
+	.string "You can feel it, right? My PIKACHU\n"
+	.string "and I are fully charged.$"
+
+TiltJoseph_Text_NeedCody2:
+	.string "But I'm just as strong as CODY, the\n"
+	.string "GYM LEADER next door.\p"
+	.string "I only battle trainers who have\n"
+	.string "beaten CODY first.\p"
+	.string "Come find me after you take him\n"
+	.string "down. I'll be warming up!$"
 
 TiltJoseph_Text_Challenge:
 	.string "Yo! I'm JOSEPH. I train POKéMON.\n"
