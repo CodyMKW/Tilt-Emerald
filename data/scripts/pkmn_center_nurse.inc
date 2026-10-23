@@ -11,9 +11,9 @@ Common_EventScript_PkmnCenterNurse::
 
 @ Tilt Emerald: Pokémon Centers ran out of funds, so healing costs money now
 EventScript_PkmnCenterNurse_TryPay::
-	checkmoney 300
+	checkmoney 1000
 	goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_NoMoney
-	removemoney 300
+	removemoney 1000
 	goto EventScript_PkmnCenterNurse_HealPkmn
 	end
 

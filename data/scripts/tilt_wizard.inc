@@ -109,10 +109,10 @@ TiltEmerald_EventScript_HealTicketAsk::
 
 TiltEmerald_EventScript_HealPay::
 	checkcoins VAR_RESULT
-	goto_if_lt VAR_RESULT, 50, TiltEmerald_EventScript_HealNoCoins
+	goto_if_lt VAR_RESULT, 250, TiltEmerald_EventScript_HealNoCoins
 	msgbox TiltEmerald_Text_HealPayAsk, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_WizardMenu
-	removecoins 50
+	removecoins 250
 	goto TiltEmerald_EventScript_HealDo
 	end
 
@@ -272,7 +272,7 @@ TiltEmerald_Text_Rules6:
 TiltEmerald_Text_Rules7:
 	.string "You can buy BALL SAVERS and more\n"
 	.string "in my COIN SHOP.\p"
-	.string "A team tune-up costs 50 COINS.\n"
+	.string "A team tune-up costs 250 COINS.\n"
 	.string "The POKéMON CENTERS are broke!\p"
 	.string "But lucky combos can drop a\n"
 	.string "HEAL TICKET. That heals for free!$"
@@ -309,7 +309,7 @@ TiltEmerald_Text_HealTicketAsk:
 	.string "Use one for a free tune-up?$"
 
 TiltEmerald_Text_HealPayAsk:
-	.string "A tune-up costs 50 COINS.\n"
+	.string "A tune-up costs 250 COINS.\n"
 	.string "Want one?$"
 
 TiltEmerald_Text_HealNoCoins:

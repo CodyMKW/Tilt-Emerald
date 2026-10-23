@@ -634,8 +634,8 @@ static bool8 UpdateTiltCombo(void)
         sTiltMultiball = (combo % 7 == 6);
         sTiltResult = TILT_RESULT_HIT;
 
-        // rare HEAL TICKET drop (about 1 in 12 hits, max 9 held)
-        if (Random() % 12 == 0 && VarGet(VAR_TILT_TICKET) < 9)
+        // rare HEAL TICKET drop (about 1 in 30 hits, max 9 held)
+        if (Random() % 30 == 0 && VarGet(VAR_TILT_TICKET) < 9)
         {
             VarSet(VAR_TILT_TICKET, VarGet(VAR_TILT_TICKET) + 1);
             sTiltTicket = 1;

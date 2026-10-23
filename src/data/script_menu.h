@@ -785,7 +785,7 @@ struct MultichoiceListStruct
 static const u8 sText_TiltRules[] = _("Rules");
 static const u8 sText_TiltStats[] = _("Table stats");
 static const u8 sText_TiltShop[] = _("Coin shop");
-static const u8 sText_TiltHeal[] = _("Free heal");
+static const u8 sText_TiltHeal[] = _("Heal");
 static const u8 sText_TiltExit[] = _("Exit");
 static const u8 sText_TiltCandy[] = _("Rare Candy 100");
 static const u8 sText_TiltSaver[] = _("Ball Saver 200");

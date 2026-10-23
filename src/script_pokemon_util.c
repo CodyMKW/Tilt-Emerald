@@ -66,9 +66,9 @@ void HalfHealPlayerParty(void)
     for (i = 0; i < gPlayerPartyCount; i++)
     {
         u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
-        u16 hp = GetMonData(&gPlayerParty[i], MON_DATA_HP) + maxHP / 2;
-        if (hp > maxHP)
-            hp = maxHP;
+        u16 hp = GetMonData(&gPlayerParty[i], MON_DATA_HP);
+        if (hp < maxHP / 2) // Mom only ever restores up to half HP, never more
+            hp = maxHP / 2;
         arg[0] = hp;
         arg[1] = hp >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);

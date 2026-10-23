@@ -8,8 +8,8 @@ gText_WouldYouLikeToRestYourPkmn::
 gText_TiltCenterAskPay::
 	.string "Welcome to the POKéMON CENTER.\p"
 	.string "Sorry, we ran out of funds!\n"
-	.string "Healing costs ¥300 now.\p"
-	.string "Rest your POKéMON for ¥300?$"
+	.string "Healing costs ¥1000 now.\p"
+	.string "Rest your POKéMON for ¥1000?$"
 
 gText_TiltCenterNoMoney::
 	.string "Oh dear, you can't afford it.\n"
