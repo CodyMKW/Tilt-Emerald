@@ -25,7 +25,7 @@ Every version is in the [`releases/`](releases) folder as a zip containing `Tilt
 - An Oldale Town mini story, a Steven Stone cutscene on Route 102, and about 15 scattered NPCs.
 
 **Trainers and story**
-- **Joseph**, the Pikachu trainer in the Littleroot yard, who lets you skip the battle and rematches whenever you ask once you have beaten him. His story event is a 2-on-2 tag battle with him against two Team Aqua grunts, with a reunion in Petalburg City afterwards.
+- **Joseph**, the Pikachu trainer in the Littleroot yard. He is as strong as Cody, so he won't battle you until you have beaten Cody (you can still talk to him). He lets you skip the battle, and rematches whenever you ask once you have beaten him. His story event is a 2-on-2 tag battle with him against two Team Aqua grunts, with a reunion in Petalburg City afterwards.
 - A custom animated Flygon overworld sprite.
 
 **Polish**
