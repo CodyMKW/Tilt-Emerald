@@ -95,6 +95,33 @@ TiltEmerald_EventScript_ShowRank::
 @ ---- Free heal ----
 
 TiltEmerald_EventScript_Heal::
+	goto_if_ge VAR_UNUSED_0x40F7, 1, TiltEmerald_EventScript_HealTicketAsk
+	goto TiltEmerald_EventScript_HealPay
+	end
+
+TiltEmerald_EventScript_HealTicketAsk::
+	buffernumberstring STR_VAR_1, VAR_UNUSED_0x40F7
+	msgbox TiltEmerald_Text_HealTicketAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_HealPay
+	subvar VAR_UNUSED_0x40F7, 1
+	goto TiltEmerald_EventScript_HealDo
+	end
+
+TiltEmerald_EventScript_HealPay::
+	checkcoins VAR_RESULT
+	goto_if_lt VAR_RESULT, 50, TiltEmerald_EventScript_HealNoCoins
+	msgbox TiltEmerald_Text_HealPayAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_WizardMenu
+	removecoins 50
+	goto TiltEmerald_EventScript_HealDo
+	end
+
+TiltEmerald_EventScript_HealNoCoins::
+	msgbox TiltEmerald_Text_HealNoCoins, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_HealDo::
 	msgbox TiltEmerald_Text_HealStart, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
 	special HealPlayerParty
@@ -245,8 +272,10 @@ TiltEmerald_Text_Rules6:
 TiltEmerald_Text_Rules7:
 	.string "You can buy BALL SAVERS and more\n"
 	.string "in my COIN SHOP.\p"
-	.string "And I heal your team for free.\n"
-	.string "I'm generous like that!$"
+	.string "A team tune-up costs 50 COINS.\n"
+	.string "The POKéMON CENTERS are broke!\p"
+	.string "But lucky combos can drop a\n"
+	.string "HEAL TICKET. That heals for free!$"
 
 TiltEmerald_Text_Stats:
 	.string "Current COMBO: x{STR_VAR_1}\n"
@@ -272,8 +301,21 @@ TiltEmerald_Text_Rank5:
 	.string "TILT LORD$"
 
 TiltEmerald_Text_HealStart:
-	.string "Hold still! Time for a free\n"
-	.string "flipper tune-up!$"
+	.string "Hold still! Time for a flipper\n"
+	.string "tune-up!$"
+
+TiltEmerald_Text_HealTicketAsk:
+	.string "You have {STR_VAR_1} HEAL TICKET(S)!\n"
+	.string "Use one for a free tune-up?$"
+
+TiltEmerald_Text_HealPayAsk:
+	.string "A tune-up costs 50 COINS.\n"
+	.string "Want one?$"
+
+TiltEmerald_Text_HealNoCoins:
+	.string "No COINS, no tune-up!\p"
+	.string "Win some at the GAME CORNER, or\n"
+	.string "get lucky and find a HEAL TICKET.$"
 
 TiltEmerald_Text_HealDone:
 	.string "All fixed up! Your POKéMON are in\n"

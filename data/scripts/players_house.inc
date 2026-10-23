@@ -330,9 +330,9 @@ PlayersHouse_1F_EventScript_SeeYouHoney::
 
 PlayersHouse_1F_EventScript_HealParty::
 	closemessage
-	call Common_EventScript_OutOfCenterPartyHeal
+	call TiltEmerald_EventScript_MomHalfHeal
 	incrementgamestat GAME_STAT_RESTED_AT_HOME
-	msgbox PlayersHouse_1F_Text_TakeCareHoney, MSGBOX_DEFAULT
+	msgbox TiltEmerald_Text_MomHalf, MSGBOX_DEFAULT
 	release
 	end
 

@@ -609,6 +609,7 @@ static u16 sTiltCombo;
 static u16 sTiltPayout;
 static u16 sTiltResult;
 static u16 sTiltMultiball;
+static u16 sTiltTicket;
 
 // Pinball-style combo: each consecutive wild win/catch pays out more.
 // 5th hit: coins. 10th: Rare Candy + coins + heal. 25th: Master Ball + coins + heal.
@@ -618,6 +619,7 @@ static bool8 UpdateTiltCombo(void)
 {
     u16 combo = VarGet(VAR_TILT_COMBO);
 
+    sTiltTicket = 0;
     if (gBattleOutcome == B_OUTCOME_WON || gBattleOutcome == B_OUTCOME_CAUGHT)
     {
         if (combo < 9999)
@@ -631,6 +633,13 @@ static bool8 UpdateTiltCombo(void)
         AddMoney(&gSaveBlock1Ptr->money, sTiltPayout);
         sTiltMultiball = (combo % 7 == 6);
         sTiltResult = TILT_RESULT_HIT;
+
+        // rare HEAL TICKET drop (about 1 in 12 hits, max 9 held)
+        if (Random() % 12 == 0 && VarGet(VAR_TILT_TICKET) < 9)
+        {
+            VarSet(VAR_TILT_TICKET, VarGet(VAR_TILT_TICKET) + 1);
+            sTiltTicket = 1;
+        }
 
         if (combo % 25 == 0)
         {
@@ -690,6 +699,7 @@ static void Task_TiltMessage(u8 taskId)
         gSpecialVar_0x8005 = sTiltPayout;
         gSpecialVar_0x8006 = sTiltResult;
         gSpecialVar_0x8007 = sTiltMultiball;
+        gSpecialVar_0x8008 = sTiltTicket;
         ScriptContext_SetupScript(TiltEmerald_EventScript_ComboMessage);
     }
 }

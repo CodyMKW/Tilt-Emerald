@@ -4,10 +4,23 @@ Common_EventScript_PkmnCenterNurse::
 	setvar VAR_0x8004, 0
 	specialvar VAR_RESULT, CountPlayerTrainerStars
 	goto_if_eq VAR_RESULT, 4, EventScript_PkmnCenterNurse_GoldCard
-	msgbox gText_WouldYouLikeToRestYourPkmn, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_HealPkmn
+	msgbox gText_TiltCenterAskPay, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_TryPay
 	goto_if_eq VAR_RESULT, NO, EventScript_PkmnCenterNurse_Goodbye
 	end
+
+@ Tilt Emerald: Pokémon Centers ran out of funds, so healing costs money now
+EventScript_PkmnCenterNurse_TryPay::
+	checkmoney 300
+	goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_NoMoney
+	removemoney 300
+	goto EventScript_PkmnCenterNurse_HealPkmn
+	end
+
+EventScript_PkmnCenterNurse_NoMoney::
+	msgbox gText_TiltCenterNoMoney, MSGBOX_DEFAULT
+	message gText_WeHopeToSeeYouAgain
+	return
 
 EventScript_PkmnCenterNurse_Goodbye::
 	message gText_WeHopeToSeeYouAgain

@@ -47,9 +47,22 @@ TiltEmerald_EventScript_MsgSaved::
 	end
 
 TiltEmerald_EventScript_MultiballCheck::
+	call_if_eq VAR_0x8008, 1, TiltEmerald_EventScript_TicketMsg
 	goto_if_eq VAR_0x8007, 1, TiltEmerald_EventScript_Multiball
 	releaseall
 	end
+
+TiltEmerald_EventScript_TicketMsg::
+	msgbox TiltEmerald_Text_TicketFound, MSGBOX_DEFAULT
+	return
+
+TiltEmerald_EventScript_MomHalfHeal::
+	fadescreen FADE_TO_BLACK
+	playfanfare MUS_HEAL
+	waitfanfare
+	special HalfHealPlayerParty
+	fadescreen FADE_FROM_BLACK
+	return
 
 TiltEmerald_EventScript_Multiball::
 	msgbox TiltEmerald_Text_Multiball, MSGBOX_DEFAULT
@@ -57,6 +70,15 @@ TiltEmerald_EventScript_Multiball::
 	end
 
 @ ---------------- Text ----------------
+
+TiltEmerald_Text_TicketFound:
+	.string "Lucky! A HEAL TICKET dropped!\n"
+	.string "The Wizard heals for free with it.$"
+
+TiltEmerald_Text_MomHalf:
+	.string "MOM: Money's tight, honey. I can\n"
+	.string "only afford half a pot of soup.\p"
+	.string "Take care out there!$"
 
 TiltEmerald_Text_Hit:
 	.string "COMBO x{STR_VAR_1}!\n"

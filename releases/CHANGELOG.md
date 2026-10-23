@@ -3,6 +3,11 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v13
+- Healing now costs something. Pokémon Centers charge ¥300 (the Gold Card still heals free). The Pinball Wizard's heal costs 50 COINS, or is free if you spend a HEAL TICKET. Mom now only restores half HP and cures status.
+- New rare drop: roughly 1 in 12 winning combo hits drops a HEAL TICKET (hold up to 9).
+- Existing saves stay valid.
+
 ## v12
 - The scattered NPC challengers (Pip, Rick, Sue, the Maze Runner, Trav) and Dr. Glitch (boss and rematch) are now real trainer battles with trainer sprites and small teams instead of single wild POKéMON. Rewards and story progress are unchanged. Existing saves stay valid.
 

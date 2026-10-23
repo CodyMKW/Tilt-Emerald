@@ -8,6 +8,7 @@
 #define VAR_TILT_BEST  VAR_UNUSED_0x4083 // best combo ever reached
 #define VAR_TILT_SAVER VAR_UNUSED_0x408B // number of Ball Savers owned
 #define VAR_TILT_STORY VAR_UNUSED_0x409B // Oldale mini story state (0-4)
+#define VAR_TILT_TICKET VAR_UNUSED_0x40F7 // HEAL TICKETS owned (free Pinball Wizard heal)
 #define VAR_TILT_WIZARD_MET VAR_UNUSED_0x40A1 // has talked to the Pinball Wizard
 
 #define VAR_TILT_STEVEN VAR_UNUSED_0x40A8 // Steven Route 102 scene (0 = not seen, 1 = done)

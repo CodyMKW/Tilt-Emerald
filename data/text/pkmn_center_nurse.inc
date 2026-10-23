@@ -5,6 +5,18 @@ gText_WouldYouLikeToRestYourPkmn::
 	.string "to full health.\p"
 	.string "Would you like to rest your POKéMON?$"
 
+gText_TiltCenterAskPay::
+	.string "Welcome to the POKéMON CENTER.\p"
+	.string "Sorry, we ran out of funds!\n"
+	.string "Healing costs ¥300 now.\p"
+	.string "Rest your POKéMON for ¥300?$"
+
+gText_TiltCenterNoMoney::
+	.string "Oh dear, you can't afford it.\n"
+	.string "We're broke too!\p"
+	.string "Try the PINBALL WIZARD upstairs,\n"
+	.string "or ask your mom for some soup.$"
+
 gText_IllTakeYourPkmn::
 	.string "Okay, I'll take your POKéMON\n"
 	.string "for a few seconds.$"

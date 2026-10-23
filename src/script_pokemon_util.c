@@ -58,6 +58,28 @@ void HealPlayerParty(void)
     }
 }
 
+void HalfHealPlayerParty(void)
+{
+    u8 i;
+    u8 arg[4];
+
+    for (i = 0; i < gPlayerPartyCount; i++)
+    {
+        u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
+        u16 hp = GetMonData(&gPlayerParty[i], MON_DATA_HP) + maxHP / 2;
+        if (hp > maxHP)
+            hp = maxHP;
+        arg[0] = hp;
+        arg[1] = hp >> 8;
+        SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);
+        arg[0] = 0;
+        arg[1] = 0;
+        arg[2] = 0;
+        arg[3] = 0;
+        SetMonData(&gPlayerParty[i], MON_DATA_STATUS, arg);
+    }
+}
+
 u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 unused3)
 {
     u16 nationalDexNum;
