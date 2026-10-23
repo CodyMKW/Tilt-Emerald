@@ -35,8 +35,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
-      "x": 10,
-      "y": 16,
+      "x": 11,
+      "y": 21,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -116,6 +116,13 @@
       "y": 18,
       "elevation": 0,
       "dest_map": "MAP_LITTLEROOT_TOWN_POKEMON_CENTER_1F",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 11,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_LITTLEROOT_TOWN_MART",
       "dest_warp_id": "0"
     }
   ],

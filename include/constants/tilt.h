@@ -18,6 +18,8 @@
 
 // Littleroot Pokémon Center: FLAG_UNUSED_0x031 (clerk intro seen)
 
+// Littleroot Poké Mart: FLAG_UNUSED_0x038 (clerk intro in the new MART seen), 0x039 (clerk hidden in the Pokémon Center, set on every load)
+
 // FLAG_UNUSED_0x032: Pinball Wizard's old spot in Littleroot is hidden (he lives in the Pokémon Center 2F now)
 
 // Joseph (Pikachu trainer, Littleroot yard): VAR_TILT_JOSEPH 0 = not beaten, 1 = beaten (story available), 2 = story done

@@ -8,6 +8,7 @@ LittlerootTown_PokemonCenter_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_PokemonCenter_1F_OnTransition:
+	setflag FLAG_UNUSED_0x039
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_POKEMON_CENTER
 	end
 
@@ -38,10 +39,10 @@ TiltPC_EventScript_NurseNoMon::
 TiltPC_EventScript_Clerk::
 	lock
 	faceplayer
-	goto_if_set FLAG_UNUSED_0x031, TiltPC_EventScript_ClerkShop
+	goto_if_set FLAG_UNUSED_0x038, TiltPC_EventScript_ClerkShop
 	msgbox TiltPC_Text_ClerkIntro1, MSGBOX_DEFAULT
 	msgbox TiltPC_Text_ClerkIntro2, MSGBOX_DEFAULT
-	setflag FLAG_UNUSED_0x031
+	setflag FLAG_UNUSED_0x038
 TiltPC_EventScript_ClerkShop::
 	message gText_HowMayIServeYou
 	waitmessage
@@ -103,24 +104,23 @@ TiltPC_Text_NurseNoMon:
 	.string "and I'll be happy to heal them!$"
 
 TiltPC_Text_ClerkIntro1:
-	.string "Welcome! I'm a clerk from the\n"
-	.string "POKé MART.\p"
-	.string "You're wondering why I'm inside\n"
-	.string "the POKéMON CENTER?$"
+	.string "Welcome to the brand-new LITTLEROOT\n"
+	.string "POKé MART!\p"
+	.string "You might remember me from the\n"
+	.string "POKéMON CENTER.$"
 
 TiltPC_Text_ClerkIntro2:
-	.string "Well, LITTLEROOT doesn't have a\n"
-	.string "real POKé MART yet.\p"
-	.string "So for the time being, I'm working\n"
-	.string "from this corner of the CENTER.\p"
-	.string "The nurse was kind enough to\n"
-	.string "let me set up shop here.\p"
-	.string "Someday there'll be a proper\n"
-	.string "MART. Until then, I'm all yours!$"
+	.string "I used to work from a corner of the\n"
+	.string "CENTER, because this town had no\l"
+	.string "real MART yet.\p"
+	.string "Now I finally have a proper shop\n"
+	.string "with my own counter!\p"
+	.string "Thanks for stopping by. Take a\n"
+	.string "look around!$"
 
 TiltPC_Text_ClerkBye:
 	.string "Thank you! Come again!\n"
-	.string "I'm not going anywhere.$"
+	.string "I'm not going anywhere. Really!$"
 
 TiltPC_Text_ExcitedWoman:
 	.string "Isn't it wonderful?\p"
@@ -142,12 +142,40 @@ TiltPC_Text_OldMan:
 	.string "Splendid. Simply splendid.$"
 
 TiltPC_Text_LittleGirl:
-	.string "The clerk is so nice!\p"
-	.string "He says there'll be a big MART here\n"
-	.string "someday. I can't wait!$"
+	.string "The clerk moved out of the CENTER!\p"
+	.string "He has his very own POKé MART across\n"
+	.string "the path now.\p"
+	.string "I used to say hi to him every day.\n"
+	.string "Now I have to walk over there!$"
 
 TiltPC_Text_YardKid:
-	.string "They built a POKéMON CENTER! I\n"
-	.string "watched the whole time!\p"
-	.string "Hammer, hammer, hammer! And now it\n"
-	.string "heals your POKéMON for free!$"
+	.string "They built a POKé MART right across\n"
+	.string "from the POKéMON CENTER!\p"
+	.string "I watched the whole time.\n"
+	.string "Hammer, hammer, hammer!\p"
+	.string "Now you can buy POKé BALLS and heal\n"
+	.string "up in the same spot!$"
+
+@ ---------------- LITTLEROOT POKé MART (interior) ----------------
+
+LittlerootTown_Mart_MapScripts::
+	.byte 0
+
+TiltMart_EventScript_Woman::
+	msgbox TiltMart_Text_Woman, MSGBOX_NPC
+	end
+
+TiltMart_EventScript_Boy::
+	msgbox TiltMart_Text_Boy, MSGBOX_NPC
+	end
+
+TiltMart_Text_Woman:
+	.string "I used to run all the way to OLDALE\n"
+	.string "for supplies.\p"
+	.string "A real MART in LITTLEROOT? Wonderful!$"
+
+TiltMart_Text_Boy:
+	.string "The clerk used to work in the\n"
+	.string "POKéMON CENTER.\p"
+	.string "Now he has his own shop. I think he\n"
+	.string "likes the extra elbow room!$"
