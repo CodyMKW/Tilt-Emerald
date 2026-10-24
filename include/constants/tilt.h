@@ -27,6 +27,8 @@
 #define VAR_TILT_JOSEPH VAR_UNUSED_0x40B8
 // FLAG_UNUSED_0x033 = Aqua grunts hidden, 0x034 = Joseph reward complete, 0x035 = Joseph reward part 1 given
 
+// Pinball Wizard intro scene (first exit from the house): VAR_UNUSED_0x40F8 0 = never queued (old saves), 2 = queued after the clock/Mom scene, 1 = seen; FLAG_UNUSED_0x03A hides the scene actor
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1

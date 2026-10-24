@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v14
+- New intro scene: the first time you step outside after setting the clock and talking to Mom, the Pinball Wizard walks up from the west, explains TILT MODE and combos, tells you he's set up shop upstairs in the Pokémon Center, then walks back that way. Only plays on a new game. Existing saves stay valid and won't see it.
+
 ## v13.2
 - Testing aid: hold L while walking to walk through walls and objects (won't leave the map edge). Handy if you get stuck. This is temporary and only here for testing, so it will be removed in a later version.
 

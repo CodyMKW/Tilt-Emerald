@@ -37,6 +37,7 @@ LittlerootTown_MapScripts::
 LittlerootTown_OnTransition:
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	setflag FLAG_UNUSED_0x032 @ Pinball Wizard moved into the Pokemon Center upstairs
+	setflag FLAG_UNUSED_0x03A @ Pinball Wizard intro scene actor (hidden unless the scene is playing)
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
 	call_if_unset FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_SetTwinPos
@@ -105,6 +106,7 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 LittlerootTown_OnFrame:
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
+	map_script_2 VAR_UNUSED_0x40F8, 2, TiltWizIntro_EventScript_Run
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
 

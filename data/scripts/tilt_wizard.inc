@@ -341,3 +341,135 @@ TiltEmerald_Text_BagFull:
 
 TiltEmerald_Text_Goodbye:
 	.string "Keep that combo rolling!$"
+
+
+@ ---- Intro scene: first time you leave your house after setting the clock ----
+@ VAR_UNUSED_0x40F8: 0 = never queued (old saves), 2 = queued (set when Mom sends you next door), 1 = seen.
+
+TiltWizIntro_EventScript_Run::
+	lockall
+	setvar VAR_UNUSED_0x40F8, 1
+	clearflag FLAG_UNUSED_0x03A
+	addobject LOCALID_TILT_WIZARD_INTRO
+	delay 20
+	applymovement LOCALID_PLAYER, TiltWizIntro_Movement_PlayerFaceDown
+	waitmovement 0
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, TiltWizIntro_EventScript_ComeMale
+	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_ComeFemale
+	waitmovement 0
+	goto TiltWizIntro_EventScript_Talk
+	end
+
+TiltWizIntro_EventScript_ComeMale::
+	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_ComeMale
+	waitmovement 0
+	goto TiltWizIntro_EventScript_Talk
+	end
+
+TiltWizIntro_EventScript_Talk::
+	playse SE_PIN
+	applymovement LOCALID_TILT_WIZARD_INTRO, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox TiltWizIntro_Text_1, MSGBOX_DEFAULT
+	msgbox TiltWizIntro_Text_2, MSGBOX_DEFAULT
+	msgbox TiltWizIntro_Text_3, MSGBOX_DEFAULT
+	msgbox TiltWizIntro_Text_4, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_UNUSED_0x40A1, 1
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, TiltWizIntro_EventScript_LeaveMale
+	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_LeaveFemale
+	waitmovement 0
+	goto TiltWizIntro_EventScript_Gone
+	end
+
+TiltWizIntro_EventScript_LeaveMale::
+	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_LeaveMale
+	waitmovement 0
+	goto TiltWizIntro_EventScript_Gone
+	end
+
+TiltWizIntro_EventScript_Gone::
+	removeobject LOCALID_TILT_WIZARD_INTRO
+	setflag FLAG_UNUSED_0x03A
+	releaseall
+	end
+
+TiltWizIntro_Movement_PlayerFaceDown:
+	face_down
+	step_end
+
+TiltWizIntro_Movement_ComeMale:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	face_up
+	step_end
+
+TiltWizIntro_Movement_ComeFemale:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	face_up
+	step_end
+
+TiltWizIntro_Movement_LeaveMale:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+TiltWizIntro_Movement_LeaveFemale:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+TiltWizIntro_Text_1:
+	.string "Ahaha! Hold it right there, kid!\p"
+	.string "I felt a fresh ball drop into\n"
+	.string "this town. I'm the PINBALL WIZARD!$"
+
+TiltWizIntro_Text_2:
+	.string "This whole region is in TILT MODE.\p"
+	.string "Every wild POKéMON is random now.\n"
+	.string "Any species, anywhere!$"
+
+TiltWizIntro_Text_3:
+	.string "Win or catch one to start a COMBO.\n"
+	.string "The longer it runs, the bigger\l"
+	.string "the payout!\p"
+	.string "Just don't let the ball drain!$"
+
+TiltWizIntro_Text_4:
+	.string "I'm setting up shop upstairs in\n"
+	.string "the POKéMON CENTER, west of here.\p"
+	.string "Rules, a COIN SHOP and tune-ups.\n"
+	.string "Come play, {PLAYER}!$"

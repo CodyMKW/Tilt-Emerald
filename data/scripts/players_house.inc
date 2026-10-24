@@ -130,6 +130,7 @@ PlayersHouse_2F_Movement_MomExitsFemale:
 
 PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 	setvar VAR_LITTLEROOT_INTRO_STATE, 7
+	setvar VAR_UNUSED_0x40F8, 2 @ Tilt Emerald: queue the Pinball Wizard intro for the next time the player steps outside
 	releaseall
 	end
 

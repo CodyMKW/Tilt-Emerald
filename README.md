@@ -18,6 +18,7 @@ Every version is in the [`releases/`](releases) folder as a zip containing `Tilt
 **Tilt mode**
 - Random wild Pokémon species, win/catch combos and jackpots, starter coins, and multiball (shinies).
 - The Ball Saver item, and a Pinball Wizard NPC with a rules, shop and heal menu. He lives in a cozy room upstairs in the Littleroot Pokémon Center.
+- A short intro scene where the Pinball Wizard introduces himself the first time you leave your house.
 - Hold L to walk through walls and objects (a temporary testing aid for getting unstuck, which will be removed later).
 - A healing economy: Pokémon Centers are broke, so a heal costs ¥1000 (Gold Card holders still heal free). The Wizard's tune-up costs 250 COINS, but a lucky combo hit (about 1 in 30) can drop a HEAL TICKET that makes it free. Mom only restores HP up to half, never more.
 
