@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v13.2
+- Testing aid: hold L while walking to walk through walls and objects (won't leave the map edge). Handy if you get stuck.
+
 ## v13.1
 - Pricier healing: Pokémon Center ¥1000, Wizard tune-up 250 COINS. The Wizard menu now just says "Heal". HEAL TICKETS drop about 1 in 30 combo hits. Mom now raises HP only up to half, so repeat visits never go past half.
 

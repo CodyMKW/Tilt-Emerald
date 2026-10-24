@@ -676,7 +676,14 @@ static u8 CheckForPlayerAvatarCollision(u8 direction)
     x = playerObjEvent->currentCoords.x;
     y = playerObjEvent->currentCoords.y;
     MoveCoords(direction, &x, &y);
-    return CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+    {
+        u8 collision = CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+        // Tilt Emerald testing aid: hold L to walk through walls and objects
+        if ((gMain.heldKeys & L_BUTTON)
+         && (collision == COLLISION_IMPASSABLE || collision == COLLISION_ELEVATION_MISMATCH || collision == COLLISION_OBJECT_EVENT))
+            return COLLISION_NONE;
+        return collision;
+    }
 }
 
 static u8 CheckForPlayerAvatarStaticCollision(u8 direction)
