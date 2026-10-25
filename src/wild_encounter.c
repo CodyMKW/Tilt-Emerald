@@ -1031,6 +1031,28 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
         *encRate = *encRate * 2 / 3;
 }
 
+// MULTIBALL: a second shiny wild Pokemon joins the encounter, turning it into a double battle.
+// Returns FALSE (and leaves the single battle alone) if a second one couldn't be generated.
+bool8 TiltAddSecondBall(void)
+{
+    struct Pokemon first;
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+
+    if (headerId == HEADER_NONE || gWildMonHeaders[headerId].landMonsInfo == NULL)
+        return FALSE;
+    first = gEnemyParty[0];
+    TiltForceShinyNext();
+    if (!TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0))
+    {
+        TiltTakeForceShiny();
+        gEnemyParty[0] = first;
+        return FALSE;
+    }
+    gEnemyParty[1] = gEnemyParty[0];
+    gEnemyParty[0] = first;
+    return TRUE;
+}
+
 // MULTIBALL bonus: right after winning the shiny multiball encounter, a second shiny ball drops
 bool8 TiltBonusEncounter(void)
 {

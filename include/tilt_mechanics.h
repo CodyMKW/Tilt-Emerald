@@ -20,6 +20,8 @@ void TiltOnComboHit(u16 prev, u16 combo);
 extern bool8 gTiltMultiballActive;
 extern u8 gTiltFlipMsg;
 bool8 TiltBonusEncounter(void);
+bool8 TiltAddSecondBall(void);
+extern bool8 gTiltDoubleBall;
 void TiltForceShinyNext(void);
 bool8 TiltTakeForceShiny(void);
 
