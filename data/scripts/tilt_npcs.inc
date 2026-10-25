@@ -122,7 +122,7 @@ TiltNpc_BargainKid_Text_Intro:
 	.string "Take some POKé BALLS!\nCatch lots of weird POKéMON!$"
 
 TiltNpc_BargainKid_Text_After:
-	.string "Everything is random now,\nso catch whatever shows up!$"
+	.string "Long combos pull the rare ones\nout of the grass. Keep bouncing!$"
 
 TiltNpc_BargainKid_Text_BagFull:
 	.string "Your BAG is full!\nMake room and talk to me again.$"
@@ -455,7 +455,7 @@ TiltNpc_NetFisher_Text_Intro:
 	.string "Take 5 GREAT BALLS.\nThey catch things better!$"
 
 TiltNpc_NetFisher_Text_After:
-	.string "Random POKéMON mean random\nluck. Catch the good ones!$"
+	.string "A long COMBO pulls the rare ones\nto the surface. Catch the good ones!$"
 
 TiltNpc_NetFisher_Text_BagFull:
 	.string "Your BAG is full!\nMake room and talk to me again.$"

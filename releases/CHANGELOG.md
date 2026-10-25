@@ -3,6 +3,11 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v16
+- Wild Pokémon are back to the original encounter tables everywhere (no more random species).
+- New Tilt gimmick, COMBO LUCK: the longer your combo, the more wild encounters (grass, surfing, rock smash) shift toward the rare end of the area's table (+3% per combo, up to 60%). Combo level bonus and the every-7th-hit shiny multiball still apply.
+- Updated the Wizard's rules text and two NPC lines to match. Dream Island still has only starters. Existing saves stay valid.
+
 ## v15.1
 - Dream Island's wild encounters are no longer randomized: the tall grass now only has the starters (Bulbasaur, Charmander, Squirtle, Chikorita, Cyndaquil, Totodile, Treecko, Torchic, Mudkip). Everywhere else is still random.
 

@@ -234,8 +234,9 @@ TiltEmerald_Text_WizardAsk:
 	.string "What'll it be?$"
 
 TiltEmerald_Text_Rules1:
-	.string "Every wild POKéMON is random now.\n"
-	.string "Any species, anywhere!\p"
+	.string "Wild POKéMON are the usual ones,\n"
+	.string "but a long COMBO bounces the\l"
+	.string "rare ones out of hiding!\p"
 	.string "And about 1 in 32 is a shiny!$"
 
 TiltEmerald_Text_Rules2:
@@ -459,8 +460,9 @@ TiltWizIntro_Text_1:
 
 TiltWizIntro_Text_2:
 	.string "This whole region is in TILT MODE.\p"
-	.string "Every wild POKéMON is random now.\n"
-	.string "Any species, anywhere!$"
+	.string "Wild POKéMON are the usual ones,\n"
+	.string "but a long COMBO bounces the\l"
+	.string "rare ones out of hiding!$"
 
 TiltWizIntro_Text_3:
 	.string "Win or catch one to start a COMBO.\n"

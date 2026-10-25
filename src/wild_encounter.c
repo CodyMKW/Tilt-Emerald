@@ -179,10 +179,21 @@ static void FeebasSeedRng(u16 seed)
     sFeebasRngValue = seed;
 }
 
+// TILT MODE: COMBO LUCK - the longer your combo, the harder the ball bounces the encounter
+// toward the rare end of the area's table (+3% shift per combo, max 60%).
+static u8 TiltComboLuck(u8 rand, u8 total)
+{
+    u16 bias = VarGet(VAR_TILT_COMBO) * 3;
+
+    if (bias > 60)
+        bias = 60;
+    return (total - 1) - (((total - 1) - rand) * (100 - bias)) / 100;
+}
+
 // NUM_LAND_MONS_ENCOUNTER_SLOTS
 static u8 ChooseWildMonIndex_Land(void)
 {
-    u8 rand = Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL;
+    u8 rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL, ENCOUNTER_CHANCE_LAND_MONS_TOTAL);
 
     if (rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_0)
         return 0;
@@ -213,7 +224,7 @@ static u8 ChooseWildMonIndex_Land(void)
 // NUM_ROCK_SMASH_MONS_ENCOUNTER_SLOTS / NUM_WATER_MONS_ENCOUNTER_SLOTS
 static u8 ChooseWildMonIndex_WaterRock(void)
 {
-    u8 rand = Random() % ENCOUNTER_CHANCE_WATER_MONS_TOTAL;
+    u8 rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_WATER_MONS_TOTAL, ENCOUNTER_CHANCE_WATER_MONS_TOTAL);
 
     if (rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_0)
         return 0;
@@ -377,27 +388,9 @@ static u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
-static u16 PickTiltSpecies(void)
-{
-    u16 species;
-
-    do
-    {
-        species = (Random() % SPECIES_CHIMECHO) + 1;
-    } while (species >= SPECIES_OLD_UNOWN_B && species <= SPECIES_OLD_UNOWN_Z);
-
-    return species;
-}
-
 static void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
-
-    // TILT MODE: every wild encounter is a random Pokemon (the ball bounces anywhere)
-    // (except on DREAM ISLAND, where the real starters from the encounter table show up)
-    if (!(gSaveBlock1Ptr->location.mapGroup == (MAP_DREAM_ISLAND >> 8)
-       && gSaveBlock1Ptr->location.mapNum == (MAP_DREAM_ISLAND & 0xFF)))
-        species = PickTiltSpecies();
 
     // TILT MODE: the higher the combo, the stronger the wild Pokemon (+1 level per 3 combo, max +20)
     {
