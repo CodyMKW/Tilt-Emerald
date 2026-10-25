@@ -4440,6 +4440,16 @@
       "secondary_tileset": "gTileset_PokemonCenter",
       "border_filepath": "data/layouts/LittlerootTown_WizardRoom/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_WizardRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_DREAM_ISLAND",
+      "name": "DreamIsland_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_EverGrande",
+      "border_filepath": "data/layouts/DreamIsland/border.bin",
+      "blockdata_filepath": "data/layouts/DreamIsland/map.bin"
     }
   ]
 }

@@ -852,9 +852,9 @@
 #define TRAINER_MARIELA                     848
 #define TRAINER_ALVARO                      849
 #define TRAINER_EVERETT                     850
-#define TRAINER_RED                         851
-#define TRAINER_LEAF                        852
-#define TRAINER_BRENDAN_PLACEHOLDER         853
+#define TRAINER_TILT_BEAN                   851
+#define TRAINER_TILT_CHADDERZ              852
+#define TRAINER_TILT_VANTOX                853
 #define TRAINER_MAY_PLACEHOLDER             854
 #define TRAINER_TILT_CODY                   855
 #define TRAINER_TILT_DRACO                  856
