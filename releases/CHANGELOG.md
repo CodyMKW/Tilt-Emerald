@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v15.1
+- Dream Island's wild encounters are no longer randomized: the tall grass now only has the starters (Bulbasaur, Charmander, Squirtle, Chikorita, Cyndaquil, Totodile, Treecko, Torchic, Mudkip). Everywhere else is still random.
+
 ## v15
 - New late-game area: DREAM ISLAND, rebuilt from CodyMKW's old FireRed hack. After you're Champion, talk to the Sailor beside the Ever Grande Pokémon Center to sail there. Three rock pockets hold the island's leaders: MrBean, Chadderz and Vantox (fight them in that order). Each gives a prize (Rare Candies, PP Maxes, a Master Ball). Tall grass has the starters from other regions, and a Sailor on the beach takes you home.
 - Removed the walk-through-walls testing aid (hold L), as promised.

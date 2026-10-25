@@ -394,7 +394,10 @@ static void CreateWildMon(u16 species, u8 level)
     bool32 checkCuteCharm;
 
     // TILT MODE: every wild encounter is a random Pokemon (the ball bounces anywhere)
-    species = PickTiltSpecies();
+    // (except on DREAM ISLAND, where the real starters from the encounter table show up)
+    if (!(gSaveBlock1Ptr->location.mapGroup == (MAP_DREAM_ISLAND >> 8)
+       && gSaveBlock1Ptr->location.mapNum == (MAP_DREAM_ISLAND & 0xFF)))
+        species = PickTiltSpecies();
 
     // TILT MODE: the higher the combo, the stronger the wild Pokemon (+1 level per 3 combo, max +20)
     {
