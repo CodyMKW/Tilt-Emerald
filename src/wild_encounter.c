@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle_setup.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -193,7 +194,15 @@ static u8 TiltComboLuck(u8 rand, u8 total)
 // NUM_LAND_MONS_ENCOUNTER_SLOTS
 static u8 ChooseWildMonIndex_Land(void)
 {
-    u8 rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL, ENCOUNTER_CHANCE_LAND_MONS_TOTAL);
+    u8 rand;
+
+    // TILT MODE: RARE BOUNCE - once per combo run (5+ combo) the next encounter is the rarest in the table
+    if (VarGet(VAR_TILT_COMBO) >= 5 && !FlagGet(FLAG_TILT_RARE_USED))
+    {
+        FlagSet(FLAG_TILT_RARE_USED);
+        return 11;
+    }
+    rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL, ENCOUNTER_CHANCE_LAND_MONS_TOTAL);
 
     if (rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_0)
         return 0;
@@ -224,7 +233,14 @@ static u8 ChooseWildMonIndex_Land(void)
 // NUM_ROCK_SMASH_MONS_ENCOUNTER_SLOTS / NUM_WATER_MONS_ENCOUNTER_SLOTS
 static u8 ChooseWildMonIndex_WaterRock(void)
 {
-    u8 rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_WATER_MONS_TOTAL, ENCOUNTER_CHANCE_WATER_MONS_TOTAL);
+    u8 rand;
+
+    if (VarGet(VAR_TILT_COMBO) >= 5 && !FlagGet(FLAG_TILT_RARE_USED))
+    {
+        FlagSet(FLAG_TILT_RARE_USED);
+        return 4;
+    }
+    rand = TiltComboLuck(Random() % ENCOUNTER_CHANCE_WATER_MONS_TOTAL, ENCOUNTER_CHANCE_WATER_MONS_TOTAL);
 
     if (rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_0)
         return 0;
@@ -392,6 +408,10 @@ static void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
 
+    // TILT MODE: a Tilt Storm makes wild Pokemon 50% stronger
+    if (TiltIsStorm())
+        level = (level * 3 / 2 > 100) ? 100 : level * 3 / 2;
+
     // TILT MODE: the higher the combo, the stronger the wild Pokemon (+1 level per 3 combo, max +20)
     {
         u16 bonus = VarGet(VAR_TILT_COMBO) / 3;
@@ -406,17 +426,25 @@ static void CreateWildMon(u16 species, u8 level)
     ZeroEnemyPartyMons();
 
     // TILT MODE: MULTIBALL - the encounter after every 7th combo hit is a guaranteed shiny
-    if (VarGet(VAR_TILT_COMBO) % 7 == 6)
+    // (the bonus ball it drops is also a shiny but doesn't chain any further)
     {
-        u32 otId = gSaveBlock2Ptr->playerTrainerId[0]
-                 | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-                 | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-                 | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
-        u32 personality = Random32();
+        bool8 forced = TiltTakeForceShiny();
+        bool8 natural = (VarGet(VAR_TILT_COMBO) % 7 == 6);
 
-        personality ^= GET_SHINY_VALUE(otId, personality) & 0xFFFF; // force shiny
-        CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
-        return;
+        if (forced || natural)
+        {
+            u32 otId = gSaveBlock2Ptr->playerTrainerId[0]
+                     | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
+                     | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
+                     | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+            u32 personality = Random32();
+
+            if (natural && !forced)
+                gTiltMultiballActive = TRUE;
+            personality ^= GET_SHINY_VALUE(otId, personality) & 0xFFFF; // force shiny
+            CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
+            return;
+        }
     }
     checkCuteCharm = TRUE;
 
@@ -1001,4 +1029,21 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
 {
     if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG)
         *encRate = *encRate * 2 / 3;
+}
+
+// MULTIBALL bonus: right after winning the shiny multiball encounter, a second shiny ball drops
+bool8 TiltBonusEncounter(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+
+    if (headerId == HEADER_NONE || gWildMonHeaders[headerId].landMonsInfo == NULL)
+        return FALSE;
+    TiltForceShinyNext();
+    if (!TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0))
+    {
+        TiltTakeForceShiny();
+        return FALSE;
+    }
+    BattleSetup_StartWildBattle();
+    return TRUE;
 }

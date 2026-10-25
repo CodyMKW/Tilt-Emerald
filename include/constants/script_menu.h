@@ -125,6 +125,7 @@
 #define MULTI_TILT_MAIN                    114
 #define MULTI_TILT_SHOP                    115
 #define MULTI_TILT_QUIZ                    116
+#define MULTI_TILT_BUFF                    117
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0

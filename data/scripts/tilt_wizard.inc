@@ -25,8 +25,11 @@ TiltEmerald_EventScript_WizardMenu::
 	case 0, TiltEmerald_EventScript_Rules
 	case 1, TiltEmerald_EventScript_Stats
 	case 2, TiltEmerald_EventScript_Shop
-	case 3, TiltEmerald_EventScript_Heal
-	case 4, TiltEmerald_EventScript_Bye
+	case 3, TiltEmerald_EventScript_Buffs
+	case 4, TiltEmerald_EventScript_Scores
+	case 5, TiltEmerald_EventScript_Daily
+	case 6, TiltEmerald_EventScript_Heal
+	case 7, TiltEmerald_EventScript_Bye
 	case MULTI_B_PRESSED, TiltEmerald_EventScript_Bye
 	goto TiltEmerald_EventScript_Bye
 	end
@@ -141,10 +144,11 @@ TiltEmerald_EventScript_Shop::
 	switch VAR_RESULT
 	case 0, TiltEmerald_EventScript_BuyCandy
 	case 1, TiltEmerald_EventScript_BuySaver
-	case 2, TiltEmerald_EventScript_BuyPPMax
-	case 3, TiltEmerald_EventScript_BuyLuckyEgg
-	case 4, TiltEmerald_EventScript_BuyMasterBall
-	case 5, TiltEmerald_EventScript_WizardMenu
+	case 2, TiltEmerald_EventScript_BuyTicket
+	case 3, TiltEmerald_EventScript_BuyPPMax
+	case 4, TiltEmerald_EventScript_BuyLuckyEgg
+	case 5, TiltEmerald_EventScript_BuyMasterBall
+	case 6, TiltEmerald_EventScript_WizardMenu
 	case MULTI_B_PRESSED, TiltEmerald_EventScript_WizardMenu
 	goto TiltEmerald_EventScript_WizardMenu
 	end
@@ -170,6 +174,7 @@ TiltEmerald_EventScript_BuySaver::
 	end
 
 TiltEmerald_EventScript_BuyPPMax::
+	goto_if_lt VAR_UNUSED_0x4083, 10, TiltEmerald_EventScript_Locked10
 	checkcoins VAR_RESULT
 	goto_if_lt VAR_RESULT, 350, TiltEmerald_EventScript_NotEnoughCoins
 	checkitemspace ITEM_PP_MAX
@@ -180,6 +185,7 @@ TiltEmerald_EventScript_BuyPPMax::
 	end
 
 TiltEmerald_EventScript_BuyLuckyEgg::
+	goto_if_lt VAR_UNUSED_0x4083, 25, TiltEmerald_EventScript_Locked25
 	checkcoins VAR_RESULT
 	goto_if_lt VAR_RESULT, 500, TiltEmerald_EventScript_NotEnoughCoins
 	checkitemspace ITEM_LUCKY_EGG
@@ -190,6 +196,7 @@ TiltEmerald_EventScript_BuyLuckyEgg::
 	end
 
 TiltEmerald_EventScript_BuyMasterBall::
+	goto_if_lt VAR_UNUSED_0x4083, 50, TiltEmerald_EventScript_Locked50
 	checkcoins VAR_RESULT
 	goto_if_lt VAR_RESULT, 2000, TiltEmerald_EventScript_NotEnoughCoins
 	checkitemspace ITEM_MASTER_BALL
@@ -197,6 +204,130 @@ TiltEmerald_EventScript_BuyMasterBall::
 	removecoins 2000
 	giveitem ITEM_MASTER_BALL
 	goto TiltEmerald_EventScript_Shop
+	end
+
+TiltEmerald_EventScript_BuyTicket::
+	checkcoins VAR_RESULT
+	goto_if_lt VAR_RESULT, 400, TiltEmerald_EventScript_NotEnoughCoins
+	goto_if_ge VAR_UNUSED_0x40F7, 9, TiltEmerald_EventScript_TooManyTickets
+	removecoins 400
+	addvar VAR_UNUSED_0x40F7, 1
+	msgbox TiltEmerald_Text_TicketBought, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Shop
+	end
+
+TiltEmerald_EventScript_TooManyTickets::
+	msgbox TiltEmerald_Text_TooManyTickets, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Shop
+	end
+
+TiltEmerald_EventScript_Locked10::
+	msgbox TiltEmerald_Text_Locked10, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Shop
+	end
+
+TiltEmerald_EventScript_Locked25::
+	msgbox TiltEmerald_Text_Locked25, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Shop
+	end
+
+TiltEmerald_EventScript_Locked50::
+	msgbox TiltEmerald_Text_Locked50, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Shop
+	end
+
+@ ---- Buffs (500 steps) ----
+
+TiltEmerald_EventScript_Buffs::
+	message TiltEmerald_Text_BuffAsk
+	waitmessage
+	multichoice 0, 0, MULTI_TILT_BUFF, FALSE
+	switch VAR_RESULT
+	case 0, TiltEmerald_EventScript_BuyBuffExp
+	case 1, TiltEmerald_EventScript_BuyBuffCatch
+	case 2, TiltEmerald_EventScript_WizardMenu
+	case MULTI_B_PRESSED, TiltEmerald_EventScript_WizardMenu
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_BuyBuffExp::
+	checkcoins VAR_RESULT
+	goto_if_lt VAR_RESULT, 100, TiltEmerald_EventScript_BuffNoCoins
+	removecoins 100
+	setvar VAR_UNUSED_0x40BB, 1
+	setvar VAR_UNUSED_0x409D, 500
+	msgbox TiltEmerald_Text_BuffExpOn, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_BuyBuffCatch::
+	checkcoins VAR_RESULT
+	goto_if_lt VAR_RESULT, 100, TiltEmerald_EventScript_BuffNoCoins
+	removecoins 100
+	setvar VAR_UNUSED_0x40BB, 2
+	setvar VAR_UNUSED_0x409D, 500
+	msgbox TiltEmerald_Text_BuffCatchOn, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_BuffNoCoins::
+	msgbox TiltEmerald_Text_NotEnoughCoins, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_Buffs
+	end
+
+@ ---- Score board: best combo, prizes at 10/25/50/100, nightly jackpot route ----
+
+TiltEmerald_EventScript_Scores::
+	copyvar VAR_0x8005, VAR_UNUSED_0x4083
+	buffernumberstring STR_VAR_1, VAR_0x8005
+	msgbox TiltEmerald_Text_ScoreBest, MSGBOX_DEFAULT
+	setvar VAR_0x8007, 0
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, TiltSpecialClaimPrize
+	call_if_eq VAR_RESULT, 1, TiltEmerald_EventScript_PrizeGot
+	setvar VAR_0x8004, 1
+	specialvar VAR_RESULT, TiltSpecialClaimPrize
+	call_if_eq VAR_RESULT, 1, TiltEmerald_EventScript_PrizeGot
+	setvar VAR_0x8004, 2
+	specialvar VAR_RESULT, TiltSpecialClaimPrize
+	call_if_eq VAR_RESULT, 1, TiltEmerald_EventScript_PrizeGot
+	setvar VAR_0x8004, 3
+	specialvar VAR_RESULT, TiltSpecialClaimPrize
+	call_if_eq VAR_RESULT, 1, TiltEmerald_EventScript_PrizeGot
+	special TiltSpecialLuckyRoute
+	msgbox TiltEmerald_Text_ScoreLucky, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_PrizeGot::
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox TiltEmerald_Text_PrizeGot, MSGBOX_DEFAULT
+	waitfanfare
+	return
+
+@ ---- Daily challenge ----
+
+TiltEmerald_EventScript_Daily::
+	specialvar VAR_RESULT, TiltSpecialDailyStatus
+	buffernumberstring STR_VAR_1, VAR_0x8004
+	buffernumberstring STR_VAR_2, VAR_0x8005
+	goto_if_eq VAR_RESULT, 2, TiltEmerald_EventScript_DailyDone
+	goto_if_eq VAR_RESULT, 1, TiltEmerald_EventScript_DailyClaim
+	msgbox TiltEmerald_Text_DailyProgress, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_DailyDone::
+	msgbox TiltEmerald_Text_DailyDone, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_DailyClaim::
+	special TiltSpecialClaimDaily
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox TiltEmerald_Text_DailyClaim, MSGBOX_DEFAULT
+	waitfanfare
+	goto TiltEmerald_EventScript_WizardMenu
 	end
 
 TiltEmerald_EventScript_NotEnoughCoins::
@@ -322,6 +453,63 @@ TiltEmerald_Text_HealDone:
 	.string "All fixed up! Your POKéMON are in\n"
 	.string "perfect shape.$"
 
+TiltEmerald_Text_TicketBought:
+	.string "A HEAL TICKET! Hand it in for a\n"
+	.string "free heal.$"
+
+TiltEmerald_Text_TooManyTickets:
+	.string "You're holding the max of 9\n"
+	.string "HEAL TICKETS.$"
+
+TiltEmerald_Text_Locked10:
+	.string "Reach a COMBO of 10 once to\n"
+	.string "unlock that.$"
+
+TiltEmerald_Text_Locked25:
+	.string "Reach a COMBO of 25 once to\n"
+	.string "unlock that.$"
+
+TiltEmerald_Text_Locked50:
+	.string "Reach a COMBO of 50 once to\n"
+	.string "unlock that.$"
+
+TiltEmerald_Text_BuffAsk:
+	.string "A buff lasts 500 steps.$"
+
+TiltEmerald_Text_BuffExpOn:
+	.string "Double EXP for the next 500 steps!$"
+
+TiltEmerald_Text_BuffCatchOn:
+	.string "Catch rates are boosted for the\n"
+	.string "next 500 steps!$"
+
+TiltEmerald_Text_ScoreBest:
+	.string "Your best COMBO is {STR_VAR_1}.\p"
+	.string "Prizes wait at 10, 25, 50 and\n"
+	.string "100!$"
+
+TiltEmerald_Text_PrizeGot:
+	.string "You hit a high score milestone!\n"
+	.string "Here's your prize!$"
+
+TiltEmerald_Text_ScoreLucky:
+	.string "Tonight's JACKPOT ROUTE is\n"
+	.string "ROUTE {STR_VAR_1}. It pays triple!$"
+
+TiltEmerald_Text_DailyProgress:
+	.string "Today's challenge: reach a COMBO\n"
+	.string "of {STR_VAR_1}.\p"
+	.string "Your best today: {STR_VAR_2}.$"
+
+TiltEmerald_Text_DailyDone:
+	.string "You already cashed in today's\n"
+	.string "challenge. Come back tomorrow!$"
+
+TiltEmerald_Text_DailyClaim:
+	.string "Challenge complete!\p"
+	.string "Here are 200 COINS, 2 RARE CANDIES\n"
+	.string "and a HEAL TICKET!$"
+
 TiltEmerald_Text_ShopAsk:
 	.string "Spend COINS on what?$"
 
@@ -350,19 +538,29 @@ TiltEmerald_Text_Goodbye:
 TiltWizIntro_EventScript_Run::
 	lockall
 	setvar VAR_UNUSED_0x40F8, 1
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, TiltWizIntro_EventScript_RunMale
 	clearflag FLAG_UNUSED_0x03A
 	addobject LOCALID_TILT_WIZARD_INTRO
 	delay 20
 	applymovement LOCALID_PLAYER, TiltWizIntro_Movement_PlayerFaceDown
 	waitmovement 0
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, TiltWizIntro_EventScript_ComeMale
 	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_ComeFemale
 	waitmovement 0
 	goto TiltWizIntro_EventScript_Talk
 	end
 
-TiltWizIntro_EventScript_ComeMale::
+@ The male house is close to the west edge, so the Wizard would be seen popping in:
+@ hide that behind a fade and start him just a couple of tiles from the player.
+TiltWizIntro_EventScript_RunMale::
+	applymovement LOCALID_PLAYER, TiltWizIntro_Movement_PlayerFaceDown
+	waitmovement 0
+	fadescreen FADE_TO_BLACK
+	clearflag FLAG_UNUSED_0x03A
+	addobject LOCALID_TILT_WIZARD_INTRO
+	setobjectxy LOCALID_TILT_WIZARD_INTRO, 3, 10
+	delay 15
+	fadescreen FADE_FROM_BLACK
 	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_ComeMale
 	waitmovement 0
 	goto TiltWizIntro_EventScript_Talk
@@ -388,7 +586,11 @@ TiltWizIntro_EventScript_Talk::
 TiltWizIntro_EventScript_LeaveMale::
 	applymovement LOCALID_TILT_WIZARD_INTRO, TiltWizIntro_Movement_LeaveMale
 	waitmovement 0
-	goto TiltWizIntro_EventScript_Gone
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_TILT_WIZARD_INTRO
+	setflag FLAG_UNUSED_0x03A
+	fadescreen FADE_FROM_BLACK
+	releaseall
 	end
 
 TiltWizIntro_EventScript_Gone::
@@ -402,9 +604,6 @@ TiltWizIntro_Movement_PlayerFaceDown:
 	step_end
 
 TiltWizIntro_Movement_ComeMale:
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
 	walk_fast_right
 	walk_fast_right
 	face_up
@@ -429,8 +628,6 @@ TiltWizIntro_Movement_ComeFemale:
 	step_end
 
 TiltWizIntro_Movement_LeaveMale:
-	walk_fast_left
-	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left

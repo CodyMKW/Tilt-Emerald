@@ -541,3 +541,9 @@ gSpecials::
 	def_special RemoveRecordsWindow
 	def_special CloseDeptStoreElevatorWindow
 	def_special TrySetBattleTowerLinkType
+	def_special TiltSpecialLuckyRoute
+	def_special TiltSpecialDailyStatus
+	def_special TiltSpecialClaimDaily
+	def_special TiltSpecialClaimPrize
+	def_special TiltSpecialBerryJackpot
+	def_special TiltBonusEncounter

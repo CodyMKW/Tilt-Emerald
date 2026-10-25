@@ -786,18 +786,27 @@ static const u8 sText_TiltRules[] = _("Rules");
 static const u8 sText_TiltStats[] = _("Table stats");
 static const u8 sText_TiltShop[] = _("Coin shop");
 static const u8 sText_TiltHeal[] = _("Heal");
+static const u8 sText_TiltBuffs[] = _("Buffs");
+static const u8 sText_TiltScores[] = _("Score board");
+static const u8 sText_TiltDaily[] = _("Daily");
 static const u8 sText_TiltExit[] = _("Exit");
+static const u8 sText_TiltTicket[] = _("Heal Ticket 400");
+static const u8 sText_TiltBuffExp[] = _("2x EXP 100");
+static const u8 sText_TiltBuffCatch[] = _("Catch boost 100");
 static const u8 sText_TiltCandy[] = _("Rare Candy 100");
 static const u8 sText_TiltSaver[] = _("Ball Saver 200");
-static const u8 sText_TiltPPMax[] = _("PP Max 350");
-static const u8 sText_TiltEgg[] = _("Lucky Egg 500");
-static const u8 sText_TiltMaster[] = _("Master Ball 2000");
+static const u8 sText_TiltPPMax[] = _("PP Max 350 (10+)");
+static const u8 sText_TiltEgg[] = _("Lucky Egg 500 (25+)");
+static const u8 sText_TiltMaster[] = _("Master Ball 2000 (50+)");
 
 static const struct MenuAction MultichoiceList_TiltMain[] =
 {
     {sText_TiltRules},
     {sText_TiltStats},
     {sText_TiltShop},
+    {sText_TiltBuffs},
+    {sText_TiltScores},
+    {sText_TiltDaily},
     {sText_TiltHeal},
     {sText_TiltExit},
 };
@@ -806,9 +815,17 @@ static const struct MenuAction MultichoiceList_TiltShop[] =
 {
     {sText_TiltCandy},
     {sText_TiltSaver},
+    {sText_TiltTicket},
     {sText_TiltPPMax},
     {sText_TiltEgg},
     {sText_TiltMaster},
+    {sText_TiltExit},
+};
+
+static const struct MenuAction MultichoiceList_TiltBuff[] =
+{
+    {sText_TiltBuffExp},
+    {sText_TiltBuffCatch},
     {sText_TiltExit},
 };
 
@@ -944,6 +961,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_TILT_MAIN]                  = MULTICHOICE(MultichoiceList_TiltMain),
     [MULTI_TILT_SHOP]                  = MULTICHOICE(MultichoiceList_TiltShop),
     [MULTI_TILT_QUIZ]                  = MULTICHOICE(MultichoiceList_TiltQuiz),
+    [MULTI_TILT_BUFF]                  = MULTICHOICE(MultichoiceList_TiltBuff),
 };
 
 const u8 *const gStdStrings[] =

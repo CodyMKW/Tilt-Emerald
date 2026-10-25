@@ -3,6 +3,13 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v17
+- 20 new Tilt mechanics: Combo Catch Bonus, Rare Bounce, flower Bumper Zones, Combo Decay (idle too long and it drops), Tilt Warning (running resets combo), Jackpot Berries (10/20/30), Ball Saver revive, free Flipper switch, Multiball (back-to-back second shiny ball), Slingshot Crit (every 5th hit), Bank Shot (super effective hits add combo), Wizard buffs, Combo Shop stock by best combo, High Score Board with prizes at 10/25/50/100, Heal Ticket crafting, Tilt Weather storms (stronger wild Pokemon), Daily Tilt Challenge, Nightly Jackpot route, Dream Island rematches, Easy Retry (keep half your combo after a blackout).
+- Combo HUD: opening the Start menu shows COMBO, SAVERS and TICKETS in the top-left.
+- Fix: the male player no longer sees the Pinball Wizard pop in on the first exit.
+- Not yet done: the Pinball Table dungeon (planned).
+- Untested in an emulator. Existing saves stay valid.
+
 ## v16
 - Wild Pokémon are back to the original encounter tables everywhere (no more random species).
 - New Tilt gimmick, COMBO LUCK: the longer your combo, the more wild encounters (grass, surfing, rock smash) shift toward the rare end of the area's table (+3% per combo, up to 60%). Combo level bonus and the every-7th-hit shiny multiball still apply.

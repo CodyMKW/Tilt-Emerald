@@ -66,13 +66,23 @@ DreamIsland_EventScript_SignVantox::
 	msgbox DreamIsland_Text_SignVantox, MSGBOX_SIGN
 	end
 
-@ ---------------- Leader 1: MrBean ----------------
+@ ---------------- Leaders ----------------
+@ After all three are beaten, each leader offers rematches. Every Vantox rematch win raises
+@ VAR_TILT_REMATCH (max 10), which adds +3 levels to all three teams.
 
 DreamIsland_EventScript_Bean::
 	lock
 	faceplayer
 	trainerbattle_single TRAINER_TILT_BEAN, DreamIsland_Text_BeanIntro, DreamIsland_Text_BeanDefeat, DreamIsland_EventScript_BeanWon
 	msgbox DreamIsland_Text_BeanPost, MSGBOX_DEFAULT
+	goto_if_not_defeated TRAINER_TILT_VANTOX, DreamIsland_EventScript_EndTalk
+	msgbox DreamIsland_Text_RematchAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, DreamIsland_EventScript_EndTalk
+	cleartrainerflag TRAINER_TILT_BEAN
+	trainerbattle_single TRAINER_TILT_BEAN, DreamIsland_Text_BeanIntro, DreamIsland_Text_BeanDefeat, DreamIsland_EventScript_BeanRematchWon
+	end
+
+DreamIsland_EventScript_EndTalk::
 	release
 	end
 
@@ -82,7 +92,11 @@ DreamIsland_EventScript_BeanWon::
 	release
 	end
 
-@ ---------------- Leader 2: Chadderz ----------------
+DreamIsland_EventScript_BeanRematchWon::
+	msgbox DreamIsland_Text_BeanPost, MSGBOX_DEFAULT
+	giveitem ITEM_RARE_CANDY, 2
+	release
+	end
 
 DreamIsland_EventScript_Chadderz::
 	lock
@@ -90,7 +104,11 @@ DreamIsland_EventScript_Chadderz::
 	goto_if_not_defeated TRAINER_TILT_BEAN, DreamIsland_EventScript_ChadderzLocked
 	trainerbattle_single TRAINER_TILT_CHADDERZ, DreamIsland_Text_ChadderzIntro, DreamIsland_Text_ChadderzDefeat, DreamIsland_EventScript_ChadderzWon
 	msgbox DreamIsland_Text_ChadderzPost, MSGBOX_DEFAULT
-	release
+	goto_if_not_defeated TRAINER_TILT_VANTOX, DreamIsland_EventScript_EndTalk
+	msgbox DreamIsland_Text_RematchAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, DreamIsland_EventScript_EndTalk
+	cleartrainerflag TRAINER_TILT_CHADDERZ
+	trainerbattle_single TRAINER_TILT_CHADDERZ, DreamIsland_Text_ChadderzIntro, DreamIsland_Text_ChadderzDefeat, DreamIsland_EventScript_ChadderzRematchWon
 	end
 
 DreamIsland_EventScript_ChadderzLocked::
@@ -104,7 +122,11 @@ DreamIsland_EventScript_ChadderzWon::
 	release
 	end
 
-@ ---------------- Leader 3: Vantox ----------------
+DreamIsland_EventScript_ChadderzRematchWon::
+	msgbox DreamIsland_Text_ChadderzPost, MSGBOX_DEFAULT
+	giveitem ITEM_PP_UP, 3
+	release
+	end
 
 DreamIsland_EventScript_Vantox::
 	lock
@@ -113,7 +135,10 @@ DreamIsland_EventScript_Vantox::
 	goto_if_not_defeated TRAINER_TILT_CHADDERZ, DreamIsland_EventScript_VantoxLocked
 	trainerbattle_single TRAINER_TILT_VANTOX, DreamIsland_Text_VantoxIntro, DreamIsland_Text_VantoxDefeat, DreamIsland_EventScript_VantoxWon
 	msgbox DreamIsland_Text_VantoxPost, MSGBOX_DEFAULT
-	release
+	msgbox DreamIsland_Text_RematchAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, DreamIsland_EventScript_EndTalk
+	cleartrainerflag TRAINER_TILT_VANTOX
+	trainerbattle_single TRAINER_TILT_VANTOX, DreamIsland_Text_VantoxIntro, DreamIsland_Text_VantoxDefeat, DreamIsland_EventScript_VantoxRematchWon
 	end
 
 DreamIsland_EventScript_VantoxLocked::
@@ -124,6 +149,15 @@ DreamIsland_EventScript_VantoxLocked::
 DreamIsland_EventScript_VantoxWon::
 	msgbox DreamIsland_Text_VantoxPost, MSGBOX_DEFAULT
 	giveitem ITEM_MASTER_BALL
+	release
+	end
+
+DreamIsland_EventScript_VantoxRematchWon::
+	msgbox DreamIsland_Text_VantoxPost, MSGBOX_DEFAULT
+	giveitem ITEM_RARE_CANDY, 5
+	goto_if_ge VAR_UNUSED_0x40F9, 10, DreamIsland_EventScript_EndTalk
+	addvar VAR_UNUSED_0x40F9, 1
+	msgbox DreamIsland_Text_TierUp, MSGBOX_DEFAULT
 	release
 	end
 
@@ -214,3 +248,11 @@ DreamIsland_Text_VantoxDefeat:
 DreamIsland_Text_VantoxPost:
 	.string "Vantox: I will train more and beat\n"
 	.string "you the next time we meet!$"
+
+DreamIsland_Text_RematchAsk:
+	.string "Want a rematch?\n"
+	.string "We train harder every time!$"
+
+DreamIsland_Text_TierUp:
+	.string "The leaders on DREAM ISLAND grew\n"
+	.string "stronger from the battle!$"

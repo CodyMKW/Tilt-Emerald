@@ -29,6 +29,19 @@
 
 // Pinball Wizard intro scene (first exit from the house): VAR_UNUSED_0x40F8 0 = never queued (old saves), 2 = queued after the clock/Mom scene, 1 = seen; FLAG_UNUSED_0x03A hides the scene actor
 
+// v17 mechanics (all previously unused vars/flags)
+#define VAR_TILT_STEPS      VAR_UNUSED_0x4091 // steps since the last combo hit (combo decay)
+#define VAR_TILT_BUFF       VAR_UNUSED_0x409D // steps left on the Wizard's buff
+#define VAR_TILT_BUFFTYPE   VAR_UNUSED_0x40BB // 1 = double EXP, 2 = catch boost
+#define VAR_TILT_DAYSTAMP   VAR_UNUSED_0x40DB // RTC day the daily challenge was last rolled
+#define VAR_TILT_DAILYMAX   VAR_UNUSED_0x40DC // best combo reached today
+#define VAR_TILT_PRIZES     VAR_UNUSED_0x40E5 // bitmask of claimed high-score prizes
+#define VAR_TILT_REMATCH    VAR_UNUSED_0x40F9 // Dream Island rematch tier (+3 levels per tier)
+#define VAR_TILT_DAILYCLAIM VAR_UNUSED_0x40FA // RTC day the daily reward was claimed
+#define FLAG_TILT_RARE_USED FLAG_UNUSED_0x03B // rare bounce already used this combo run
+#define FLAG_TILT_BERRY     FLAG_UNUSED_0x03C // next berry pick is a jackpot
+#define FLAG_TILT_STORM     FLAG_UNUSED_0x03D // a Tilt Storm is raging on this route
+
 // Result types passed to the post-battle message script
 #define TILT_RESULT_HIT      0
 #define TILT_RESULT_COINS    1
@@ -36,5 +49,6 @@
 #define TILT_RESULT_SUPER    3
 #define TILT_RESULT_DRAIN    4
 #define TILT_RESULT_SAVED    5
+#define TILT_RESULT_TILT     6
 
 #endif // GUARD_CONSTANTS_TILT_H

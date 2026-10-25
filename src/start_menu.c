@@ -46,6 +46,7 @@
 #include "constants/battle_frontier.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/tilt.h"
 
 // Menu actions
 enum
@@ -80,6 +81,7 @@ COMMON_DATA bool8 (*gMenuCallback)(void) = NULL;
 // EWRAM
 EWRAM_DATA static u8 sSafariBallsWindowId = 0;
 EWRAM_DATA static u8 sBattlePyramidFloorWindowId = 0;
+EWRAM_DATA static u8 sTiltHudWindowId = 0;
 EWRAM_DATA static u8 sStartMenuCursorPos = 0;
 EWRAM_DATA static u8 sNumStartMenuActions = 0;
 EWRAM_DATA static u8 sCurrentStartMenuActions[9] = {0};
@@ -146,6 +148,18 @@ static const struct WindowTemplate sWindowTemplate_SafariBalls = {
     .paletteNum = 15,
     .baseBlock = 0x8
 };
+
+static const struct WindowTemplate sWindowTemplate_TiltHud = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 11,
+    .height = 6,
+    .paletteNum = 15,
+    .baseBlock = 0x8
+};
+
+static const u8 sText_TiltHud[] = _("COMBO x{STR_VAR_1}\nSAVERS {STR_VAR_2}\nTICKETS {STR_VAR_3}");
 
 static const u8 *const sPyramidFloorNames[FRONTIER_STAGES_PER_CHALLENGE + 1] =
 {
@@ -245,6 +259,7 @@ static void BuildBattlePyramidStartMenu(void);
 static void BuildMultiPartnerRoomStartMenu(void);
 static void ShowSafariBallsWindow(void);
 static void ShowPyramidFloorWindow(void);
+static void ShowTiltHudWindow(void);
 static void RemoveExtraStartMenuWindows(void);
 static bool32 PrintStartMenuActions(s8 *pIndex, u32 count);
 static bool32 InitStartMenuStep(void);
@@ -416,6 +431,20 @@ static void ShowSafariBallsWindow(void)
     CopyWindowToVram(sSafariBallsWindowId, COPYWIN_GFX);
 }
 
+// TILT MODE: combo counter panel (shown in the start menu, top-left)
+static void ShowTiltHudWindow(void)
+{
+    sTiltHudWindowId = AddWindow(&sWindowTemplate_TiltHud);
+    PutWindowTilemap(sTiltHudWindowId);
+    DrawStdWindowFrame(sTiltHudWindowId, FALSE);
+    ConvertIntToDecimalStringN(gStringVar1, VarGet(VAR_TILT_COMBO), STR_CONV_MODE_LEFT_ALIGN, 4);
+    ConvertIntToDecimalStringN(gStringVar2, VarGet(VAR_TILT_SAVER), STR_CONV_MODE_LEFT_ALIGN, 1);
+    ConvertIntToDecimalStringN(gStringVar3, VarGet(VAR_TILT_TICKET), STR_CONV_MODE_LEFT_ALIGN, 1);
+    StringExpandPlaceholders(gStringVar4, sText_TiltHud);
+    AddTextPrinterParameterized(sTiltHudWindowId, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
+    CopyWindowToVram(sTiltHudWindowId, COPYWIN_GFX);
+}
+
 static void ShowPyramidFloorWindow(void)
 {
     if (gSaveBlock2Ptr->frontier.curChallengeBattleNum == FRONTIER_STAGES_PER_CHALLENGE)
@@ -443,6 +472,12 @@ static void RemoveExtraStartMenuWindows(void)
     {
         ClearStdWindowAndFrameToTransparent(sBattlePyramidFloorWindowId, FALSE);
         RemoveWindow(sBattlePyramidFloorWindowId);
+    }
+    if (!GetSafariZoneFlag() && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
+    {
+        ClearStdWindowAndFrameToTransparent(sTiltHudWindowId, FALSE);
+        CopyWindowToVram(sTiltHudWindowId, COPYWIN_GFX);
+        RemoveWindow(sTiltHudWindowId);
     }
 }
 
@@ -501,6 +536,8 @@ static bool32 InitStartMenuStep(void)
             ShowSafariBallsWindow();
         if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
             ShowPyramidFloorWindow();
+        if (!GetSafariZoneFlag() && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
+            ShowTiltHudWindow();
         sInitStartMenuData[0]++;
         break;
     case 4:

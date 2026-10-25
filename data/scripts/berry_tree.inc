@@ -119,8 +119,20 @@ BerryTree_EventScript_PickBerry::
 	message BerryTree_Text_PutAwayBerry
 	waitmessage
 	waitbuttonpress
+	specialvar VAR_RESULT, TiltSpecialBerryJackpot
+	goto_if_ne VAR_RESULT, 0, BerryTree_EventScript_TiltJackpot
 	release
 	end
+
+BerryTree_EventScript_TiltJackpot::
+	bufferitemnameplural STR_VAR_1, VAR_RESULT, 2
+	msgbox BerryTree_Text_TiltJackpot, MSGBOX_DEFAULT
+	release
+	end
+
+BerryTree_Text_TiltJackpot:
+	.string "JACKPOT! The tree paid out\n"
+	.string "2 bonus {STR_VAR_1}!$"
 
 BerryTree_EventScript_BerryPocketFull::
 	message BerryTree_Text_BerryPocketFull

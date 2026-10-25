@@ -2806,6 +2806,13 @@ BattleScript_EffectCamouflage::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+BattleScript_TiltBallSaver::
+	printstring STRINGID_TILTSAVER
+	waitmessage B_WAIT_TIME_LONG
+	datahpupdate BS_SCRIPTING
+	healthbarupdate BS_SCRIPTING
+	return
+
 BattleScript_FaintAttacker::
 	playfaintcry BS_ATTACKER
 	pause B_WAIT_TIME_LONG
@@ -3116,6 +3123,11 @@ BattleScript_DoSwitchOut::
 	switchinanim BS_ATTACKER, FALSE
 	waitstate
 	switchineffects BS_ATTACKER
+	jumpifbyte CMP_EQUAL, gTiltFlipMsg, 0, BattleScript_ActionSwitchNoFlip
+	setbyte gTiltFlipMsg, 0
+	printstring STRINGID_TILTFLIP
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_ActionSwitchNoFlip::
 	moveendcase MOVEEND_IMMUNITY_ABILITIES
 	moveendcase MOVEEND_MIRROR_MOVE
 	end2

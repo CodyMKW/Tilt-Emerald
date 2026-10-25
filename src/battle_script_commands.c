@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle.h"
 #include "battle_message.h"
 #include "battle_anim.h"
@@ -1279,7 +1280,7 @@ static void Cmd_critcalc(void)
     if ((gBattleMons[gBattlerTarget].ability != ABILITY_BATTLE_ARMOR && gBattleMons[gBattlerTarget].ability != ABILITY_SHELL_ARMOR)
      && !(gStatuses3[gBattlerAttacker] & STATUS3_CANT_SCORE_A_CRIT)
      && !(gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE))
-     && !(Random() % sCriticalHitChance[critChance]))
+     && (TiltSlingshotCrit() || !(Random() % sCriticalHitChance[critChance])))
         gCritMultiplier = 2;
     else
         gCritMultiplier = 1;
@@ -2009,6 +2010,7 @@ static void Cmd_effectivenesssound(void)
         switch (gMoveResultFlags & (u8)(~MOVE_RESULT_MISSED))
         {
         case MOVE_RESULT_SUPER_EFFECTIVE:
+            TiltOnSuperEffective();
             BtlController_EmitPlaySE(B_COMM_TO_CONTROLLER, SE_SUPER_EFFECTIVE);
             MarkBattlerForControllerExec(gActiveBattler);
             break;
@@ -2999,6 +3001,14 @@ static void Cmd_tryfaintmon(void)
             BS_ptr = BattleScript_FaintTarget;
         }
         if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler])
+         && gBattleMons[gActiveBattler].hp == 0
+         && TiltTryBallSaverRevive(gActiveBattler))
+        {
+            // TILT MODE: BALL SAVER REVIVE - the fainting mon bounces back with half HP
+            BattleScriptPush(gBattlescriptCurrInstr + 7);
+            gBattlescriptCurrInstr = BattleScript_TiltBallSaver;
+        }
+        else if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler])
          && gBattleMons[gActiveBattler].hp == 0)
         {
             gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
@@ -3308,6 +3318,7 @@ static void Cmd_getexp(void)
             }
 
             calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
+            calculatedExp = calculatedExp * TiltExpPercent() / 100; // TILT MODE: EXP buff
 
             if (viaExpShare) // at least one mon is getting exp via exp share
             {
@@ -9987,6 +9998,8 @@ static void Cmd_handleballthrow(void)
         odds = (catchRate * ballMultiplier / 10)
             * (gBattleMons[gBattlerTarget].maxHP * 3 - gBattleMons[gBattlerTarget].hp * 2)
             / (3 * gBattleMons[gBattlerTarget].maxHP);
+
+        odds = odds * (100 + TiltCatchBonus()) / 100; // TILT MODE: combo + buff catch bonus
 
         if (gBattleMons[gBattlerTarget].status1 & (STATUS1_SLEEP | STATUS1_FREEZE))
             odds *= 2;

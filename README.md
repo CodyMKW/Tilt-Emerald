@@ -20,6 +20,7 @@ Every version is in the [`releases/`](releases) folder as a zip containing `Tilt
 - The Ball Saver item, and a Pinball Wizard NPC with a rules, shop and heal menu. He lives in a cozy room upstairs in the Littleroot Pokémon Center.
 - A short intro scene where the Pinball Wizard introduces himself the first time you leave your house.
 - DREAM ISLAND, a late-game island recreated from an old FireRed hack. Become Champion, then ask the Sailor next to the Ever Grande Pokémon Center for a ride. Three leaders (MrBean, Chadderz, Vantox) wait up the stairs, and starters from other regions roam the grass.
+- Tilt v17 mechanics: bumper flowers, combo decay, ball savers, flipper, bank shot, slingshot crits, jackpot berries, storms, daily challenge, high score board, and a Start-menu combo HUD.
 - A healing economy: Pokémon Centers are broke, so a heal costs ¥1000 (Gold Card holders still heal free). The Wizard's tune-up costs 250 COINS, but a lucky combo hit (about 1 in 30) can drop a HEAL TICKET that makes it free. Mom only restores HP up to half, never more.
 
 **Towns and places**

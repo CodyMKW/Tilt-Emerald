@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_arena.h"
@@ -304,6 +305,18 @@ void HandleAction_Switch(void)
     gBattleScripting.battler = gBattlerAttacker;
     gBattlescriptCurrInstr = BattleScript_ActionSwitch;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
+
+    // TILT MODE: FLIPPER - the first voluntary switch is free (the foe's attack this turn is skipped)
+    if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER && TiltTryFlip())
+    {
+        u8 i;
+
+        for (i = gCurrentTurnActionNumber + 1; i < gBattlersCount; i++)
+        {
+            if (GetBattlerSide(gBattlerByTurnOrder[i]) == B_SIDE_OPPONENT && gActionsByTurnOrder[i] == B_ACTION_USE_MOVE)
+                gActionsByTurnOrder[i] = B_ACTION_NOTHING_FAINTED;
+        }
+    }
 
     if (gBattleResults.playerSwitchesCounter < 255)
         gBattleResults.playerSwitchesCounter++;

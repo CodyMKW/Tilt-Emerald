@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
@@ -610,29 +611,65 @@ static u16 sTiltPayout;
 static u16 sTiltResult;
 static u16 sTiltMultiball;
 static u16 sTiltTicket;
+static u16 sTiltLucky;
+static u16 sTiltStorm;
+static u16 sTiltBank;
+static u16 sTiltBonus;
+static u16 sTiltBerry;
 
 // Pinball-style combo: each consecutive wild win/catch pays out more.
 // 5th hit: coins. 10th: Rare Candy + coins + heal. 25th: Master Ball + coins + heal.
-// Every 7th hit sets up a MULTIBALL (next wild encounter is shiny).
-// Returns TRUE when a message should be shown after returning to the field.
+// Every 7th hit sets up a MULTIBALL (next wild encounter is shiny, and winning it drops a bonus shiny ball).
+// Tilt Storms double the combo gain, super effective hits add Bank Shot bonuses, and the nightly
+// jackpot route pays triple. Returns TRUE when a message should be shown after returning to the field.
 static bool8 UpdateTiltCombo(void)
 {
     u16 combo = VarGet(VAR_TILT_COMBO);
+    bool8 multiballWas = gTiltMultiballActive;
 
+    gTiltMultiballActive = FALSE;
     sTiltTicket = 0;
+    sTiltLucky = 0;
+    sTiltStorm = 0;
+    sTiltBank = 0;
+    sTiltBonus = 0;
+    sTiltBerry = 0;
     if (gBattleOutcome == B_OUTCOME_WON || gBattleOutcome == B_OUTCOME_CAUGHT)
     {
-        if (combo < 9999)
-            combo++;
+        u16 prev = combo;
+        u16 gain = 1;
+        bool8 hadBerry = FlagGet(FLAG_TILT_BERRY);
+        u32 payout;
+
+        if (TiltIsStorm())
+        {
+            gain = 2;
+            sTiltStorm = 1;
+        }
+        sTiltBank = TiltTakeBankBonus();
+        gain += sTiltBank;
+        if (combo + gain > 9999)
+            combo = 9999;
+        else
+            combo += gain;
         VarSet(VAR_TILT_COMBO, combo);
-        if (combo > VarGet(VAR_TILT_BEST))
-            VarSet(VAR_TILT_BEST, combo);
+        TiltOnComboHit(prev, combo);
+        sTiltBerry = (!hadBerry && FlagGet(FLAG_TILT_BERRY));
 
         sTiltCombo = combo;
-        sTiltPayout = (combo > 600) ? 60000 : combo * 100;
+        payout = (combo > 600) ? 60000 : combo * 100;
+        if (TiltOnLuckyRoute())
+        {
+            sTiltLucky = 1;
+            payout *= 3;
+        }
+        if (payout > 60000)
+            payout = 60000;
+        sTiltPayout = payout;
         AddMoney(&gSaveBlock1Ptr->money, sTiltPayout);
         sTiltMultiball = (combo % 7 == 6);
         sTiltResult = TILT_RESULT_HIT;
+        sTiltBonus = multiballWas;
 
         // rare HEAL TICKET drop (about 1 in 30 hits, max 9 held)
         if (Random() % 30 == 0 && VarGet(VAR_TILT_TICKET) < 9)
@@ -641,7 +678,7 @@ static bool8 UpdateTiltCombo(void)
             sTiltTicket = 1;
         }
 
-        if (combo % 25 == 0)
+        if (combo / 25 != prev / 25)
         {
             AddBagItem(ITEM_MASTER_BALL, 1);
             AddCoins(250);
@@ -649,7 +686,7 @@ static bool8 UpdateTiltCombo(void)
             sTiltResult = TILT_RESULT_SUPER;
             PlaySE(SE_SHINY);
         }
-        else if (combo % 10 == 0)
+        else if (combo / 10 != prev / 10)
         {
             AddBagItem(ITEM_RARE_CANDY, 1);
             AddCoins(100);
@@ -657,7 +694,7 @@ static bool8 UpdateTiltCombo(void)
             sTiltResult = TILT_RESULT_CANDY;
             PlaySE(SE_SHINY);
         }
-        else if (combo % 5 == 0)
+        else if (combo / 5 != prev / 5)
         {
             AddCoins(50);
             sTiltResult = TILT_RESULT_COINS;
@@ -684,8 +721,9 @@ static bool8 UpdateTiltCombo(void)
     }
     else
     {
-        VarSet(VAR_TILT_COMBO, 0);
-        sTiltResult = TILT_RESULT_DRAIN;
+        TiltResetCombo();
+        // running away tilts the table
+        sTiltResult = (gBattleOutcome == B_OUTCOME_RAN) ? TILT_RESULT_TILT : TILT_RESULT_DRAIN;
     }
     return TRUE;
 }
@@ -700,6 +738,11 @@ static void Task_TiltMessage(u8 taskId)
         gSpecialVar_0x8006 = sTiltResult;
         gSpecialVar_0x8007 = sTiltMultiball;
         gSpecialVar_0x8008 = sTiltTicket;
+        gSpecialVar_0x8009 = sTiltLucky;
+        gSpecialVar_0x800A = sTiltStorm;
+        gSpecialVar_0x800B = sTiltBank;
+        gSpecialVar_0x8003 = sTiltBonus;
+        gSpecialVar_0x8002 = sTiltBerry;
         ScriptContext_SetupScript(TiltEmerald_EventScript_ComboMessage);
     }
 }
@@ -719,7 +762,10 @@ static void CB2_EndWildBattle(void)
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
-        VarSet(VAR_TILT_COMBO, 0); // whiteout drains the ball (no Ball Saver)
+        // whiteout drains half the ball (EASY RETRY: you keep half your combo)
+        VarSet(VAR_TILT_COMBO, VarGet(VAR_TILT_COMBO) / 2);
+        if (VarGet(VAR_TILT_COMBO) == 0)
+            TiltResetCombo();
         SetMainCallback2(CB2_WhiteOut);
     }
     else
