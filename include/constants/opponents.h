@@ -870,6 +870,10 @@
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
 #define TRAINERS_COUNT                      863
+#define TRAINER_TILT_TABLE_A                485
+#define TRAINER_TILT_TABLE_B                486
+#define TRAINER_TILT_KING                   854
+
 #define MAX_TRAINERS_COUNT                  864
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

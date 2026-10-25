@@ -105,7 +105,8 @@
     "LittlerootTown_Gym",
     "LittlerootTown_PokemonCenter_1F",
     "LittlerootTown_PokemonCenter_2F",
-    "LittlerootTown_Mart"
+    "LittlerootTown_Mart",
+    "PinballTable"
   ],
   "gMapGroup_IndoorOldale": [
     "OldaleTown_House1",

@@ -12847,3 +12847,97 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TiltGlitch2[] = {
     .species = SPECIES_MAGNETON,
     },
 };
+
+static const struct TrainerMonItemCustomMoves sParty_TiltTableA[] = {
+    {
+    .iv = 255,
+    .lvl = 48,
+    .species = SPECIES_VOLTORB,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SPARK, MOVE_SONIC_BOOM, MOVE_SCREECH, MOVE_ROLLOUT}
+    },
+    {
+    .iv = 255,
+    .lvl = 50,
+    .species = SPECIES_ELECTRODE,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_THUNDERBOLT, MOVE_SWIFT, MOVE_LIGHT_SCREEN, MOVE_EXPLOSION}
+    },
+    {
+    .iv = 255,
+    .lvl = 52,
+    .species = SPECIES_MAGNETON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_SWIFT, MOVE_THUNDER_WAVE, MOVE_SUPERSONIC}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltTableB[] = {
+    {
+    .iv = 255,
+    .lvl = 49,
+    .species = SPECIES_PIKACHU,
+    .heldItem = ITEM_LIGHT_BALL,
+    .moves = {MOVE_THUNDERBOLT, MOVE_QUICK_ATTACK, MOVE_THUNDER_WAVE, MOVE_IRON_TAIL}
+    },
+    {
+    .iv = 255,
+    .lvl = 50,
+    .species = SPECIES_PLUSLE,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_HELPING_HAND, MOVE_ENCORE, MOVE_SWIFT}
+    },
+    {
+    .iv = 255,
+    .lvl = 51,
+    .species = SPECIES_MINUN,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_HELPING_HAND, MOVE_ENCORE, MOVE_SWIFT}
+    },
+    {
+    .iv = 255,
+    .lvl = 53,
+    .species = SPECIES_RAICHU,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_THUNDERBOLT, MOVE_FOCUS_PUNCH, MOVE_THUNDER_WAVE, MOVE_SURF}
+    },
+};
+
+static const struct TrainerMonItemCustomMoves sParty_TiltKing[] = {
+    {
+    .iv = 255,
+    .lvl = 58,
+    .species = SPECIES_ELECTRODE,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_THUNDERBOLT, MOVE_EXPLOSION, MOVE_LIGHT_SCREEN, MOVE_SWIFT}
+    },
+    {
+    .iv = 255,
+    .lvl = 58,
+    .species = SPECIES_MAGNETON,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_TRI_ATTACK, MOVE_THUNDER_WAVE, MOVE_TOXIC}
+    },
+    {
+    .iv = 255,
+    .lvl = 59,
+    .species = SPECIES_JOLTEON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_THUNDERBOLT, MOVE_SHADOW_BALL, MOVE_THUNDER_WAVE, MOVE_DOUBLE_KICK}
+    },
+    {
+    .iv = 255,
+    .lvl = 60,
+    .species = SPECIES_STEELIX,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_EARTHQUAKE, MOVE_IRON_TAIL, MOVE_ROCK_SLIDE, MOVE_SANDSTORM}
+    },
+    {
+    .iv = 255,
+    .lvl = 63,
+    .species = SPECIES_METAGROSS,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_PSYCHIC, MOVE_EXPLOSION}
+    },
+};
+

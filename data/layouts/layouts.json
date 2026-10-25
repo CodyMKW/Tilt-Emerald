@@ -4450,6 +4450,16 @@
       "secondary_tileset": "gTileset_EverGrande",
       "border_filepath": "data/layouts/DreamIsland/border.bin",
       "blockdata_filepath": "data/layouts/DreamIsland/map.bin"
+    },
+    {
+      "id": "LAYOUT_PINBALL_TABLE",
+      "name": "PinballTable_Layout",
+      "width": 14,
+      "height": 14,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/PinballTable/border.bin",
+      "blockdata_filepath": "data/layouts/PinballTable/map.bin"
     }
   ]
 }

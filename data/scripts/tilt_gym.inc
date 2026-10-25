@@ -6,14 +6,61 @@
 @   FLAG_UNUSED_0x02D = guard has stepped aside (quiz solved)  [also the guard's object hide flag]
 @   FLAG_UNUSED_0x02E = Cody reward 1 given (TM02)
 @   FLAG_UNUSED_0x02F = Cody reward 2 given (Rare Candies)
-@   FLAG_UNUSED_0x030 = Cody reward 3 given (Dragon Scale)
+@   FLAG_UNUSED_0x030 = Cody reward 3 given (Dragon Fang)
 
 LittlerootTown_West_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_West_OnTransition
 	.byte 0
 
 LittlerootTown_Gym_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_Gym_OnTransition
 	.byte 0
+
+@ Gym trainers spot you and walk over once you hold all 8 badges. Before that they are marked as
+@ "already battled" so they stay put (FLAG_UNUSED_0x03E = that mark is automatic, clear it at 8 badges).
+LittlerootTown_Gym_OnTransition::
+	call TiltGym_EventScript_CheckBadges
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_Gym_ArmTrainers
+	goto_if_set FLAG_UNUSED_0x03E, LittlerootTown_Gym_OnTransitionEnd
+	setflag FLAG_UNUSED_0x03E
+	settrainerflag TRAINER_TILT_DRACO
+	settrainerflag TRAINER_TILT_SANDRA
+	settrainerflag TRAINER_TILT_RYU
+	settrainerflag TRAINER_TILT_MIRA
+LittlerootTown_Gym_OnTransitionEnd::
+	end
+
+LittlerootTown_Gym_ArmTrainers::
+	goto_if_unset FLAG_UNUSED_0x03E, LittlerootTown_Gym_OnTransitionEnd
+	clearflag FLAG_UNUSED_0x03E
+	cleartrainerflag TRAINER_TILT_DRACO
+	cleartrainerflag TRAINER_TILT_SANDRA
+	cleartrainerflag TRAINER_TILT_RYU
+	cleartrainerflag TRAINER_TILT_MIRA
+	end
+
+@ ---------------- Statues ----------------
+
+TiltGym_EventScript_Statue::
+	goto_if_defeated TRAINER_TILT_CODY, TiltGym_EventScript_StatueWon
+	msgbox TiltGym_Text_Statue, MSGBOX_SIGN
+	end
+
+TiltGym_EventScript_StatueWon::
+	msgbox TiltGym_Text_StatueWon, MSGBOX_SIGN
+	end
+
+TiltGym_Text_Statue:
+	.string "LITTLEROOT POKéMON GYM\n"
+	.string "LEADER: CODY\p"
+	.string "WINNING TRAINERS:\n"
+	.string "???$"
+
+TiltGym_Text_StatueWon:
+	.string "LITTLEROOT POKéMON GYM\n"
+	.string "LEADER: CODY\p"
+	.string "WINNING TRAINERS:\n"
+	.string "{PLAYER}$"
 
 @ ---------------- Badge check: VAR_RESULT = TRUE only with all 8 badges ----------------
 
@@ -93,59 +140,47 @@ TiltGym_EventScript_GuardWrong::
 @ ---------------- Gym trainers ----------------
 
 TiltGym_EventScript_Draco::
-	lock
-	faceplayer
+	trainerbattle_single TRAINER_TILT_DRACO, TiltGym_Text_DracoIntro, TiltGym_Text_DracoDefeat
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_DracoLocked
-	trainerbattle_single TRAINER_TILT_DRACO, TiltGym_Text_DracoIntro, TiltGym_Text_DracoDefeat
 	msgbox TiltGym_Text_DracoPost, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_DracoLocked::
-	msgbox TiltGym_Text_DracoLocked, MSGBOX_DEFAULT
-	release
+	msgbox TiltGym_Text_DracoLocked, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_Sandra::
-	lock
-	faceplayer
+	trainerbattle_single TRAINER_TILT_SANDRA, TiltGym_Text_SandraIntro, TiltGym_Text_SandraDefeat
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_SandraLocked
-	trainerbattle_single TRAINER_TILT_SANDRA, TiltGym_Text_SandraIntro, TiltGym_Text_SandraDefeat
 	msgbox TiltGym_Text_SandraPost, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_SandraLocked::
-	msgbox TiltGym_Text_SandraLocked, MSGBOX_DEFAULT
-	release
+	msgbox TiltGym_Text_SandraLocked, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_Ryu::
-	lock
-	faceplayer
+	trainerbattle_single TRAINER_TILT_RYU, TiltGym_Text_RyuIntro, TiltGym_Text_RyuDefeat
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_RyuLocked
-	trainerbattle_single TRAINER_TILT_RYU, TiltGym_Text_RyuIntro, TiltGym_Text_RyuDefeat
 	msgbox TiltGym_Text_RyuPost, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_RyuLocked::
-	msgbox TiltGym_Text_RyuLocked, MSGBOX_DEFAULT
-	release
+	msgbox TiltGym_Text_RyuLocked, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_Mira::
-	lock
-	faceplayer
+	trainerbattle_single TRAINER_TILT_MIRA, TiltGym_Text_MiraIntro, TiltGym_Text_MiraDefeat
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_MiraLocked
-	trainerbattle_single TRAINER_TILT_MIRA, TiltGym_Text_MiraIntro, TiltGym_Text_MiraDefeat
 	msgbox TiltGym_Text_MiraPost, MSGBOX_AUTOCLOSE
 	end
 
 TiltGym_EventScript_MiraLocked::
-	msgbox TiltGym_Text_MiraLocked, MSGBOX_DEFAULT
-	release
+	msgbox TiltGym_Text_MiraLocked, MSGBOX_AUTOCLOSE
 	end
 
 @ ---------------- Gym leader Cody ----------------
@@ -189,9 +224,9 @@ TiltGym_EventScript_CodyReward2::
 	setflag FLAG_UNUSED_0x02F
 TiltGym_EventScript_CodyReward3::
 	goto_if_set FLAG_UNUSED_0x030, TiltGym_EventScript_CodyRewardsDone
-	checkitemspace ITEM_DRAGON_SCALE
+	checkitemspace ITEM_DRAGON_FANG
 	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_CodyBagFull
-	giveitem ITEM_DRAGON_SCALE
+	giveitem ITEM_DRAGON_FANG
 	setflag FLAG_UNUSED_0x030
 TiltGym_EventScript_CodyRewardsDone::
 	msgbox TiltGym_Text_CodyRewards, MSGBOX_DEFAULT
@@ -388,8 +423,8 @@ TiltGym_Text_CodyWin:
 TiltGym_Text_CodyRewards:
 	.string "CODY: DRAGON CLAW is the move my\n"
 	.string "FLYGON trusts the most.\p"
-	.string "The DRAGON SCALE carries the power\n"
-	.string "of the desert wind.\p"
+	.string "The DRAGON FANG carries the power\n"
+	.string "of a true dragon.\p"
 	.string "The pad by the wall behind me takes\n"
 	.string "you back to the entrance.\p"
 	.string "Come back anytime. FLYGON and I\n"

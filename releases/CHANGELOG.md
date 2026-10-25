@@ -3,6 +3,14 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v18
+- New dungeon: the PINBALL TABLE. Talk to the Attendant in the Pinball Wizard's room (needs a best combo of 10+). Inside is a pinball-hall maze with two trainers, bumpers (first one each visit gives COMBO +3), corner flippers that fling you across the table, and the TABLE KING in the top-left. Beating him gives 3 PP Max, a Lucky Egg and 3 Ball Savers.
+- Trainer level scaling: every trainer's strongest Pokemon is now your highest level +1, and the rest of their team keeps its gap below that ace. Trainers are never weaker than before, so early game is unchanged. Dream Island rematch bonuses stack on top.
+- Cody's final reward is now a Dragon Fang instead of a Dragon Scale (new reward only; already-given items are unchanged).
+- Cody's gym trainers now spot you and walk over to battle once you have all 8 badges.
+- The gym statues now have text, like the original gyms (your name appears after beating Cody).
+- Untested in an emulator. Existing saves stay valid.
+
 ## v17
 - 20 new Tilt mechanics: Combo Catch Bonus, Rare Bounce, flower Bumper Zones, Combo Decay (idle too long and it drops), Tilt Warning (running resets combo), Jackpot Berries (10/20/30), Ball Saver revive, free Flipper switch, Multiball (back-to-back second shiny ball), Slingshot Crit (every 5th hit), Bank Shot (super effective hits add combo), Wizard buffs, Combo Shop stock by best combo, High Score Board with prizes at 10/25/50/100, Heal Ticket crafting, Tilt Weather storms (stronger wild Pokemon), Daily Tilt Challenge, Nightly Jackpot route, Dream Island rematches, Easy Retry (keep half your combo after a blackout).
 - Combo HUD: opening the Start menu shows COMBO, SAVERS and TICKETS in the top-left.

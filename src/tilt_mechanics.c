@@ -2,6 +2,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "coins.h"
+#include "data.h"
 #include "event_data.h"
 #include "field_player_avatar.h"
 #include "field_weather.h"
@@ -14,6 +15,7 @@
 #include "script.h"
 #include "string_util.h"
 #include "tilt_mechanics.h"
+#include "constants/trainers.h"
 #include "constants/items.h"
 #include "constants/map_groups.h"
 #include "constants/map_types.h"
@@ -421,15 +423,63 @@ void TiltSpecialBerryJackpot(void)
     AddBagItem(gSpecialVar_Result, 2);
 }
 
-// Dream Island rematches: each rematch tier adds 3 levels to the three leaders' teams
+// Trainer level scaling (so over-leveling from Tilt combos can't trivialise trainers):
+// the trainer's strongest Pokemon becomes (your highest level + 1), and the rest of its team keeps
+// the same gap below that ace. Trainers are never weaker than their original levels.
+// Dream Island rematches add +3 levels per rematch tier on top.
+static u8 TiltPartyTopLevel(u16 trainerNum)
+{
+    u8 i, top = 1, lvl = 1;
+    const struct Trainer *t = &gTrainers[trainerNum];
+
+    for (i = 0; i < t->partySize; i++)
+    {
+        switch (t->partyFlags)
+        {
+        case 0:
+            lvl = t->party.NoItemDefaultMoves[i].lvl;
+            break;
+        case F_TRAINER_PARTY_CUSTOM_MOVESET:
+            lvl = t->party.NoItemCustomMoves[i].lvl;
+            break;
+        case F_TRAINER_PARTY_HELD_ITEM:
+            lvl = t->party.ItemDefaultMoves[i].lvl;
+            break;
+        default:
+            lvl = t->party.ItemCustomMoves[i].lvl;
+            break;
+        }
+        if (lvl > top)
+            top = lvl;
+    }
+    return top;
+}
+
 u8 TiltTrainerLevel(u16 trainerNum, u8 level)
 {
-    u16 bonus;
+    u16 bonus = 0;
+    u16 playerTop = 1;
+    u16 scaled, gap;
+    u8 i, top;
 
-    if (trainerNum != TRAINER_TILT_BEAN && trainerNum != TRAINER_TILT_CHADDERZ && trainerNum != TRAINER_TILT_VANTOX)
-        return level;
-    bonus = VarGet(VAR_TILT_REMATCH) * 3;
-    if (level + bonus > 100)
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+        {
+            u8 l = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+            if (l > playerTop)
+                playerTop = l;
+        }
+    }
+    top = TiltPartyTopLevel(trainerNum);
+    gap = top - level;
+    scaled = (playerTop + 1 > gap) ? playerTop + 1 - gap : 1;
+    if (scaled < level)
+        scaled = level;
+    if (trainerNum == TRAINER_TILT_BEAN || trainerNum == TRAINER_TILT_CHADDERZ || trainerNum == TRAINER_TILT_VANTOX)
+        bonus = VarGet(VAR_TILT_REMATCH) * 3;
+    if (scaled + bonus > 100)
         return 100;
-    return level + bonus;
+    return scaled + bonus;
 }

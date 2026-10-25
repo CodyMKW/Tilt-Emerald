@@ -590,6 +590,7 @@ gStdScripts_End::
 	.include "data/scripts/tilt_pc.inc"
 	.include "data/scripts/tilt_joseph.inc"
 	.include "data/scripts/tilt_dream.inc"
+	.include "data/scripts/tilt_table.inc"
 	.include "data/scripts/hall_of_fame.inc"
 
 EventScript_WhiteOut::
