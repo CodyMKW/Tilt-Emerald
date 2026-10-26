@@ -411,10 +411,20 @@ static void DoStandardWildBattle(void)
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = 0;
+    gTiltDoubleBall = FALSE;
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
     {
         VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
         gBattleTypeFlags |= BATTLE_TYPE_PYRAMID;
+    }
+    else if (gTiltMultiballActive && CalculatePlayerPartyCount() >= 2 && GetMonsStateToDoubles() == PLAYER_HAS_TWO_USABLE_MONS)
+    {
+        // TILT MODE: MULTIBALL - two shiny wild Pokemon at once
+        if (TiltAddSecondBall())
+        {
+            gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
+            gTiltDoubleBall = TRUE;
+        }
     }
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
@@ -648,6 +658,8 @@ static bool8 UpdateTiltCombo(void)
         }
         sTiltBank = TiltTakeBankBonus();
         gain += sTiltBank;
+        if (gTiltDoubleBall)
+            gain += 1; // second ball of the MULTIBALL double battle
         if (combo + gain > 9999)
             combo = 9999;
         else
@@ -669,7 +681,7 @@ static bool8 UpdateTiltCombo(void)
         AddMoney(&gSaveBlock1Ptr->money, sTiltPayout);
         sTiltMultiball = (combo % 7 == 6);
         sTiltResult = TILT_RESULT_HIT;
-        sTiltBonus = multiballWas;
+        sTiltBonus = (multiballWas && !gTiltDoubleBall);
 
         // rare HEAL TICKET drop (about 1 in 30 hits, max 9 held)
         if (Random() % 30 == 0 && VarGet(VAR_TILT_TICKET) < 9)
@@ -774,6 +786,7 @@ static void CB2_EndWildBattle(void)
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
         if (UpdateTiltCombo())
             gFieldCallback = FieldCB_TiltMessage;
+        gTiltDoubleBall = FALSE;
     }
 }
 

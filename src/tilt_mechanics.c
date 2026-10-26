@@ -31,6 +31,7 @@ extern const u8 TiltEmerald_EventScript_BuffEnded[];
 
 EWRAM_DATA u8 gTiltFlipMsg = 0;
 EWRAM_DATA bool8 gTiltMultiballActive = FALSE;
+EWRAM_DATA bool8 gTiltDoubleBall = FALSE; // this wild battle is a MULTIBALL double battle
 
 // Non-saved bookkeeping
 static u8 sBumperCooldown;

@@ -219,5 +219,5 @@ TiltEmerald_Text_BuffEnded:
 
 TiltEmerald_Text_Multiball:
 	.string "MULTIBALL!\p"
-	.string "The next wild POKéMON will be\n"
-	.string "SHINY!$"
+	.string "The next encounter brings TWO\n"
+	.string "SHINY wild POKéMON at once!$"
