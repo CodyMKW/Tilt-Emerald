@@ -3,6 +3,15 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v19
+- Pinball Table rebuilt: a bigger, cleaner maze with cushion-marked bumpers and flippers, a rug in the TABLE KING's room, and trainers placed so they never block corridors. Fixes the freeze when walking in the old maze (the bumper/flipper triggers were set up wrong).
+- Fix: Joseph's sprite is no longer black in Petalburg during the reunion.
+- Fix: talking to Joseph's Pikachu in Littleroot no longer freezes.
+- Fix: Cody's gym statues now show their text (the two at the entrance included).
+- The guide at the gym entrance now congratulates you once you've beaten Cody.
+- The quiz guard only asks his question with all 8 badges. Otherwise he talks and sends you back to the gym entrance.
+- Maze, Pikachu and statue fixes checked in an emulator. Existing saves stay valid.
+
 ## v18
 - New dungeon: the PINBALL TABLE. Talk to the Attendant in the Pinball Wizard's room (needs a best combo of 10+). Inside is a pinball-hall maze with two trainers, bumpers (first one each visit gives COMBO +3), corner flippers that fling you across the table, and the TABLE KING in the top-left. Beating him gives 3 PP Max, a Lucky Egg and 3 Ball Savers.
 - Trainer level scaling: every trainer's strongest Pokemon is now your highest level +1, and the rest of their team keeps its gap below that ace. Trainers are never weaker than before, so early game is unchanged. Dream Island rematch bonuses stack on top.

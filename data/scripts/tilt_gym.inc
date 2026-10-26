@@ -93,10 +93,16 @@ TiltGym_EventScript_YardGreeter::
 TiltGym_EventScript_Guide::
 	lock
 	faceplayer
+	goto_if_defeated TRAINER_TILT_CODY, TiltGym_EventScript_GuideChampion
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, TRUE, TiltGym_EventScript_GuideReady
 	msgbox TiltGym_Text_GuideLocked1, MSGBOX_DEFAULT
 	msgbox TiltGym_Text_GuideLocked2, MSGBOX_DEFAULT
+	release
+	end
+
+TiltGym_EventScript_GuideChampion::
+	msgbox TiltGym_Text_GuideChampion, MSGBOX_DEFAULT
 	release
 	end
 
@@ -110,6 +116,8 @@ TiltGym_EventScript_GuideReady::
 TiltGym_EventScript_Guard::
 	lock
 	faceplayer
+	call TiltGym_EventScript_CheckBadges
+	goto_if_eq VAR_RESULT, FALSE, TiltGym_EventScript_GuardNoBadges
 	msgbox TiltGym_Text_GuardHalt, MSGBOX_DEFAULT
 	message TiltGym_Text_GuardAsk
 	waitmessage
@@ -117,6 +125,14 @@ TiltGym_EventScript_Guard::
 	switch VAR_RESULT
 	case 1, TiltGym_EventScript_GuardCorrect
 	goto TiltGym_EventScript_GuardWrong
+	end
+
+TiltGym_EventScript_GuardNoBadges::
+	msgbox TiltGym_Text_GuardNoBadges, MSGBOX_DEFAULT
+	closemessage
+	playse SE_EXIT
+	warp MAP_LITTLEROOT_TOWN_GYM, 16, 37
+	waitstate
 	end
 
 TiltGym_EventScript_GuardCorrect::
@@ -272,6 +288,12 @@ TiltGym_Text_GuideLocked2:
 	.string "The GUARD in the last hall asks for\n"
 	.string "our gym's motto. Ask the trainers!$"
 
+TiltGym_Text_GuideChampion:
+	.string "You beat CODY?! Congratulations,\n"
+	.string "CHAMPION of this gym!\p"
+	.string "The whole gym is talking about it.\n"
+	.string "Your name is on the statues now!$"
+
 TiltGym_Text_GuideReady:
 	.string "You hold all 8 BADGES!\p"
 	.string "Then everyone here will battle you.\n"
@@ -282,6 +304,12 @@ TiltGym_Text_GuideReady:
 TiltGym_Text_GuardHalt:
 	.string "Halt! Only those who know our\n"
 	.string "gym's creed may pass.$"
+
+TiltGym_Text_GuardNoBadges:
+	.string "Halt! Our gym's creed is only for\n"
+	.string "trainers who hold all 8 BADGES.\p"
+	.string "You're not ready yet. Back to the\n"
+	.string "entrance with you!$"
 
 TiltGym_Text_GuardAsk:
 	.string "What is the motto of this gym?$"

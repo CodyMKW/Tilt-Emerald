@@ -249,12 +249,10 @@ TiltJoseph_EventScript_ShowReunionGroup::
 TiltJoseph_EventScript_Pikachu::
 	lock
 	faceplayer
-	waitmovement 0
 	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
 	msgbox TiltJoseph_Text_PikachuCry, MSGBOX_DEFAULT
 	waitmoncry
-	applymovement LOCALID_TILTJOSEPH_PIKACHU, Common_Movement_FaceDown
-	waitmovement 0
+	turnobject LOCALID_TILTJOSEPH_PIKACHU, DIR_SOUTH
 	release
 	end
 

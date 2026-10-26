@@ -22,7 +22,7 @@ PinballTable_EventScript_Attendant::
 	closemessage
 	fadescreen FADE_TO_BLACK
 	playse SE_EXIT
-	warp MAP_PINBALL_TABLE, 7, 13
+	warp MAP_PINBALL_TABLE, 7, 14
 	waitstate
 	release
 	end
@@ -33,7 +33,7 @@ PinballTable_EventScript_AttendantBeaten::
 	closemessage
 	fadescreen FADE_TO_BLACK
 	playse SE_EXIT
-	warp MAP_PINBALL_TABLE, 7, 13
+	warp MAP_PINBALL_TABLE, 7, 14
 	waitstate
 	release
 	end
@@ -88,7 +88,7 @@ PinballTable_EventScript_FlipperA::
 	playse SE_M_FLY
 	msgbox PinballTable_Text_Flipper, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_PINBALL_TABLE, 2, 2
+	warp MAP_PINBALL_TABLE, 4, 3
 	waitstate
 	releaseall
 	end
@@ -98,7 +98,7 @@ PinballTable_EventScript_FlipperB::
 	playse SE_M_FLY
 	msgbox PinballTable_Text_Flipper, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_PINBALL_TABLE, 12, 6
+	warp MAP_PINBALL_TABLE, 11, 7
 	waitstate
 	releaseall
 	end
@@ -108,7 +108,7 @@ PinballTable_EventScript_FlipperC::
 	playse SE_M_FLY
 	msgbox PinballTable_Text_Flipper, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_PINBALL_TABLE, 1, 8
+	warp MAP_PINBALL_TABLE, 7, 5
 	waitstate
 	releaseall
 	end

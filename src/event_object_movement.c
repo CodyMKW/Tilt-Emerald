@@ -28,6 +28,7 @@
 #include "constants/items.h"
 #include "constants/mauville_old_man.h"
 #include "constants/trainer_types.h"
+#include "constants/region_map_sections.h"
 #include "constants/union_room.h"
 
 #define SPECIAL_LOCALIDS_START (min(LOCALID_CAMERA, \
@@ -1441,9 +1442,9 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
     {
         LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, paletteSlot);
     }
-    else if (paletteSlot >= 16)
+    else if (paletteSlot == PALSLOT_NPC_SPECIAL_REFLECTION)
     {
-        paletteSlot -= 16;
+        // TILT MODE: graphics that patch their own palette straight into slot 11
         _PatchObjectPalette(graphicsInfo->paletteTag, paletteSlot);
     }
 
@@ -1629,8 +1630,8 @@ u8 CreateVirtualObject(u8 graphicsId, u8 virtualObjId, s16 x, s16 y, u8 elevatio
         sprite->sVirtualObjElev = elevation;
         if (graphicsInfo->paletteSlot == PALSLOT_NPC_SPECIAL)
             LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
-        else if (graphicsInfo->paletteSlot >= 16)
-            _PatchObjectPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot | 0xf0);
+        else if (graphicsInfo->paletteSlot == PALSLOT_NPC_SPECIAL_REFLECTION)
+            _PatchObjectPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
 
         if (subspriteTables != NULL)
         {
@@ -1761,9 +1762,9 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
     {
         LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
-    else if (paletteSlot >= 16)
+    else if (paletteSlot == PALSLOT_NPC_SPECIAL_REFLECTION)
     {
-        paletteSlot -= 16;
+        // TILT MODE: graphics that patch their own palette straight into slot 11
         _PatchObjectPalette(graphicsInfo->paletteTag, paletteSlot);
     }
     *(u16 *)&spriteTemplate.paletteTag = TAG_NONE;
@@ -1836,9 +1837,9 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 graphicsId)
     {
         LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
-    else if (paletteSlot >= 16)
+    else if (paletteSlot == PALSLOT_NPC_SPECIAL_REFLECTION)
     {
-        paletteSlot -= 16;
+        // TILT MODE: graphics that patch their own palette straight into slot 11
         _PatchObjectPalette(graphicsInfo->paletteTag, paletteSlot);
     }
     sprite->oam.shape = graphicsInfo->oam->shape;
@@ -2536,6 +2537,9 @@ void InitObjectEventPalettes(u8 reflectionType)
     {
         PatchObjectPaletteRange(sObjectPaletteTagSets[sCurrentReflectionType], PALSLOT_PLAYER, PALSLOT_NPC_4 + 1);
         gReservedSpritePaletteCount = 8;
+        // TILT MODE: Petalburg's reunion group needs palette slots 10 (Flygon) and 11 (Joseph)
+        if (gMapHeader.regionMapSectionId == MAPSEC_PETALBURG_CITY)
+            gReservedSpritePaletteCount = OBJ_PALSLOT_COUNT;
     }
     else
     {
