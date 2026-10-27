@@ -131,7 +131,7 @@ TiltGym_EventScript_GuardNoBadges::
 	msgbox TiltGym_Text_GuardNoBadges, MSGBOX_DEFAULT
 	closemessage
 	playse SE_EXIT
-	warp MAP_LITTLEROOT_TOWN_GYM, 7, 22
+	warp MAP_LITTLEROOT_TOWN_GYM, 7, 24
 	waitstate
 	end
 
@@ -149,8 +149,54 @@ TiltGym_EventScript_GuardCorrect::
 TiltGym_EventScript_GuardWrong::
 	msgbox TiltGym_Text_GuardWrong, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_LITTLEROOT_TOWN_GYM, 7, 22
+	warp MAP_LITTLEROOT_TOWN_GYM, 7, 24
 	waitstate
+	end
+
+@ ---------------- Dragon Gates and Orbs (FLAG_TEMP_2/3 = gate A/B opened this visit) ----------------
+
+TiltGym_EventScript_Gate::
+	msgbox TiltGym_Text_Gate, MSGBOX_SIGN
+	end
+
+TiltGym_EventScript_OrbA::
+	lock
+	goto_if_set FLAG_TEMP_2, TiltGym_EventScript_OrbUsed
+	setflag FLAG_TEMP_2
+	playse SE_UNLOCK
+	msgbox TiltGym_Text_OrbGlow, MSGBOX_DEFAULT
+	removeobject LOCALID_TILTGYM_GATE_A1
+	removeobject LOCALID_TILTGYM_GATE_A2
+	release
+	end
+
+TiltGym_EventScript_OrbB::
+	lock
+	goto_if_set FLAG_TEMP_3, TiltGym_EventScript_OrbUsed
+	setflag FLAG_TEMP_3
+	playse SE_UNLOCK
+	msgbox TiltGym_Text_OrbGlow, MSGBOX_DEFAULT
+	removeobject LOCALID_TILTGYM_GATE_B1
+	removeobject LOCALID_TILTGYM_GATE_B2
+	release
+	end
+
+TiltGym_EventScript_OrbUsed::
+	msgbox TiltGym_Text_OrbUsed, MSGBOX_DEFAULT
+	release
+	end
+
+@ Stepping up to the guard makes him stop you (he also blocks the whole width of the stage steps)
+TiltGym_EventScript_GuardSentry::
+	goto_if_set FLAG_UNUSED_0x02D, TiltGym_EventScript_GuardSentryEnd
+	lockall
+	playse SE_PIN
+	applymovement LOCALID_TILTGYM_GUARD, Common_Movement_ExclamationMark
+	waitmovement 0
+	goto TiltGym_EventScript_Guard
+	end
+
+TiltGym_EventScript_GuardSentryEnd::
 	end
 
 @ ---------------- Gym trainers ----------------
@@ -254,6 +300,21 @@ TiltGym_EventScript_CodyBagFull::
 	release
 	end
 
+@ ---------------- Text: gates ----------------
+
+TiltGym_Text_Gate:
+	.string "A DRAGON GATE.\n"
+	.string "It won't budge.\p"
+	.string "A glowing DRAGON ORB nearby might\n"
+	.string "open it.$"
+
+TiltGym_Text_OrbGlow:
+	.string "The DRAGON ORB glows!\p"
+	.string "A DRAGON GATE rumbles open.$"
+
+TiltGym_Text_OrbUsed:
+	.string "The DRAGON ORB's glow has faded.$"
+
 @ ---------------- Text: yard ----------------
 
 TiltGym_Text_YardSign:
@@ -282,8 +343,9 @@ TiltGym_Text_GuideLocked1:
 	.string "and talk to everyone!$"
 
 TiltGym_Text_GuideLocked2:
-	.string "Follow the winding hall north to\n"
-	.string "reach CODY.\p"
+	.string "Two DRAGON GATES block the hall.\n"
+	.string "Touch the glowing DRAGON ORB in\l"
+	.string "each room to open the next gate.\p"
 	.string "The GUARD in front of him asks for\n"
 	.string "our gym's motto. Ask the trainers!$"
 
@@ -373,8 +435,8 @@ TiltGym_Text_SandraPost:
 TiltGym_Text_RyuLocked:
 	.string "I'm RYU. Come back with all\n"
 	.string "8 BADGES if you want a fight.\p"
-	.string "The hall winds back and forth.\n"
-	.string "Keep heading north to find CODY.$"
+	.string "Touch the DRAGON ORB in a room\n"
+	.string "to open the gate to the next.$"
 
 TiltGym_Text_RyuIntro:
 	.string "All 8 BADGES! Finally, a real\n"

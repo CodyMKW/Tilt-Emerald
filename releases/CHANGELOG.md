@@ -3,6 +3,11 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v21
+- Cody's gym now has its own gimmick: DRAGON GATES. Two stone gates split the hall into rooms; touch the glowing DRAGON ORB in each room to open the gate to the next. (Gates close again each time you enter the gym.)
+- The guard now stops you the moment you step up in front of him (no more sneaking by on the sides). Without 8 badges he sends you back to the entrance; with 8 he asks the motto question.
+- Hall is longer, with trainers in each room; dialogue updated to explain the gates. Existing saves stay valid.
+
 ## v20.1
 - Cody's gym now has its own original layout (wider hall, stage with columns, staggered raised platforms, statues at the entrance) built from the same stone-gym tiles as the official gyms, instead of a copy of Rustboro's. The four trainers each guard a lane and the guard stands in front of CODY.
 - No gameplay changes beyond the new coordinates. Existing saves stay valid.
