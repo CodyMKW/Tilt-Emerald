@@ -19,6 +19,12 @@ LittlerootTown_Gym_MapScripts::
 @ Gym trainers spot you and walk over once you hold all 8 badges. Before that they are marked as
 @ "already battled" so they stay put (FLAG_UNUSED_0x03E = that mark is automatic, clear it at 8 badges).
 LittlerootTown_Gym_OnTransition::
+	goto_if_set FLAG_UNUSED_0x02D, LittlerootTown_Gym_SentryOff
+	goto LittlerootTown_Gym_OnTransitionBadges
+
+LittlerootTown_Gym_SentryOff::
+	setvar VAR_TEMP_0, 1
+LittlerootTown_Gym_OnTransitionBadges::
 	call TiltGym_EventScript_CheckBadges
 	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_Gym_ArmTrainers
 	goto_if_set FLAG_UNUSED_0x03E, LittlerootTown_Gym_OnTransitionEnd
@@ -142,6 +148,7 @@ TiltGym_EventScript_GuardCorrect::
 	waitmovement 0
 	removeobject LOCALID_TILTGYM_GUARD
 	setflag FLAG_UNUSED_0x02D
+	setvar VAR_TEMP_0, 1
 	msgbox TiltGym_Text_GuardOpen, MSGBOX_DEFAULT
 	release
 	end
@@ -197,6 +204,9 @@ TiltGym_EventScript_GuardSentry::
 	end
 
 TiltGym_EventScript_GuardSentryEnd::
+	lockall
+	setvar VAR_TEMP_0, 1
+	releaseall
 	end
 
 @ ---------------- Gym trainers ----------------

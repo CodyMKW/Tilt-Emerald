@@ -3,6 +3,9 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v21.1
+- Fix: the game froze when you walked in front of Cody's stage after the guard had stepped aside (the guard's trigger tiles hung once he was gone). They now switch off once the quiz is solved. Checked in an emulator with all 8 badges. Existing saves stay valid.
+
 ## v21
 - Cody's gym now has its own gimmick: DRAGON GATES. Two stone gates split the hall into rooms; touch the glowing DRAGON ORB in each room to open the gate to the next. (Gates close again each time you enter the gym.)
 - The guard now stops you the moment you step up in front of him (no more sneaking by on the sides). Without 8 badges he sends you back to the entrance; with 8 he asks the motto question.
