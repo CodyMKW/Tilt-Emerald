@@ -131,7 +131,7 @@ TiltGym_EventScript_GuardNoBadges::
 	msgbox TiltGym_Text_GuardNoBadges, MSGBOX_DEFAULT
 	closemessage
 	playse SE_EXIT
-	warp MAP_LITTLEROOT_TOWN_GYM, 5, 18
+	warp MAP_LITTLEROOT_TOWN_GYM, 7, 22
 	waitstate
 	end
 
@@ -149,7 +149,7 @@ TiltGym_EventScript_GuardCorrect::
 TiltGym_EventScript_GuardWrong::
 	msgbox TiltGym_Text_GuardWrong, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_LITTLEROOT_TOWN_GYM, 5, 18
+	warp MAP_LITTLEROOT_TOWN_GYM, 7, 22
 	waitstate
 	end
 

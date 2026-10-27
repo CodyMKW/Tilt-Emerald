@@ -3,6 +3,10 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v20.1
+- Cody's gym now has its own original layout (wider hall, stage with columns, staggered raised platforms, statues at the entrance) built from the same stone-gym tiles as the official gyms, instead of a copy of Rustboro's. The four trainers each guard a lane and the guard stands in front of CODY.
+- No gameplay changes beyond the new coordinates. Existing saves stay valid.
+
 ## v20
 - Multiball is now a real double battle: when the Multiball shiny triggers, you face TWO shiny wild Pokemon at once (needs 2 Pokemon in your party; with 1 it stays a single battle). The combo bonus counts both.
 - Cody's gym redesigned as a traditional gym hall in the style of Rustboro's: a winding path past the four trainers up to a stage where the guard stands in front of CODY. The teleport pads are gone and all dialogue was updated.
