@@ -3,6 +3,10 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v22
+- New option in the Options menu: EXP MODE. CLASSIC works exactly like before (only Pokemon that took part in the battle get EXP, plus Exp. Share holders). MODERN gives EVERY living Pokemon in your party EXP after a win: the ones that fought get their normal share, and the ones that stayed in the party get half of the full amount (eggs and fainted Pokemon get none). Default is CLASSIC, so existing saves play the same until you change it.
+- The Options menu rows are a little tighter to fit the new entry. Existing saves stay valid.
+
 ## v21.1
 - Fix: the game froze when you walked in front of Cody's stage after the guard had stepped aside (the guard's trigger tiles hung once he was gone). They now switch off once the quiz is solved. Checked in an emulator with all 8 badges. Existing saves stay valid.
 
