@@ -4414,10 +4414,10 @@
     {
       "id": "LAYOUT_LITTLEROOT_TOWN_GYM",
       "name": "LittlerootTown_Gym_Layout",
-      "width": 30,
-      "height": 40,
+      "width": 11,
+      "height": 20,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_MossdeepGym",
+      "secondary_tileset": "gTileset_RustboroGym",
       "border_filepath": "data/layouts/LittlerootTown_Gym/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_Gym/map.bin"
     },

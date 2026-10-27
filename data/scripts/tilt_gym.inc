@@ -1,4 +1,4 @@
-@ Cody's Gym (Littleroot Town, west side) - scripts for the yard, the pad-maze gym, the guard quiz,
+@ Cody's Gym (Littleroot Town, west side) - scripts for the yard, the gym hall, the guard quiz,
 @ the four gym trainers and the gym leader Cody.
 @
 @ Nobody here can be battled until the player holds all 8 badges. Everyone can be talked to.
@@ -111,7 +111,7 @@ TiltGym_EventScript_GuideReady::
 	release
 	end
 
-@ ---------------- Guard (blocks the last pad; asks for the motto) ----------------
+@ ---------------- Guard (stands in front of CODY; asks for the motto) ----------------
 
 TiltGym_EventScript_Guard::
 	lock
@@ -131,7 +131,7 @@ TiltGym_EventScript_GuardNoBadges::
 	msgbox TiltGym_Text_GuardNoBadges, MSGBOX_DEFAULT
 	closemessage
 	playse SE_EXIT
-	warp MAP_LITTLEROOT_TOWN_GYM, 16, 37
+	warp MAP_LITTLEROOT_TOWN_GYM, 5, 18
 	waitstate
 	end
 
@@ -149,7 +149,7 @@ TiltGym_EventScript_GuardCorrect::
 TiltGym_EventScript_GuardWrong::
 	msgbox TiltGym_Text_GuardWrong, MSGBOX_DEFAULT
 	closemessage
-	warp MAP_LITTLEROOT_TOWN_GYM, 16, 37
+	warp MAP_LITTLEROOT_TOWN_GYM, 5, 18
 	waitstate
 	end
 
@@ -269,7 +269,8 @@ TiltGym_Text_YardGreeter:
 	.string "Only trainers with all 8 BADGES\n"
 	.string "may challenge anyone inside.\p"
 	.string "But anyone can go in and look\n"
-	.string "around. Just mind the pads!$"
+	.string "around.\p"
+	.string "Just ask the gym guide inside!$"
 
 @ ---------------- Text: guide ----------------
 
@@ -281,11 +282,9 @@ TiltGym_Text_GuideLocked1:
 	.string "and talk to everyone!$"
 
 TiltGym_Text_GuideLocked2:
-	.string "The glowing pads teleport you from\n"
-	.string "room to room. Some lead onward,\l"
-	.string "some send you back.\p"
-	.string "Start with the pad to the north.\p"
-	.string "The GUARD in the last hall asks for\n"
+	.string "Follow the winding hall north to\n"
+	.string "reach CODY.\p"
+	.string "The GUARD in front of him asks for\n"
 	.string "our gym's motto. Ask the trainers!$"
 
 TiltGym_Text_GuideChampion:
@@ -319,7 +318,7 @@ TiltGym_Text_GuardCorrect:
 	.string "the trainers. Well done.$"
 
 TiltGym_Text_GuardOpen:
-	.string "The pad ahead leads to CODY.\n"
+	.string "The way to CODY is open.\n"
 	.string "Go on, trainer.$"
 
 TiltGym_Text_GuardWrong:
@@ -333,8 +332,8 @@ TiltGym_Text_DracoLocked:
 	.string "unless you have all 8 BADGES.\p"
 	.string "But I'll tell you this: our motto\n"
 	.string "begins with BOUNCE HIGH...\p"
-	.string "And a tip: the pad closest to where\n"
-	.string "you arrive in here leads deeper.$"
+	.string "The GUARD up north wants the whole\n"
+	.string "motto. Ask the others for the rest.$"
 
 TiltGym_Text_DracoIntro:
 	.string "All 8 BADGES? Then show me how\n"
@@ -374,10 +373,8 @@ TiltGym_Text_SandraPost:
 TiltGym_Text_RyuLocked:
 	.string "I'm RYU. Come back with all\n"
 	.string "8 BADGES if you want a fight.\p"
-	.string "Two pads sit side by side in the\n"
-	.string "north of this room.\p"
-	.string "Take the left one. The right one\n"
-	.string "just throws you back.$"
+	.string "The hall winds back and forth.\n"
+	.string "Keep heading north to find CODY.$"
 
 TiltGym_Text_RyuIntro:
 	.string "All 8 BADGES! Finally, a real\n"
@@ -398,8 +395,8 @@ TiltGym_Text_MiraLocked:
 	.string "you don't have 8 BADGES yet.\p"
 	.string "FLYGON is the heart of CODY'S team.\n"
 	.string "He trains it in the desert.\p"
-	.string "The pad in the middle of this room\n"
-	.string "leads to the last hall.$"
+	.string "The GUARD by the stage won't let\n"
+	.string "you pass without the motto.$"
 
 TiltGym_Text_MiraIntro:
 	.string "8 BADGES! Let's see if you can\n"
@@ -416,7 +413,7 @@ TiltGym_Text_MiraPost:
 @ ---------------- Text: Cody ----------------
 
 TiltGym_Text_CodyLocked1:
-	.string "So you made it through the pads.\n"
+	.string "So you made it through my gym.\n"
 	.string "Impressive.\p"
 	.string "I am CODY, the Dragon Master. My\n"
 	.string "team revolves around FLYGON,\l"
@@ -425,8 +422,7 @@ TiltGym_Text_CodyLocked1:
 TiltGym_Text_CodyLocked2:
 	.string "But I only battle trainers who\n"
 	.string "hold all 8 BADGES.\p"
-	.string "The pad by the wall behind me takes\n"
-	.string "you back to the entrance.\p"
+	.string "The exit is back down the hall.\p"
 	.string "Prove yourself across the region.\n"
 	.string "Then come back. I'll be waiting.$"
 
@@ -453,8 +449,7 @@ TiltGym_Text_CodyRewards:
 	.string "FLYGON trusts the most.\p"
 	.string "The DRAGON FANG carries the power\n"
 	.string "of a true dragon.\p"
-	.string "The pad by the wall behind me takes\n"
-	.string "you back to the entrance.\p"
+	.string "The exit is back down the hall.\p"
 	.string "Come back anytime. FLYGON and I\n"
 	.string "would love a rematch!$"
 
@@ -465,6 +460,5 @@ TiltGym_Text_CodyBagFull:
 TiltGym_Text_CodyPost:
 	.string "FLYGON and I are training for\n"
 	.string "our next rematch.\p"
-	.string "The pad by the wall behind me takes\n"
-	.string "you back to the entrance.\p"
+	.string "The exit is back down the hall.\p"
 	.string "Bounce high, fly higher!$"

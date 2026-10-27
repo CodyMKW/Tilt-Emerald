@@ -3,6 +3,12 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v20
+- Multiball is now a real double battle: when the Multiball shiny triggers, you face TWO shiny wild Pokemon at once (needs 2 Pokemon in your party; with 1 it stays a single battle). The combo bonus counts both.
+- Cody's gym redesigned as a traditional gym hall in the style of Rustboro's: a winding path past the four trainers up to a stage where the guard stands in front of CODY. The teleport pads are gone and all dialogue was updated.
+- Only the two statues at the entrance have text now; the extra statue objects are removed.
+- Guard no-badge warp now returns you to the new entrance. Existing saves stay valid.
+
 ## v19
 - Pinball Table rebuilt: a bigger, cleaner maze with cushion-marked bumpers and flippers, a rug in the TABLE KING's room, and trainers placed so they never block corridors. Fixes the freeze when walking in the old maze (the bumper/flipper triggers were set up wrong).
 - Fix: Joseph's sprite is no longer black in Petalburg during the reunion.
