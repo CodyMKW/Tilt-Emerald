@@ -2242,6 +2242,14 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
               | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
     }
 
+    if (gSaveBlock2Ptr->optionsShinyBoost && !hasFixedPersonality && otIdType == OT_ID_PLAYER_ID)
+    {
+        // TILT: shiny charm, up to 3 extra rolls
+        u8 rolls;
+        for (rolls = 0; rolls < 3 && GET_SHINY_VALUE(value, personality) >= SHINY_ODDS; rolls++)
+            personality = Random32();
+        SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
+    }
     SetBoxMonData(boxMon, MON_DATA_OT_ID, &value);
 
     checksum = CalculateBoxMonChecksum(boxMon);

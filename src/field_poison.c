@@ -125,6 +125,9 @@ s32 DoPoisonFieldEffect(void)
     u32 numPoisoned = 0;
     u32 numFainted = 0;
 
+    if (gSaveBlock2Ptr->optionsNoFieldPoison)
+        return FLDPSN_NONE;
+
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)

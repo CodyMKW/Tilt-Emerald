@@ -3322,12 +3322,10 @@ static void Cmd_getexp(void)
 
             if (gSaveBlock2Ptr->optionsExpModern) // TILT: modern EXP, whole party gets a share
             {
-                *exp = SAFE_DIV(calculatedExp, viaSentIn);
+                *exp = calculatedExp; // everyone gets the full amount, like the newest games
                 if (*exp == 0)
                     *exp = 1;
-                gExpShareExp = calculatedExp / 2;
-                if (gExpShareExp == 0)
-                    gExpShareExp = 1;
+                gExpShareExp = *exp;
             }
             else if (viaExpShare) // at least one mon is getting exp via exp share
             {
@@ -3394,7 +3392,7 @@ static void Cmd_getexp(void)
                     if (gSaveBlock2Ptr->optionsExpModern)
                     {
                         if (!(gBattleStruct->sentInPokes & 1))
-                            gBattleMoveDamage += gExpShareExp; // TILT: non-participants get half
+                            gBattleMoveDamage += gExpShareExp; // TILT: non-participants get the full amount
                     }
                     else if (holdEffect == HOLD_EFFECT_EXP_SHARE)
                         gBattleMoveDamage += gExpShareExp;

@@ -3,6 +3,15 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v23
+- EXP MODE: Modern now gives EVERY living Pokemon in your party the FULL EXP amount after a win, like the newest games (eggs and fainted Pokemon get none). Classic is unchanged.
+- The Options menu now has a second page. Press L or R to flip between PAGE 1/2 and PAGE 2/2. Page 2 holds the new modern-day options (all OFF by default, so nothing changes until you turn them on):
+  - ALWAYS RUN: you run by default and holding B walks instead.
+  - REUSABLE TMS: teaching a TM no longer uses it up (like Gen 5 and later).
+  - SHINY CHARM: wild and gifted Pokemon get up to 3 extra shiny rolls (about 4x the odds).
+  - NO MAP POISON: poison no longer drains HP while you walk around (Gen 5 and later).
+- Existing saves stay valid. Checked in an emulator: page flipping, full EXP for the whole party, Always Run. Reusable TMs, Shiny Charm and No Map Poison are untested in the emulator.
+
 ## v22
 - New option in the Options menu: EXP MODE. CLASSIC works exactly like before (only Pokemon that took part in the battle get EXP, plus Exp. Share holders). MODERN gives EVERY living Pokemon in your party EXP after a win: the ones that fought get their normal share, and the ones that stayed in the party get half of the full amount (eggs and fainted Pokemon get none). Default is CLASSIC, so existing saves play the same until you change it.
 - The Options menu rows are a little tighter to fit the new entry. Existing saves stay valid.
