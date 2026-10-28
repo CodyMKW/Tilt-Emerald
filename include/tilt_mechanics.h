@@ -22,6 +22,7 @@ extern u8 gTiltFlipMsg;
 bool8 TiltBonusEncounter(void);
 bool8 TiltAddSecondBall(void);
 extern bool8 gTiltDoubleBall;
+extern u8 gTiltCatchChain;
 void TiltForceShinyNext(void);
 bool8 TiltTakeForceShiny(void);
 

@@ -417,14 +417,11 @@ static void DoStandardWildBattle(void)
         VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
         gBattleTypeFlags |= BATTLE_TYPE_PYRAMID;
     }
-    else if (gTiltMultiballActive && CalculatePlayerPartyCount() >= 2 && GetMonsStateToDoubles() == PLAYER_HAS_TWO_USABLE_MONS)
+    else if (gTiltMultiballActive)
     {
-        // TILT MODE: MULTIBALL - two shiny wild Pokemon at once
+        // TILT MODE: MULTIBALL - two shiny wild Pokemon, one after the other in the same battle
         if (TiltAddSecondBall())
-        {
-            gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
             gTiltDoubleBall = TRUE;
-        }
     }
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);

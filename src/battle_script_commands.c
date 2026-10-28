@@ -3262,6 +3262,35 @@ static void Cmd_jumpiftype(void)
         gBattlescriptCurrInstr += 7;
 }
 
+// TILT MULTIBALL: is there still another shiny waiting in the enemy party?
+static bool8 TiltNextBallPending(void)
+{
+    s32 i;
+
+    if (!gTiltDoubleBall)
+        return FALSE;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gEnemyParty[i], MON_DATA_HP) > 0)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 TiltNextBallPendingExcept(u8 skip)
+{
+    s32 i;
+
+    if (!gTiltDoubleBall || (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return FALSE;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i != skip && GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gEnemyParty[i], MON_DATA_HP) > 0)
+            return TRUE;
+    }
+    return FALSE;
+}
+
 static void Cmd_getexp(void)
 {
     u16 item;
@@ -3375,7 +3404,7 @@ static void Cmd_getexp(void)
             else
             {
                 // music change in wild battle after fainting a poke
-                if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) && gBattleMons[0].hp != 0 && !gBattleStruct->wildVictorySong)
+                if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) && gBattleMons[0].hp != 0 && !gBattleStruct->wildVictorySong && !TiltNextBallPending())
                 {
                     BattleStopLowHpSound();
                     PlayBGM(MUS_VICTORY_WILD);
@@ -6349,6 +6378,22 @@ static void Cmd_various(void)
     {
     case VARIOUS_CANCEL_MULTI_TURN_MOVES:
         CancelMultiTurnMoves(gActiveBattler);
+        break;
+    case VARIOUS_TILT_CATCH_CHECK:
+        // TILT MULTIBALL: is another shiny waiting? (then the catch is handled silently and it jumps in)
+        gTiltCatchChain = FALSE;
+        if (TiltNextBallPendingExcept(gBattlerPartyIndexes[gActiveBattler]))
+            gTiltCatchChain = TRUE;
+        break;
+    case VARIOUS_TILT_CATCH_APPLY:
+        {
+            u8 caught = gBattlerPartyIndexes[gActiveBattler];
+            u32 zero = 0;
+            gBattleMons[gActiveBattler].hp = 0;
+            gHitMarker |= HITMARKER_FAINTED(gActiveBattler);
+            SetMonData(&gEnemyParty[caught], MON_DATA_HP, &zero);
+            gBattleStruct->givenExpMons |= gBitTable[caught];
+        }
         break;
     case VARIOUS_SET_MAGIC_COAT_TARGET:
         gBattlerAttacker = gBattlerTarget;

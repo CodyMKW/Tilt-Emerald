@@ -3,6 +3,12 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v24
+- MULTIBALL is now ONE battle, not a double battle. Beat or catch the first shiny and the second one jumps in ("Another shiny wild X jumped out!"), like a trainer sending out their next Pokemon.
+- No victory music or "battle won" wrap-up between the two shinies; EXP is still given after each KO.
+- Catching the first shiny skips the Pokedex page and nickname prompt so the fight flows straight on; the second one gets the normal catch screens.
+- Works with a single Pokemon in your party now.
+
 ## v23
 - EXP MODE: Modern now gives EVERY living Pokemon in your party the FULL EXP amount after a win, like the newest games (eggs and fainted Pokemon get none). Classic is unchanged.
 - The Options menu now has a second page. Press L or R to flip between PAGE 1/2 and PAGE 2/2. Page 2 holds the new modern-day options (all OFF by default, so nothing changes until you turn them on):

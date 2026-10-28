@@ -358,6 +358,8 @@ enum BattleScriptOpcode
 #define VARIOUS_PALACE_TRY_ESCAPE_STATUS        24
 #define VARIOUS_SET_TELEPORT_OUTCOME            25
 #define VARIOUS_PLAY_TRAINER_DEFEATED_MUSIC     26
+#define VARIOUS_TILT_CATCH_CHECK                27
+#define VARIOUS_TILT_CATCH_APPLY                28
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0

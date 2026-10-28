@@ -65,7 +65,9 @@ BattleScript_SuccessBallThrow::
 	jumpifhalfword CMP_EQUAL, gLastUsedItem, ITEM_SAFARI_BALL, BattleScript_PrintCaughtMonInfo
 	incrementgamestat GAME_STAT_POKEMON_CAPTURES
 BattleScript_PrintCaughtMonInfo::
+	various BS_TARGET, VARIOUS_TILT_CATCH_CHECK
 	printstring STRINGID_GOTCHAPKMNCAUGHTPLAYER
+	jumpifbyte CMP_EQUAL, gTiltCatchChain, 1, BattleScript_TiltCaughtSilently
 	trysetcaughtmondexflags BattleScript_TryNicknameCaughtMon
 	printstring STRINGID_PKMNDATAADDEDTODEX
 	waitstate
@@ -84,6 +86,17 @@ BattleScript_GiveCaughtMonEnd::
 	givecaughtmon
 BattleScript_SuccessBallThrowEnd::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
+	finishturn
+
+@ TILT MULTIBALL: first shiny caught while a second one waits. No dex page / nickname screen here, the
+@ second shiny just jumps in next.
+BattleScript_TiltCaughtSilently::
+	trysetcaughtmondexflags BattleScript_TiltCaughtGive
+BattleScript_TiltCaughtGive::
+	givecaughtmon
+	printfromtable gCaughtMonStringIds
+	waitmessage B_WAIT_TIME_LONG
+	various BS_TARGET, VARIOUS_TILT_CATCH_APPLY
 	finishturn
 
 BattleScript_WallyBallThrow::
