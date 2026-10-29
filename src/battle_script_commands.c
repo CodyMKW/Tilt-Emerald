@@ -3395,7 +3395,8 @@ static void Cmd_getexp(void)
                 gBattleScripting.getexpState = 5;
                 gBattleMoveDamage = 0; // used for exp
             }
-            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)
+            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL
+                  || (TiltOpt(TILTOPT_LEVEL_CAP) && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= TiltLevelCap()))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
@@ -5419,7 +5420,10 @@ static void Cmd_handlelearnnewmove(void)
     }
     else if (learnMove == MON_HAS_MAX_MOVES)
     {
-        gBattlescriptCurrInstr += 10;
+        if (TiltOpt(TILTOPT_SKIP_LEARN))
+            gBattlescriptCurrInstr = nothingToLearnPtr; // SKIP MOVE-LEARN option: no replace prompt
+        else
+            gBattlescriptCurrInstr += 10;
     }
     else
     {
@@ -6384,6 +6388,9 @@ static void Cmd_various(void)
         gTiltCatchChain = FALSE;
         if (TiltNextBallPendingExcept(gBattlerPartyIndexes[gActiveBattler]))
             gTiltCatchChain = TRUE;
+        break;
+    case VARIOUS_TILT_NICK_CHECK:
+        gBattleCommunication[0] = TiltOpt(TILTOPT_SKIP_NICK); // AUTO-NICKNAME SKIP option
         break;
     case VARIOUS_TILT_CATCH_APPLY:
         {
@@ -9986,6 +9993,13 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr = BattleScript_TrainerBallBlock;
     }
+    else if (gTiltNzNoCatch)
+    {
+        // NUZLOCKE option: only the first encounter in each area can be caught
+        BtlController_EmitBallThrowAnim(B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
+        MarkBattlerForControllerExec(gActiveBattler);
+        gBattlescriptCurrInstr = BattleScript_TiltNzBallBlock;
+    }
     else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
     {
         BtlController_EmitBallThrowAnim(B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
@@ -10057,6 +10071,7 @@ static void Cmd_handleballthrow(void)
             / (3 * gBattleMons[gBattlerTarget].maxHP);
 
         odds = odds * (100 + TiltCatchBonus()) / 100; // TILT MODE: combo + buff catch bonus
+        odds = odds * (100 + TiltOpt(TILTOPT_CATCH_BOOST) * 50) / 100; // options page 3: CATCH BOOST
 
         if (gBattleMons[gBattlerTarget].status1 & (STATUS1_SLEEP | STATUS1_FREEZE))
             odds *= 2;

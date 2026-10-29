@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "option_menu.h"
 #include "bg.h"
 #include "gpu_regs.h"
@@ -45,20 +46,30 @@ enum
     MENUITEM_REUSETM,
     MENUITEM_SHINY,
     MENUITEM_POISON,
-    MENUITEM_TOTAL,
+    MENUITEM_TILTBASE, // pages 3-5: TILTOPT_* ids
+    MENUITEM_TOTAL = MENUITEM_TILTBASE + TILTOPT_COUNT,
 };
 
 #define PAGE2_ITEMS 4
+#define NUM_PAGES 5
 static u8 sPage;
+static u8 sTiltVals[TILTOPT_COUNT];
+// pages 3-5: first TILTOPT id and row count
+static const u8 sTiltPageFirst[NUM_PAGES] = {0, 0, 0, 4, 8};
+static const u8 sTiltPageRows[NUM_PAGES] = {0, 0, 4, 4, 5};
 static u8 ItemForRow(u8 row)
 {
     if (sPage == 0)
         return row;
-    return row < PAGE2_ITEMS ? MENUITEM_ALWAYSRUN + row : MENUITEM_CANCEL;
+    if (sPage == 1)
+        return row < PAGE2_ITEMS ? MENUITEM_ALWAYSRUN + row : MENUITEM_CANCEL;
+    return row < sTiltPageRows[sPage] ? MENUITEM_TILTBASE + sTiltPageFirst[sPage] + row : MENUITEM_CANCEL;
 }
 static u8 LastRow(void)
 {
-    return sPage == 0 ? MENUITEM_CANCEL : PAGE2_ITEMS;
+    if (sPage == 0)
+        return MENUITEM_CANCEL;
+    return sPage == 1 ? PAGE2_ITEMS : sTiltPageRows[sPage];
 }
 
 enum
@@ -90,6 +101,7 @@ static u8 ExpMode_ProcessInput(u8 selection);
 static void ExpMode_DrawChoices(u8 selection);
 static void OnOff_DrawChoices(u8 selection, u8 y);
 static void DrawPageChoices(u8 taskId);
+static void DrawTiltChoices(u8 id, u8 y);
 static u8 Sound_ProcessInput(u8 selection);
 static void Sound_DrawChoices(u8 selection);
 static u8 FrameType_ProcessInput(u8 selection);
@@ -120,6 +132,19 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_TOTAL] =
     [MENUITEM_REUSETM]     = gText_TiltReusableTM,
     [MENUITEM_SHINY]       = gText_TiltShinyCharm,
     [MENUITEM_POISON]      = gText_TiltFieldPoison,
+    [MENUITEM_TILTBASE + 0] = gText_TiltOptName0,
+    [MENUITEM_TILTBASE + 1] = gText_TiltOptName1,
+    [MENUITEM_TILTBASE + 2] = gText_TiltOptName2,
+    [MENUITEM_TILTBASE + 3] = gText_TiltOptName3,
+    [MENUITEM_TILTBASE + 4] = gText_TiltOptName4,
+    [MENUITEM_TILTBASE + 5] = gText_TiltOptName5,
+    [MENUITEM_TILTBASE + 6] = gText_TiltOptName6,
+    [MENUITEM_TILTBASE + 7] = gText_TiltOptName7,
+    [MENUITEM_TILTBASE + 8] = gText_TiltOptName8,
+    [MENUITEM_TILTBASE + 9] = gText_TiltOptName9,
+    [MENUITEM_TILTBASE + 10] = gText_TiltOptName10,
+    [MENUITEM_TILTBASE + 11] = gText_TiltOptName11,
+    [MENUITEM_TILTBASE + 12] = gText_TiltOptName12,
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -261,6 +286,7 @@ void CB2_InitOptionMenu(void)
     case 10:
     {
         u8 taskId = CreateTask(Task_OptionMenuFadeIn, 0);
+        u8 i;
 
         gTasks[taskId].tMenuSelection = 0;
         gTasks[taskId].tTextSpeed = gSaveBlock2Ptr->optionsTextSpeed;
@@ -275,6 +301,8 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
+        for (i = 0; i < TILTOPT_COUNT; i++)
+            sTiltVals[i] = TiltOpt(i);
 
         DrawPageChoices(taskId);
         HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
@@ -326,7 +354,10 @@ static void Task_OptionMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(L_BUTTON | R_BUTTON))
     {
-        sPage ^= 1;
+        if (JOY_NEW(R_BUTTON))
+            sPage = (sPage + 1) % NUM_PAGES;
+        else
+            sPage = (sPage + NUM_PAGES - 1) % NUM_PAGES;
         gTasks[taskId].tMenuSelection = 0;
         FillWindowPixelBuffer(WIN_HEADER, PIXEL_FILL(1));
         DrawHeaderText();
@@ -338,8 +369,33 @@ static void Task_OptionMenuProcessInput(u8 taskId)
     else
     {
         u8 previousOption;
+        u8 item = ItemForRow(gTasks[taskId].tMenuSelection);
 
-        switch (ItemForRow(gTasks[taskId].tMenuSelection))
+        if (item >= MENUITEM_TILTBASE)
+        {
+            u8 id = item - MENUITEM_TILTBASE;
+            u8 max = TiltOptMax(id);
+
+            if (JOY_NEW(DPAD_RIGHT))
+            {
+                sTiltVals[id] = sTiltVals[id] < max ? sTiltVals[id] + 1 : 0;
+                sArrowPressed = TRUE;
+            }
+            else if (JOY_NEW(DPAD_LEFT))
+            {
+                sTiltVals[id] = sTiltVals[id] > 0 ? sTiltVals[id] - 1 : max;
+                sArrowPressed = TRUE;
+            }
+            if (sArrowPressed)
+            {
+                sArrowPressed = FALSE;
+                DrawTiltChoices(id, gTasks[taskId].tMenuSelection * 14);
+                CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+            }
+            return;
+        }
+
+        switch (item)
         {
         case MENUITEM_TEXTSPEED:
             previousOption = gTasks[taskId].tTextSpeed;
@@ -439,6 +495,12 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
+    {
+        u8 i;
+
+        for (i = 0; i < TILTOPT_COUNT; i++)
+            TiltOptSet(i, sTiltVals[i]);
+    }
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -605,6 +667,46 @@ static void OnOff_DrawChoices(u8 selection, u8 y)
     DrawOptionMenuChoice(gText_BattleSceneOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOn, 198), y, styles[1]);
 }
 
+static void DrawTiltChoices(u8 id, u8 y)
+{
+    const u8 *a, *b, *c = NULL;
+    u8 max = TiltOptMax(id);
+    u8 v = sTiltVals[id];
+    u8 styles[3];
+
+    styles[0] = (v == 0);
+    styles[1] = (v == 1);
+    styles[2] = (v == 2);
+    switch (id)
+    {
+    case TILTOPT_EXP_BOOST:
+    case TILTOPT_CATCH_BOOST:
+        a = gText_TiltCh1x; b = gText_TiltCh15x; c = gText_TiltCh2x;
+        break;
+    case TILTOPT_COMBO_DIFF:
+        a = gText_TiltChEasy; b = gText_TiltChNorm; c = gText_TiltChHard;
+        break;
+    case TILTOPT_MB_FREQ:
+        a = gText_TiltChLow; b = gText_TiltChMid; c = gText_TiltChHigh;
+        break;
+    default:
+        a = gText_TiltChOff; b = gText_TiltChOn;
+        break;
+    }
+    // clear this row's choice area first (it may hold a previous, wider choice)
+    FillWindowPixelRect(WIN_OPTIONS, PIXEL_FILL(1), 100, y, 110, 14);
+    DrawOptionMenuChoice(a, 104, y, styles[0]);
+    if (max == 2)
+    {
+        DrawOptionMenuChoice(b, 151 - GetStringWidth(FONT_NORMAL, b, 0) / 2, y, styles[1]);
+        DrawOptionMenuChoice(c, GetStringRightAlignXOffset(FONT_NORMAL, c, 198), y, styles[2]);
+    }
+    else
+    {
+        DrawOptionMenuChoice(b, GetStringRightAlignXOffset(FONT_NORMAL, b, 198), y, styles[1]);
+    }
+}
+
 static void DrawPageChoices(u8 taskId)
 {
     if (sPage == 0)
@@ -616,6 +718,13 @@ static void DrawPageChoices(u8 taskId)
         Sound_DrawChoices(gTasks[taskId].tSound);
         ButtonMode_DrawChoices(gTasks[taskId].tButtonMode);
         FrameType_DrawChoices(gTasks[taskId].tWindowFrameType);
+    }
+    else if (sPage >= 2)
+    {
+        u8 r;
+
+        for (r = 0; r < sTiltPageRows[sPage]; r++)
+            DrawTiltChoices(sTiltPageFirst[sPage] + r, r * 14);
     }
     else
     {
@@ -754,11 +863,13 @@ static void ButtonMode_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(FONT_NORMAL, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
 }
 
+static const u8 *const sPageNames[NUM_PAGES] = {gText_TiltPageN1, gText_TiltPageN2, gText_TiltPageN3, gText_TiltPageN4, gText_TiltPageN5};
+
 static void DrawHeaderText(void)
 {
     FillWindowPixelBuffer(WIN_HEADER, PIXEL_FILL(1));
     AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_Option, 8, 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, sPage == 0 ? gText_TiltPage1 : gText_TiltPage2, GetStringRightAlignXOffset(FONT_NORMAL, sPage == 0 ? gText_TiltPage1 : gText_TiltPage2, 200), 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, sPageNames[sPage], GetStringRightAlignXOffset(FONT_NORMAL, sPageNames[sPage], 200), 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
 }
 

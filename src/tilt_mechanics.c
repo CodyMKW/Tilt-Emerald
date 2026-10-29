@@ -9,7 +9,9 @@
 #include "fieldmap.h"
 #include "item.h"
 #include "money.h"
+#include "overworld.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "random.h"
 #include "rtc.h"
 #include "script.h"
@@ -21,6 +23,7 @@
 #include "constants/map_types.h"
 #include "constants/maps.h"
 #include "constants/opponents.h"
+#include "constants/region_map_sections.h"
 #include "constants/tilt.h"
 #include "constants/weather.h"
 
@@ -129,9 +132,12 @@ u16 TiltCatchBonus(void)
 
 u16 TiltExpPercent(void)
 {
-    if (VarGet(VAR_TILT_BUFF) > 0 && VarGet(VAR_TILT_BUFFTYPE) == 1)
-        return 200;
-    return 100;
+    u16 pct = 100;
+
+    if (TiltOpt(TILTOPT_COMBO_EXP) && VarGet(VAR_TILT_BUFF) > 0 && VarGet(VAR_TILT_BUFFTYPE) == 1)
+        pct = 200;
+    // options page 3: EXP BOOST (1x / 1.5x / 2x)
+    return pct * (100 + TiltOpt(TILTOPT_EXP_BOOST) * 50) / 100;
 }
 
 // --------------------------------------------------------------------------------------------
@@ -484,4 +490,132 @@ u8 TiltTrainerLevel(u16 trainerNum, u8 level)
     if (scaled + bonus > 100)
         return 100;
     return scaled + bonus;
+}
+
+// --------------------------------------------------------------------------------------------
+// Options pages 3-5. Everything lives in gSaveBlock2Ptr->tiltOpts, stored XOR its default so a
+// zeroed (old) save reads as the default value.
+// --------------------------------------------------------------------------------------------
+
+struct TiltOptInfo
+{
+    u8 shift;
+    u8 bits;
+    u8 def;
+};
+
+static const struct TiltOptInfo sTiltOptInfo[TILTOPT_COUNT] =
+{
+    [TILTOPT_INSTANT_TEXT] = {0, 1, 0},
+    [TILTOPT_EXP_BOOST]    = {1, 2, 0},
+    [TILTOPT_CATCH_BOOST]  = {3, 2, 0},
+    [TILTOPT_AUTO_HEAL]    = {5, 1, 0},
+    [TILTOPT_NO_SWITCH]    = {6, 1, 0},
+    [TILTOPT_NUZLOCKE]     = {7, 1, 0},
+    [TILTOPT_COMBO_DIFF]   = {8, 2, 1},
+    [TILTOPT_MB_FREQ]      = {10, 2, 1},
+    [TILTOPT_BIG_BAG]      = {12, 1, 0},
+    [TILTOPT_LEVEL_CAP]    = {13, 1, 0},
+    [TILTOPT_COMBO_EXP]    = {14, 1, 1},
+    [TILTOPT_SKIP_LEARN]   = {15, 1, 0},
+    [TILTOPT_SKIP_NICK]    = {16, 1, 0},
+};
+
+u8 TiltOpt(u8 id)
+{
+    u32 mask = (1 << sTiltOptInfo[id].bits) - 1;
+
+    return ((gSaveBlock2Ptr->tiltOpts >> sTiltOptInfo[id].shift) & mask) ^ sTiltOptInfo[id].def;
+}
+
+u8 TiltOptMax(u8 id)
+{
+    if (id == TILTOPT_EXP_BOOST || id == TILTOPT_CATCH_BOOST || id == TILTOPT_COMBO_DIFF || id == TILTOPT_MB_FREQ)
+        return 2;
+    return 1;
+}
+
+void TiltOptSet(u8 id, u8 value)
+{
+    u32 mask = (1 << sTiltOptInfo[id].bits) - 1;
+
+    gSaveBlock2Ptr->tiltOpts &= ~(mask << sTiltOptInfo[id].shift);
+    gSaveBlock2Ptr->tiltOpts |= (((u32)(value ^ sTiltOptInfo[id].def)) & mask) << sTiltOptInfo[id].shift;
+}
+
+// MULTIBALL comes every Nth combo hit: LOW 10, MID 7, HIGH 4
+u8 TiltMultiballPeriod(void)
+{
+    switch (TiltOpt(TILTOPT_MB_FREQ))
+    {
+    case 0:
+        return 10;
+    case 2:
+        return 4;
+    default:
+        return 7;
+    }
+}
+
+// LEVEL CAP option: Pokemon stop gaining EXP at the level for the number of badges you have
+u8 TiltLevelCap(void)
+{
+    static const u8 sCaps[NUM_BADGES + 1] = {15, 20, 25, 30, 35, 40, 45, 50, 100};
+    u8 i, badges = 0;
+
+    for (i = 0; i < NUM_BADGES; i++)
+        if (FlagGet(FLAG_BADGE01_GET + i))
+            badges++;
+    return sCaps[badges];
+}
+
+// NUZLOCKE option: one catchable wild encounter per map area (flags 0x264-0x2BB, one per map section),
+// and Pokemon that faint are released after the battle.
+#define NZ_FLAG_BASE 0x264
+#define NZ_AREAS 88
+
+EWRAM_DATA bool8 gTiltNzNoCatch = FALSE;
+
+static u16 NzFlag(void)
+{
+    u8 sec = GetCurrentRegionMapSectionId();
+
+    if (sec >= NZ_AREAS)
+        return 0;
+    return NZ_FLAG_BASE + sec;
+}
+
+bool8 TiltNzAreaUsed(void)
+{
+    u16 flag = NzFlag();
+
+    return flag != 0 && FlagGet(flag);
+}
+
+void TiltNzMarkArea(void)
+{
+    u16 flag = NzFlag();
+
+    if (flag != 0)
+        FlagSet(flag);
+}
+
+void TiltNzReleaseFainted(void)
+{
+    u8 i, alive = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
+            alive++;
+    if (alive == 0)
+        return; // whiteout is handled normally
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE
+         && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)
+         && GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
+            ZeroMonData(&gPlayerParty[i]);
+    }
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
 }

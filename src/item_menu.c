@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "item_menu.h"
 #include "battle.h"
 #include "battle_controllers.h"

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "item.h"
 #include "berry.h"
 #include "string_util.h"

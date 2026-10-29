@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "bg.h"
 #include "data.h"
 #include "decompress.h"

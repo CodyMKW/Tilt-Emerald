@@ -28,4 +28,32 @@ bool8 TiltTakeForceShiny(void);
 
 u8 TiltTrainerLevel(u16 trainerNum, u8 level);
 
+// ---- options pages 3-5 (bit-packed in gSaveBlock2Ptr->tiltOpts) ----
+enum
+{
+    TILTOPT_INSTANT_TEXT,
+    TILTOPT_EXP_BOOST,    // 0 = 1x, 1 = 1.5x, 2 = 2x
+    TILTOPT_CATCH_BOOST,  // 0 = 1x, 1 = 1.5x, 2 = 2x
+    TILTOPT_AUTO_HEAL,
+    TILTOPT_NO_SWITCH,
+    TILTOPT_NUZLOCKE,
+    TILTOPT_COMBO_DIFF,   // 0 = easy, 1 = normal, 2 = hard
+    TILTOPT_MB_FREQ,      // 0 = low, 1 = mid, 2 = high
+    TILTOPT_BIG_BAG,
+    TILTOPT_LEVEL_CAP,
+    TILTOPT_COMBO_EXP,    // 1 = combo EXP buff allowed (default)
+    TILTOPT_SKIP_LEARN,
+    TILTOPT_SKIP_NICK,
+    TILTOPT_COUNT
+};
+u8 TiltOpt(u8 id);
+u8 TiltOptMax(u8 id);
+void TiltOptSet(u8 id, u8 value);
+u8 TiltMultiballPeriod(void);
+u8 TiltLevelCap(void);
+bool8 TiltNzAreaUsed(void);
+void TiltNzMarkArea(void);
+void TiltNzReleaseFainted(void);
+extern bool8 gTiltNzNoCatch;
+
 #endif // GUARD_TILT_MECHANICS_H

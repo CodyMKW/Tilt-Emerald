@@ -360,6 +360,7 @@ enum BattleScriptOpcode
 #define VARIOUS_PLAY_TRAINER_DEFEATED_MUSIC     26
 #define VARIOUS_TILT_CATCH_CHECK                27
 #define VARIOUS_TILT_CATCH_APPLY                28
+#define VARIOUS_TILT_NICK_CHECK                 29
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0

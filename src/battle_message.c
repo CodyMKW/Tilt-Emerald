@@ -388,6 +388,7 @@ static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nw
 static const u8 sText_TwoLinkTrainersWantToBattle[] = _("{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME}\nwant to battle!");
 static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME}!");
 static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!");
+static const u8 sText_TiltNzBlock[] = _("NUZLOCKE: you already had an\nencounter in this area!");
 static const u8 sText_TiltNextShiny[] = _("Another shiny wild {B_BUFF1}\njumped out!");
 static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_BUFF1}!");
 static const u8 sText_LinkTrainerSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME}!");
@@ -891,6 +892,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_TRAINER2WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer2WinText,
     [STRINGID_TILTSAVER - BATTLESTRINGS_TABLE_START] = sText_TiltSaver,
     [STRINGID_TILTFLIP - BATTLESTRINGS_TABLE_START] = sText_TiltFlip,
+    [STRINGID_TILTNZBLOCK - BATTLESTRINGS_TABLE_START] = sText_TiltNzBlock,
 };
 
 const u16 gMissStringIds[] =

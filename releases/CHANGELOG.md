@@ -3,6 +3,14 @@
 Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
+## v25
+- STARTERS are now PIKACHU, TRAPINCH and ARON. Your rival picks the one that counters yours (Pikachu -> rival Trapinch, Trapinch -> rival Aron, Aron -> rival Pikachu), and all rival teams use those lines (Pikachu/Raichu, Trapinch/Vibrava, Aron/Lairon).
+- The Options menu is now 5 pages (L/R flips pages). New options, all default to the old behavior:
+  - Page 3: INSTANT TEXT, EXP BOOST (1x/1.5x/2x), CATCH BOOST (1x/1.5x/2x), AUTO HEAL (full heal after winning or catching a wild Pokemon).
+  - Page 4: NO SWITCH (no voluntary switching in battle), NUZLOCKE (only the first wild encounter in each map area can be caught, and fainted Pokemon are released after the battle), COMBO MODE (Easy +1 combo per hit / Normal / Hard flat +1 and a whiteout resets the combo), MULTIBALL rate (Low every 10th hit / Mid every 7th / High every 4th).
+  - Page 5: BIGGER BAG (stacks up to 999), LEVEL CAP (Pokemon stop gaining EXP at 15/20/25/30/35/40/45/50 by badge count), COMBO EXP (turn the combo EXP buff off), SKIP LEARN (never asks to replace a move on level-up), SKIP NICK (never asks to nickname caught Pokemon).
+- Existing saves stay valid.
+
 ## v24
 - MULTIBALL is now ONE battle, not a double battle. Beat or catch the first shiny and the second one jumps in ("Another shiny wild X jumped out!"), like a trainer sending out their next Pokemon.
 - No victory music or "battle won" wrap-up between the two shinies; EXP is still given after each KO.

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_arena.h"
@@ -242,7 +243,12 @@ static void HandleInputChooseAction(void)
     else
         gPlayerDpadHoldFrames = 0;
 
-    if (JOY_NEW(A_BUTTON))
+    if (JOY_NEW(A_BUTTON) && gActionSelectionCursor[gActiveBattler] == 2 && TiltOpt(TILTOPT_NO_SWITCH)
+     && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)))
+    {
+        PlaySE(SE_FAILURE); // NO SWITCH option: no voluntary switching
+    }
+    else if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
 

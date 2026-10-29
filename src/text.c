@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "battle.h"
 #include "main.h"
 #include "m4a.h"
@@ -327,6 +328,19 @@ void RunTextPrinters(void)
             if (sTextPrinters[i].active)
             {
                 u16 renderCmd = RenderFont(&sTextPrinters[i]);
+                if (TiltOpt(TILTOPT_INSTANT_TEXT) && renderCmd == RENDER_PRINT)
+                {
+                    // INSTANT TEXT option: print the whole message in one frame
+                    u16 n;
+
+                    for (n = 0; n < 400 && renderCmd == RENDER_PRINT; n++)
+                    {
+                        sTextPrinters[i].delayCounter = 0;
+                        renderCmd = RenderFont(&sTextPrinters[i]);
+                    }
+                    if (renderCmd != RENDER_PRINT)
+                        CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, COPYWIN_GFX);
+                }
                 switch (renderCmd)
                 {
                 case RENDER_PRINT:

@@ -74,6 +74,8 @@ BattleScript_PrintCaughtMonInfo::
 	setbyte gBattleCommunication, 0
 	displaydexinfo
 BattleScript_TryNicknameCaughtMon::
+	various BS_TARGET, VARIOUS_TILT_NICK_CHECK
+	jumpifbyte CMP_EQUAL, gBattleCommunication, 1, BattleScript_GiveCaughtMonEnd
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
@@ -98,6 +100,12 @@ BattleScript_TiltCaughtGive::
 	waitmessage B_WAIT_TIME_LONG
 	various BS_TARGET, VARIOUS_TILT_CATCH_APPLY
 	finishturn
+
+BattleScript_TiltNzBallBlock::
+	waitmessage B_WAIT_TIME_LONG
+	printstring STRINGID_TILTNZBLOCK
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
 
 BattleScript_WallyBallThrow::
 	printstring STRINGID_GOTCHAPKMNCAUGHTWALLY

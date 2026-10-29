@@ -412,6 +412,15 @@ static void DoStandardWildBattle(void)
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = 0;
     gTiltDoubleBall = FALSE;
+    gTiltNzNoCatch = FALSE;
+    if (TiltOpt(TILTOPT_NUZLOCKE) && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
+    {
+        // NUZLOCKE option: the first wild encounter in each area is the only one you may catch
+        if (TiltNzAreaUsed())
+            gTiltNzNoCatch = TRUE;
+        else
+            TiltNzMarkArea();
+    }
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
     {
         VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
@@ -657,6 +666,11 @@ static bool8 UpdateTiltCombo(void)
         gain += sTiltBank;
         if (gTiltDoubleBall)
             gain += 1; // second ball of the MULTIBALL double battle
+        // COMBO DIFFICULTY option: EASY +1 per hit, HARD = flat +1 (no Storm/Bank/MULTIBALL bonuses)
+        if (TiltOpt(TILTOPT_COMBO_DIFF) == 0)
+            gain += 1;
+        else if (TiltOpt(TILTOPT_COMBO_DIFF) == 2)
+            gain = 1;
         if (combo + gain > 9999)
             combo = 9999;
         else
@@ -676,7 +690,7 @@ static bool8 UpdateTiltCombo(void)
             payout = 60000;
         sTiltPayout = payout;
         AddMoney(&gSaveBlock1Ptr->money, sTiltPayout);
-        sTiltMultiball = (combo % 7 == 6);
+        sTiltMultiball = (combo % TiltMultiballPeriod() == TiltMultiballPeriod() - 1);
         sTiltResult = TILT_RESULT_HIT;
         sTiltBonus = (multiballWas && !gTiltDoubleBall);
 
@@ -768,17 +782,22 @@ static void CB2_EndWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
+    gTiltNzNoCatch = FALSE;
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
         // whiteout drains half the ball (EASY RETRY: you keep half your combo)
-        VarSet(VAR_TILT_COMBO, VarGet(VAR_TILT_COMBO) / 2);
+        VarSet(VAR_TILT_COMBO, TiltOpt(TILTOPT_COMBO_DIFF) == 2 ? 0 : VarGet(VAR_TILT_COMBO) / 2);
         if (VarGet(VAR_TILT_COMBO) == 0)
             TiltResetCombo();
         SetMainCallback2(CB2_WhiteOut);
     }
     else
     {
+        if (TiltOpt(TILTOPT_AUTO_HEAL) && (gBattleOutcome == B_OUTCOME_WON || gBattleOutcome == B_OUTCOME_CAUGHT))
+            HealPlayerParty(); // AUTO-HEAL option
+        if (TiltOpt(TILTOPT_NUZLOCKE) && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
+            TiltNzReleaseFainted();
         SetMainCallback2(CB2_ReturnToField);
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
         if (UpdateTiltCombo())
@@ -1511,6 +1530,9 @@ static void CB2_EndTrainerBattle(void)
     }
     else
     {
+        if (TiltOpt(TILTOPT_NUZLOCKE) && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InTrainerHillChallenge()
+         && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_LINK)))
+            TiltNzReleaseFainted();
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         if (CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InTrainerHillChallenge())
         {

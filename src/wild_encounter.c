@@ -429,7 +429,7 @@ static void CreateWildMon(u16 species, u8 level)
     // (the bonus ball it drops is also a shiny but doesn't chain any further)
     {
         bool8 forced = TiltTakeForceShiny();
-        bool8 natural = (VarGet(VAR_TILT_COMBO) % 7 == 6);
+        bool8 natural = (VarGet(VAR_TILT_COMBO) % TiltMultiballPeriod() == TiltMultiballPeriod() - 1);
 
         if (forced || natural)
         {
