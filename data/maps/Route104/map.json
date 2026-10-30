@@ -513,6 +513,34 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "TiltNpc_SongBard_EventScript",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_TILT_FALCON",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_5",
+      "x": 32,
+      "y": 62,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TiltFalcon_EventScript_Watch",
+      "flag": "FLAG_UNUSED_0x043"
+    },
+    {
+      "local_id": "LOCALID_TILT_DAX",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_4",
+      "x": 29,
+      "y": 62,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TiltFalcon_EventScript_Watch",
+      "flag": "FLAG_UNUSED_0x043"
     }
   ],
   "warp_events": [
@@ -582,6 +610,60 @@
       "var": "VAR_ROUTE104_STATE",
       "var_value": "1",
       "script": "Route104_EventScript_RivalTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 60,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 61,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 62,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 63,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 64,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 65,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x40FC",
+      "var_value": "0",
+      "script": "TiltFalcon_EventScript_Trigger"
     }
   ],
   "bg_events": [
