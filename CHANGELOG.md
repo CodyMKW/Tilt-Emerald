@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v28.1
+- Fixed: in the Falcon vs Dax scene the Pokemon pictures were on the wrong sides. Falcon's Pokemon now appear on the right (matching where he stands) and Dax's on the left.
+
 ## v28
 - NEW SCENE: walking west from Petalburg City onto Route 104 you come across the famous trainer FALCON in the middle of a 6-on-6 level 100 exhibition battle against a trainer named DAX. You just watch: Pokemon pop up with their cries, each move is narrated, and FALCON wins. Afterwards FALCON talks to you and both trainers walk off in different directions. It only plays once.
 - Existing saves stay valid.

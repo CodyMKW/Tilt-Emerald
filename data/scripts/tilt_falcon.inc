@@ -15,211 +15,211 @@ TiltFalcon_EventScript_Trigger::
 	msgbox TiltFalcon_Text_Pre3, MSGBOX_DEFAULT
 	playbgm MUS_VS_TRAINER, FALSE
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_METAGROSS, 2, 3
+	showmonpic SPECIES_METAGROSS, 20, 3
 	playmoncry SPECIES_METAGROSS, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B1, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_HERACROSS, 20, 3
+	showmonpic SPECIES_HERACROSS, 2, 3
 	playmoncry SPECIES_HERACROSS, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B2, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_HERACROSS, 20, 3
+	showmonpic SPECIES_HERACROSS, 2, 3
 	playmoncry SPECIES_HERACROSS, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_NOT_EFFECTIVE
 	msgbox TiltFalcon_Text_B3, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_METAGROSS, 2, 3
+	showmonpic SPECIES_METAGROSS, 20, 3
 	playmoncry SPECIES_METAGROSS, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B4, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_HERACROSS, 20, 3
+	showmonpic SPECIES_HERACROSS, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B5, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_SNORLAX, 20, 3
+	showmonpic SPECIES_SNORLAX, 2, 3
 	playmoncry SPECIES_SNORLAX, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B6, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_METAGROSS, 2, 3
+	showmonpic SPECIES_METAGROSS, 20, 3
 	playmoncry SPECIES_METAGROSS, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_EFFECTIVE
 	msgbox TiltFalcon_Text_B7, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SNORLAX, 20, 3
+	showmonpic SPECIES_SNORLAX, 2, 3
 	playmoncry SPECIES_SNORLAX, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B8, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_METAGROSS, 2, 3
+	showmonpic SPECIES_METAGROSS, 20, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B9, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_SALAMENCE, 2, 3
+	showmonpic SPECIES_SALAMENCE, 20, 3
 	playmoncry SPECIES_SALAMENCE, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B10, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SALAMENCE, 2, 3
+	showmonpic SPECIES_SALAMENCE, 20, 3
 	playmoncry SPECIES_SALAMENCE, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_EFFECTIVE
 	msgbox TiltFalcon_Text_B11, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SNORLAX, 20, 3
+	showmonpic SPECIES_SNORLAX, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B12, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_GYARADOS, 20, 3
+	showmonpic SPECIES_GYARADOS, 2, 3
 	playmoncry SPECIES_GYARADOS, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B13, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SALAMENCE, 2, 3
+	showmonpic SPECIES_SALAMENCE, 20, 3
 	playmoncry SPECIES_SALAMENCE, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B14, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_GYARADOS, 20, 3
+	showmonpic SPECIES_GYARADOS, 2, 3
 	playmoncry SPECIES_GYARADOS, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B15, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SALAMENCE, 2, 3
+	showmonpic SPECIES_SALAMENCE, 20, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B16, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_GENGAR, 2, 3
+	showmonpic SPECIES_GENGAR, 20, 3
 	playmoncry SPECIES_GENGAR, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B17, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_GENGAR, 2, 3
+	showmonpic SPECIES_GENGAR, 20, 3
 	playmoncry SPECIES_GENGAR, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B18, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_GYARADOS, 20, 3
+	showmonpic SPECIES_GYARADOS, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B19, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_SKARMORY, 20, 3
+	showmonpic SPECIES_SKARMORY, 2, 3
 	playmoncry SPECIES_SKARMORY, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B20, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SKARMORY, 20, 3
+	showmonpic SPECIES_SKARMORY, 2, 3
 	playmoncry SPECIES_SKARMORY, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_EFFECTIVE
 	msgbox TiltFalcon_Text_B21, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_GENGAR, 2, 3
+	showmonpic SPECIES_GENGAR, 20, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B22, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_STARMIE, 2, 3
+	showmonpic SPECIES_STARMIE, 20, 3
 	playmoncry SPECIES_STARMIE, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B23, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_STARMIE, 2, 3
+	showmonpic SPECIES_STARMIE, 20, 3
 	playmoncry SPECIES_STARMIE, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B24, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_SKARMORY, 20, 3
+	showmonpic SPECIES_SKARMORY, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B25, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_BLISSEY, 20, 3
+	showmonpic SPECIES_BLISSEY, 2, 3
 	playmoncry SPECIES_BLISSEY, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B26, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_STARMIE, 2, 3
+	showmonpic SPECIES_STARMIE, 20, 3
 	playmoncry SPECIES_STARMIE, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_EFFECTIVE
 	msgbox TiltFalcon_Text_B27, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_BLISSEY, 20, 3
+	showmonpic SPECIES_BLISSEY, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B28, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_FORRETRESS, 20, 3
+	showmonpic SPECIES_FORRETRESS, 2, 3
 	playmoncry SPECIES_FORRETRESS, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B29, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_FORRETRESS, 20, 3
+	showmonpic SPECIES_FORRETRESS, 2, 3
 	playmoncry SPECIES_FORRETRESS, CRY_MODE_NORMAL
 	waitmoncry
 	playse SE_SUPER_EFFECTIVE
 	msgbox TiltFalcon_Text_B30, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_STARMIE, 2, 3
+	showmonpic SPECIES_STARMIE, 20, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B31, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
-	showmonpic SPECIES_FORRETRESS, 20, 3
+	showmonpic SPECIES_FORRETRESS, 2, 3
 	playse SE_FAINT
 	msgbox TiltFalcon_Text_B32, MSGBOX_DEFAULT
 	hidemonpic
 	delay 10
 	playse SE_BALL_OPEN
-	showmonpic SPECIES_TYRANITAR, 2, 3
+	showmonpic SPECIES_TYRANITAR, 20, 3
 	playmoncry SPECIES_TYRANITAR, CRY_MODE_NORMAL
 	waitmoncry
 	msgbox TiltFalcon_Text_B33, MSGBOX_DEFAULT
