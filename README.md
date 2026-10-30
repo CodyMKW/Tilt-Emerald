@@ -35,6 +35,7 @@ Every wild win or catch adds to a combo, and the combo drives the whole game.
 - **Multiball:** every 7th combo hit sets up a guaranteed shiny. A second shiny waits behind it, and when you beat or catch the first, the next one jumps in like a trainer's next Pokémon, all in one battle.
 - **Table mechanics:** bumper flowers, combo decay, ball savers, flipper, bank shots, slingshot crits, jackpot berries, Tilt Storms, a daily challenge, a high score board and a Start-menu combo HUD.
 - **Pinball Wizard:** an NPC with a rules, shop and heal menu, found in a room upstairs in the Littleroot Pokémon Center. He introduces himself the first time you leave your house.
+- **Pinball Phone:** a key item from a side quest in Petalburg City (find three lost parts, then show the tinkerer a combo of 3+). Use it from the bag or register it to SELECT to open the Wizard's menu from anywhere, so you never have to run back to Littleroot.
 - **Healing economy:** Pokémon Centers are broke, so a heal costs ¥1000 (Gold Card holders still heal free). The Wizard's tune-up costs 250 COINS, and a lucky combo hit can drop a HEAL TICKET that makes it free. Mom only restores HP up to half.
 - **Trainer level scaling** keeps battles level with you.
 

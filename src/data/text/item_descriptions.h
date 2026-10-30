@@ -982,6 +982,11 @@ static const u8 sCoinCaseDesc[] = _(
     "A case that holds\n"
     "up to 9,999 COINS.");
 
+static const u8 sPinballPhoneDesc[] = _(
+    "Calls the PINBALL\n"
+    "WIZARD from\n"
+    "anywhere.");
+
 static const u8 sItemfinderDesc[] = _(
     "A device that\n"
     "signals an invisible\n"

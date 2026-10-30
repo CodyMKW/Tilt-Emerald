@@ -541,6 +541,8 @@ const u32 gItemIconPalette_YellowScarf[] = INCGFX_U32("graphics/items/icon_palet
 const u32 gItemIcon_MachBike[] = INCGFX_U32("graphics/items/icons/mach_bike.png", ".4bpp.lz");
 const u32 gItemIconPalette_MachBike[] = INCGFX_U32("graphics/items/icon_palettes/mach_bike.pal", ".gbapal.lz");
 
+const u32 gItemIcon_PinballPhone[] = INCGFX_U32("graphics/items/icons/pinball_phone.png", ".4bpp.lz");
+const u32 gItemIconPalette_PinballPhone[] = INCGFX_U32("graphics/items/icon_palettes/pinball_phone.pal", ".gbapal.lz");
 const u32 gItemIcon_CoinCase[] = INCGFX_U32("graphics/items/icons/coin_case.png", ".4bpp.lz");
 const u32 gItemIconPalette_CoinCase[] = INCGFX_U32("graphics/items/icon_palettes/coin_case.pal", ".gbapal.lz");
 

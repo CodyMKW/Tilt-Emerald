@@ -51,4 +51,10 @@
 #define TILT_RESULT_SAVED    5
 #define TILT_RESULT_TILT     6
 
+// PINBALL PHONE side quest (Petalburg City): VAR_TILT_PHONE 0 = not started, 1 = hunting parts, 2 = parts handed in (needs a combo of 3 for the signal test), 3 = phone given
+#define VAR_TILT_PHONE      VAR_UNUSED_0x40FB
+#define FLAG_TILT_PART_1    FLAG_UNUSED_0x040
+#define FLAG_TILT_PART_2    FLAG_UNUSED_0x041
+#define FLAG_TILT_PART_3    FLAG_UNUSED_0x042
+
 #endif // GUARD_CONSTANTS_TILT_H

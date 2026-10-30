@@ -57,6 +57,7 @@ static void Task_OpenRegisteredPokeblockCase(u8);
 static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
+static void ItemUseOnFieldCB_PinballPhone(u8);
 static void ItemUseOnFieldCB_Berry(u8);
 static void ItemUseOnFieldCB_WailmerPailBerry(u8);
 static void ItemUseOnFieldCB_WailmerPailSudowoodo(u8);
@@ -277,6 +278,22 @@ void ItemUseOutOfBattle_Rod(u8 taskId)
 static void ItemUseOnFieldCB_Rod(u8 taskId)
 {
     StartFishing(GetItemSecondaryId(gSpecialVar_ItemId));
+    DestroyTask(taskId);
+}
+
+extern const u8 TiltEmerald_EventScript_PhoneUse[];
+
+// TILT: PINBALL PHONE key item, opens the Pinball Wizard's menu from anywhere
+void ItemUseOutOfBattle_PinballPhone(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_PinballPhone;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+static void ItemUseOnFieldCB_PinballPhone(u8 taskId)
+{
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(TiltEmerald_EventScript_PhoneUse);
     DestroyTask(taskId);
 }
 

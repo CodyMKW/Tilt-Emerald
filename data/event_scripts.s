@@ -583,6 +583,7 @@ gStdScripts_End::
 	.include "data/scripts/new_game.inc"
 	.include "data/scripts/tilt.inc"
 	.include "data/scripts/tilt_wizard.inc"
+	.include "data/scripts/tilt_phone.inc"
 	.include "data/scripts/tilt_story.inc"
 	.include "data/scripts/tilt_steven.inc"
 	.include "data/scripts/tilt_npcs.inc"

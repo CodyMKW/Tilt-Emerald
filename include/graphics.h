@@ -3726,6 +3726,8 @@ extern const u32 gItemIconPalette_YellowScarf[];
 // Key items
 extern const u32 gItemIcon_MachBike[];
 extern const u32 gItemIconPalette_MachBike[];
+extern const u32 gItemIcon_PinballPhone[];
+extern const u32 gItemIconPalette_PinballPhone[];
 extern const u32 gItemIcon_CoinCase[];
 extern const u32 gItemIconPalette_CoinCase[];
 extern const u32 gItemIcon_Itemfinder[];
