@@ -2,6 +2,11 @@
 
 Existing saves stay valid from v5 onward.
 
+## v26
+- Removed four options: SKIP LEARN, NO SWITCH, CATCH BOOST and SHINY CHARM. If you had any of them turned on, they now do nothing.
+- The Options menu is now 4 pages (L/R flips pages).
+- Existing saves stay valid.
+
 ## v25
 - STARTERS are now PIKACHU, TRAPINCH and ARON. Your rival picks the one that counters yours (Pikachu -> rival Trapinch, Trapinch -> rival Aron, Aron -> rival Pikachu), and all rival teams use those lines (Pikachu/Raichu, Trapinch/Vibrava, Aron/Lairon).
 - The Options menu is now 5 pages (L/R flips pages). New options, all default to the old behavior:

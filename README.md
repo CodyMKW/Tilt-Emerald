@@ -53,28 +53,24 @@ Every wild win or catch adds to a combo, and the combo drives the whole game.
 
 ## Options menu
 
-The Options menu has 5 pages. Press L or R to flip between them. Everything on pages 2 to 5 is off or set to the classic behavior by default.
+The Options menu has 4 pages. Press L or R to flip between them. Everything on pages 2 to 4 is off or set to the classic behavior by default.
 
 | Page | Option | What it does |
 |------|--------|--------------|
 | 1 | EXP MODE | Classic (only battlers get EXP) or Modern (the whole party gets the full amount) |
 | 2 | ALWAYS RUN | Run by default, hold B to walk |
 | 2 | REUSABLE TMS | TMs are not used up |
-| 2 | SHINY CHARM | Up to 3 extra shiny rolls on new Pokémon |
 | 2 | NO MAP POISON | Poison no longer drains HP while walking |
 | 3 | INSTANT TEXT | Text boxes print instantly |
 | 3 | EXP BOOST | 1x, 1.5x or 2x EXP |
-| 3 | CATCH BOOST | 1x, 1.5x or 2x catch odds |
 | 3 | AUTO HEAL | Full heal after winning or catching a wild Pokémon |
-| 4 | NO SWITCH | No voluntary switching in battle |
-| 4 | NUZLOCKE | Only the first wild encounter per area can be caught, and fainted Pokémon are released after the battle |
+| 3 | NUZLOCKE | Only the first wild encounter per area can be caught, and fainted Pokémon are released after the battle |
 | 4 | COMBO MODE | Easy (+1 per hit), Normal, or Hard (flat +1, and a whiteout resets the combo) |
 | 4 | MULTIBALL | Shiny pair every 10th (Low), 7th (Mid) or 4th (High) hit |
-| 5 | BIGGER BAG | Item stacks up to 999 |
-| 5 | LEVEL CAP | Pokémon stop gaining EXP at a cap set by your badge count |
-| 5 | COMBO EXP | Turn the combo EXP buff off |
-| 5 | SKIP LEARN | Never asks to replace a move on level-up |
-| 5 | SKIP NICK | Never asks to nickname a caught Pokémon |
+| 4 | BIGGER BAG | Item stacks up to 999 |
+| 4 | LEVEL CAP | Pokémon stop gaining EXP at a cap set by your badge count |
+| 4 | COMBO EXP | Turn the combo EXP buff off |
+| 4 | SKIP NICK | Never asks to nickname a caught Pokémon |
 
 The level cap is 15, 20, 25, 30, 35, 40, 45 and 50 for 0 to 7 badges, and there is no cap at 8 badges.
 
@@ -91,7 +87,7 @@ This repo is the decomp source plus the Tilt Emerald changes.
 2. Build with `make -j$(nproc)`. This produces `pokeemerald.gba`, which is the Tilt Emerald ROM.
 3. For the newer-GCC ("modern") build, use `make -j$(nproc) MODERN=1`, which produces `pokeemerald_modern.gba`.
 
-The Tilt Emerald scripts live in `data/scripts/tilt_*.inc`, the save flags and variables it uses are documented in `include/constants/tilt.h`, and the trainer data is in `src/data/trainers.h` and `src/data/trainer_parties.h` (trainer slots 855 onward). The options on pages 3 to 5 are bit-packed in `tiltOpts` in `SaveBlock2` (see `src/tilt_mechanics.c`), and Nuzlocke area flags use the unused flags 0x264 to 0x2BB.
+The Tilt Emerald scripts live in `data/scripts/tilt_*.inc`, the save flags and variables it uses are documented in `include/constants/tilt.h`, and the trainer data is in `src/data/trainers.h` and `src/data/trainer_parties.h` (trainer slots 855 onward). The options on pages 3 and 4 are bit-packed in `tiltOpts` in `SaveBlock2` (see `src/tilt_mechanics.c`), and Nuzlocke area flags use the unused flags 0x264 to 0x2BB.
 
 ## Project page and patch
 

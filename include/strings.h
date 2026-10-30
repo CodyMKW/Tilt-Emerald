@@ -340,7 +340,6 @@ extern const u8 gText_TiltPageN1[];
 extern const u8 gText_TiltPageN2[];
 extern const u8 gText_TiltPageN3[];
 extern const u8 gText_TiltPageN4[];
-extern const u8 gText_TiltPageN5[];
 extern const u8 gText_TiltExpMode[];
 extern const u8 gText_TiltAlwaysRun[];
 extern const u8 gText_TiltReusableTM[];

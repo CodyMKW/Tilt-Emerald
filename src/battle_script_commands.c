@@ -5420,10 +5420,7 @@ static void Cmd_handlelearnnewmove(void)
     }
     else if (learnMove == MON_HAS_MAX_MOVES)
     {
-        if (TiltOpt(TILTOPT_SKIP_LEARN))
-            gBattlescriptCurrInstr = nothingToLearnPtr; // SKIP MOVE-LEARN option: no replace prompt
-        else
-            gBattlescriptCurrInstr += 10;
+        gBattlescriptCurrInstr += 10;
     }
     else
     {
@@ -10071,7 +10068,6 @@ static void Cmd_handleballthrow(void)
             / (3 * gBattleMons[gBattlerTarget].maxHP);
 
         odds = odds * (100 + TiltCatchBonus()) / 100; // TILT MODE: combo + buff catch bonus
-        odds = odds * (100 + TiltOpt(TILTOPT_CATCH_BOOST) * 50) / 100; // options page 3: CATCH BOOST
 
         if (gBattleMons[gBattlerTarget].status1 & (STATUS1_SLEEP | STATUS1_FREEZE))
             odds *= 2;

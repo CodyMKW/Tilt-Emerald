@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tilt Emerald – a pinball-combo Pokémon Emerald ROM hack</title>
-<meta name="description" content="Tilt Emerald is a vibe-coded Pokémon Emerald ROM hack with a pinball combo system, new starters, a custom gym and 18 quality-of-life options. Build the ROM from your own copy of Emerald, right in your browser.">
+<meta name="description" content="Tilt Emerald is a vibe-coded Pokémon Emerald ROM hack with a pinball combo system, new starters, a custom gym and 14 quality-of-life options. Build the ROM from your own copy of Emerald, right in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
@@ -167,14 +167,14 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
     <div>
       <span class="eyebrow">Pokémon Emerald ROM hack</span>
       <h1>Every battle is a pinball table.</h1>
-      <p class="lead">Tilt Emerald is a random, vibe-coded Emerald hack built entirely with AI. Chain wild wins into combos, chase multiball shinies, take on a brand-new gym, and tune the game with 18 extra options.</p>
+      <p class="lead">Tilt Emerald is a random, vibe-coded Emerald hack built entirely with AI. Chain wild wins into combos, chase multiball shinies, take on a brand-new gym, and tune the game with 14 extra options.</p>
       <div class="btns">
         <a class="btn primary" href="#builder">Build your ROM</a>
         <a class="btn ghost" href="https://github.com/CodyMKW/Tilt-Emerald">View source</a>
       </div>
       <div class="facts">
         <div><b id="ver">v25</b>latest build</div>
-        <div><b>5</b>option pages</div>
+        <div><b>4</b>option pages</div>
         <div><b>0</b>ROMs hosted</div>
       </div>
     </div>
@@ -270,14 +270,13 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <h2>Options menu</h2>
-      <p>The Options menu has five pages (press L or R to flip). Everything beyond the original settings starts off or at its classic behavior.</p>
+      <p>The Options menu has four pages (press L or R to flip). Everything beyond the original settings starts off or at its classic behavior.</p>
     </div>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="tablewrap"><table><thead><tr><th>Option</th><th>What it does</th></tr></thead><tbody id="optbody"></tbody></table></div>
     <div class="shots" style="margin-top:24px">
-      <figure><img class="px" src="img/options-3.png" alt="Options page 3" loading="lazy"><figcaption>Page 3: text, EXP, catching, healing</figcaption></figure>
-      <figure><img class="px" src="img/options-4.png" alt="Options page 4" loading="lazy"><figcaption>Page 4: challenge and combo settings</figcaption></figure>
-      <figure><img class="px" src="img/options-5.png" alt="Options page 5" loading="lazy"><figcaption>Page 5: bag, level cap, quality of life</figcaption></figure>
+      <figure><img class="px" src="img/options-3.png" alt="Options page 3" loading="lazy"><figcaption>Page 3: text, EXP, healing, Nuzlocke</figcaption></figure>
+      <figure><img class="px" src="img/options-4.png" alt="Options page 4" loading="lazy"><figcaption>Page 4: combo, bag, level cap</figcaption></figure>
       <figure><img class="px" src="img/battle.png" alt="A wild battle" loading="lazy"><figcaption>A wild battle</figcaption></figure>
     </div>
   </div>
@@ -331,23 +330,18 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
     ['Page 2', [
       ['ALWAYS RUN', 'Run by default; hold B to walk.'],
       ['REUSABLE TMS', 'TMs are not used up.'],
-      ['SHINY CHARM', 'Up to 3 extra shiny rolls on new Pokémon.'],
       ['NO MAP POISON', 'Poison no longer drains HP while you walk.']]],
     ['Page 3', [
       ['INSTANT TEXT', 'Text boxes print instantly.'],
       ['EXP BOOST', '1x, 1.5x or 2x EXP.'],
-      ['CATCH BOOST', '1x, 1.5x or 2x catch odds.'],
-      ['AUTO HEAL', 'Full heal after winning or catching a wild Pokémon.']]],
+      ['AUTO HEAL', 'Full heal after winning or catching a wild Pokémon.'],
+      ['NUZLOCKE', 'Only the first wild encounter in each area can be caught, and fainted Pokémon are released after the battle.']]],
     ['Page 4', [
-      ['NO SWITCH', 'No voluntary switching in battle.'],
-      ['NUZLOCKE', 'Only the first wild encounter in each area can be caught, and fainted Pokémon are released after the battle.'],
       ['COMBO MODE', 'Easy (+1 combo per hit), Normal, or Hard (flat +1, and a whiteout resets the combo).'],
-      ['MULTIBALL', 'Shiny pair every 10th (Low), 7th (Mid) or 4th (High) hit.']]],
-    ['Page 5', [
+      ['MULTIBALL', 'Shiny pair every 10th (Low), 7th (Mid) or 4th (High) hit.'],
       ['BIGGER BAG', 'Item stacks go up to 999.'],
       ['LEVEL CAP', 'Pokémon stop gaining EXP at 15, 20, 25, 30, 35, 40, 45 and 50 for 0 to 7 badges. No cap at 8 badges.'],
       ['COMBO EXP', 'Turn the combo EXP buff off.'],
-      ['SKIP LEARN', 'Never asks to replace a move on level-up.'],
       ['SKIP NICK', 'Never asks to nickname a caught Pokémon.']]]
   ];
   var tabs = document.getElementById('tabs'), body = document.getElementById('optbody');

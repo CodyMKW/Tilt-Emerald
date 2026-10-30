@@ -44,26 +44,31 @@ enum
     // page 2 (TILT modern features)
     MENUITEM_ALWAYSRUN = MENUITEM_COUNT,
     MENUITEM_REUSETM,
-    MENUITEM_SHINY,
     MENUITEM_POISON,
     MENUITEM_TILTBASE, // pages 3-5: TILTOPT_* ids
     MENUITEM_TOTAL = MENUITEM_TILTBASE + TILTOPT_COUNT,
 };
 
-#define PAGE2_ITEMS 4
-#define NUM_PAGES 5
+#define PAGE2_ITEMS 3
+#define NUM_PAGES 4
 static u8 sPage;
 static u8 sTiltVals[TILTOPT_COUNT];
 // pages 3-5: first TILTOPT id and row count
-static const u8 sTiltPageFirst[NUM_PAGES] = {0, 0, 0, 4, 8};
-static const u8 sTiltPageRows[NUM_PAGES] = {0, 0, 4, 4, 5};
+static const u8 sTiltPageRows[NUM_PAGES] = {0, 0, 4, 6};
+static const u8 sTiltPageIds[NUM_PAGES][6] =
+{
+    {0},
+    {0},
+    {TILTOPT_INSTANT_TEXT, TILTOPT_EXP_BOOST, TILTOPT_AUTO_HEAL, TILTOPT_NUZLOCKE},
+    {TILTOPT_COMBO_DIFF, TILTOPT_MB_FREQ, TILTOPT_BIG_BAG, TILTOPT_LEVEL_CAP, TILTOPT_COMBO_EXP, TILTOPT_SKIP_NICK},
+};
 static u8 ItemForRow(u8 row)
 {
     if (sPage == 0)
         return row;
     if (sPage == 1)
         return row < PAGE2_ITEMS ? MENUITEM_ALWAYSRUN + row : MENUITEM_CANCEL;
-    return row < sTiltPageRows[sPage] ? MENUITEM_TILTBASE + sTiltPageFirst[sPage] + row : MENUITEM_CANCEL;
+    return row < sTiltPageRows[sPage] ? MENUITEM_TILTBASE + sTiltPageIds[sPage][row] : MENUITEM_CANCEL;
 }
 static u8 LastRow(void)
 {
@@ -130,7 +135,6 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_TOTAL] =
     [MENUITEM_CANCEL]      = gText_OptionMenuCancel,
     [MENUITEM_ALWAYSRUN]   = gText_TiltAlwaysRun,
     [MENUITEM_REUSETM]     = gText_TiltReusableTM,
-    [MENUITEM_SHINY]       = gText_TiltShinyCharm,
     [MENUITEM_POISON]      = gText_TiltFieldPoison,
     [MENUITEM_TILTBASE + 0] = gText_TiltOptName0,
     [MENUITEM_TILTBASE + 1] = gText_TiltOptName1,
@@ -296,7 +300,6 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tExpMode = gSaveBlock2Ptr->optionsExpModern;
         gTasks[taskId].tAlwaysRun = gSaveBlock2Ptr->optionsAlwaysRun;
         gTasks[taskId].tReusableTM = gSaveBlock2Ptr->optionsReusableTM;
-        gTasks[taskId].tShinyBoost = gSaveBlock2Ptr->optionsShinyBoost;
         gTasks[taskId].tNoPoison = gSaveBlock2Ptr->optionsNoFieldPoison;
         gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
@@ -437,17 +440,11 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tReusableTM)
                 OnOff_DrawChoices(gTasks[taskId].tReusableTM, 1 * 14);
             break;
-        case MENUITEM_SHINY:
-            previousOption = gTasks[taskId].tShinyBoost;
-            gTasks[taskId].tShinyBoost = ExpMode_ProcessInput(gTasks[taskId].tShinyBoost);
-            if (previousOption != gTasks[taskId].tShinyBoost)
-                OnOff_DrawChoices(gTasks[taskId].tShinyBoost, 2 * 14);
-            break;
         case MENUITEM_POISON:
             previousOption = gTasks[taskId].tNoPoison;
             gTasks[taskId].tNoPoison = ExpMode_ProcessInput(gTasks[taskId].tNoPoison);
             if (previousOption != gTasks[taskId].tNoPoison)
-                OnOff_DrawChoices(gTasks[taskId].tNoPoison, 3 * 14);
+                OnOff_DrawChoices(gTasks[taskId].tNoPoison, 2 * 14);
             break;
         case MENUITEM_SOUND:
             previousOption = gTasks[taskId].tSound;
@@ -490,7 +487,6 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsExpModern = gTasks[taskId].tExpMode;
     gSaveBlock2Ptr->optionsAlwaysRun = gTasks[taskId].tAlwaysRun;
     gSaveBlock2Ptr->optionsReusableTM = gTasks[taskId].tReusableTM;
-    gSaveBlock2Ptr->optionsShinyBoost = gTasks[taskId].tShinyBoost;
     gSaveBlock2Ptr->optionsNoFieldPoison = gTasks[taskId].tNoPoison;
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
@@ -680,7 +676,6 @@ static void DrawTiltChoices(u8 id, u8 y)
     switch (id)
     {
     case TILTOPT_EXP_BOOST:
-    case TILTOPT_CATCH_BOOST:
         a = gText_TiltCh1x; b = gText_TiltCh15x; c = gText_TiltCh2x;
         break;
     case TILTOPT_COMBO_DIFF:
@@ -724,14 +719,13 @@ static void DrawPageChoices(u8 taskId)
         u8 r;
 
         for (r = 0; r < sTiltPageRows[sPage]; r++)
-            DrawTiltChoices(sTiltPageFirst[sPage] + r, r * 14);
+            DrawTiltChoices(sTiltPageIds[sPage][r], r * 14);
     }
     else
     {
         OnOff_DrawChoices(gTasks[taskId].tAlwaysRun, 0 * 14);
         OnOff_DrawChoices(gTasks[taskId].tReusableTM, 1 * 14);
-        OnOff_DrawChoices(gTasks[taskId].tShinyBoost, 2 * 14);
-        OnOff_DrawChoices(gTasks[taskId].tNoPoison, 3 * 14);
+        OnOff_DrawChoices(gTasks[taskId].tNoPoison, 2 * 14);
     }
 }
 
@@ -863,7 +857,7 @@ static void ButtonMode_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(FONT_NORMAL, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
 }
 
-static const u8 *const sPageNames[NUM_PAGES] = {gText_TiltPageN1, gText_TiltPageN2, gText_TiltPageN3, gText_TiltPageN4, gText_TiltPageN5};
+static const u8 *const sPageNames[NUM_PAGES] = {gText_TiltPageN1, gText_TiltPageN2, gText_TiltPageN3, gText_TiltPageN4};
 
 static void DrawHeaderText(void)
 {

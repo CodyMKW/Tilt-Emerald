@@ -2242,7 +2242,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
               | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
     }
 
-    if (gSaveBlock2Ptr->optionsShinyBoost && !hasFixedPersonality && otIdType == OT_ID_PLAYER_ID)
+    if (FALSE && !hasFixedPersonality && otIdType == OT_ID_PLAYER_ID)
     {
         // TILT: shiny charm, up to 3 extra rolls
         u8 rolls;
