@@ -6,7 +6,7 @@ Tilt Emerald is a fan project built on top of the [pret/pokeemerald](https://git
 
 ## Download and play
 
-**Easiest:** open the project page (GitHub Pages) and use the in-browser builder. Drop in your own Pokémon Emerald (US) ROM and it builds Tilt Emerald for you, entirely locally. You can also grab `docs/patch/tilt-emerald.bps` and apply it to a clean Emerald ROM with any BPS patcher.
+**Easiest:** open the [project page](https://codymkw.github.io/Tilt-Emerald/docs) and use the in-browser builder. Drop in your own Pokémon Emerald (US) ROM and it builds Tilt Emerald for you, entirely locally. You can also grab `docs/patch/tilt-emerald.bps` and apply it to a clean Emerald ROM with any BPS patcher.
 
 Build the ROM from the project page (see above), or apply `docs/patch/tilt-emerald.bps` to a clean Emerald ROM. No prebuilt ROMs are stored in the repo.
 
@@ -90,6 +90,8 @@ This repo is the decomp source plus the Tilt Emerald changes.
 The Tilt Emerald scripts live in `data/scripts/tilt_*.inc`, the save flags and variables it uses are documented in `include/constants/tilt.h`, and the trainer data is in `src/data/trainers.h` and `src/data/trainer_parties.h` (trainer slots 855 onward). The options on pages 3 and 4 are bit-packed in `tiltOpts` in `SaveBlock2` (see `src/tilt_mechanics.c`), and Nuzlocke area flags use the unused flags 0x264 to 0x2BB.
 
 ## Project page and patch
+
+**Live page:** https://codymkw.github.io/Tilt-Emerald/docs
 
 The `docs/` folder is the GitHub Pages site (set Pages to deploy from the `main` branch, `/docs` folder). `docs/patch/` holds the BPS patch and `info.json` that the builder uses. After each release, regenerate them with:
 
