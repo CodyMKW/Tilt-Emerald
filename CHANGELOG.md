@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v27.1
+- Fixed: one of the PINBALL PHONE parts was sitting in the pond in Petalburg City and could not be reached. It is now on dry land in the south part of town.
+
 ## v27
 - NEW KEY ITEM: PINBALL PHONE (custom icon). Use it from the bag, or register it to SELECT, to open the Pinball Wizard's full menu from anywhere: rules, stats, shop, buffs, scores, daily challenge and heal.
 - New side quest in Petalburg City: a gadget tinkerer (south of the Pokemon Center area, near the pond) lost the phone's ANTENNA, DIAL and BATTERY. Find the three glowing balls lying in the corners of town, hand them in, then bring a TILT combo of 3 or more for a signal test to get the phone.

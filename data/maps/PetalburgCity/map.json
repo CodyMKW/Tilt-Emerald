@@ -286,8 +286,8 @@
     {
       "local_id": "LOCALID_TILT_PART_3",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 5,
-      "y": 24,
+      "x": 23,
+      "y": 26,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
