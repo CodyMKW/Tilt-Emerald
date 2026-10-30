@@ -287,7 +287,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <h2>Recent changes</h2>
-      <p>The newest versions, loaded from the repository changelog. <a href="https://github.com/CodyMKW/Tilt-Emerald/blob/main/releases/CHANGELOG.md">Read the full changelog</a>.</p>
+      <p>The newest versions, loaded from the repository changelog. <a href="https://github.com/CodyMKW/Tilt-Emerald/blob/main/CHANGELOG.md">Read the full changelog</a>.</p>
     </div>
     <div class="card log" id="log"><p>Loading…</p></div>
   </div>
@@ -308,7 +308,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
 <footer>
   <div class="wrap">
     <div>Built with <a href="https://claude.ai">Claude</a>, directed and tested by CodyMKW. Based on <a href="https://github.com/pret/pokeemerald">pret/pokeemerald</a>.</div>
-    <div><a href="https://github.com/CodyMKW/Tilt-Emerald">GitHub</a> · <a href="https://github.com/CodyMKW/Tilt-Emerald/tree/main/releases">Releases</a></div>
+    <div><a href="https://github.com/CodyMKW/Tilt-Emerald">GitHub</a></div>
   </div>
 </footer>
 
@@ -369,7 +369,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
   showPage(0);
 
   /* ---------- changelog ---------- */
-  fetch('https://raw.githubusercontent.com/CodyMKW/Tilt-Emerald/main/releases/CHANGELOG.md')
+  fetch('https://raw.githubusercontent.com/CodyMKW/Tilt-Emerald/main/CHANGELOG.md')
     .then(function(r){ if (!r.ok) throw 0; return r.text(); })
     .then(function(md){
       var parts = md.split(/^## /m).slice(1, 4), log = document.getElementById('log');
@@ -386,7 +386,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
       });
     })
     .catch(function(){
-      document.getElementById('log').innerHTML = '<p>Couldn\'t load the changelog. <a href="https://github.com/CodyMKW/Tilt-Emerald/blob/main/releases/CHANGELOG.md">Open it on GitHub</a>.</p>';
+      document.getElementById('log').innerHTML = '<p>Couldn\'t load the changelog. <a href="https://github.com/CodyMKW/Tilt-Emerald/blob/main/CHANGELOG.md">Open it on GitHub</a>.</p>';
     });
 
   /* ---------- builder ---------- */

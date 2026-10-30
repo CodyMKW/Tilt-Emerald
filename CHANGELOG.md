@@ -1,6 +1,5 @@
 # Tilt Emerald changelog
 
-Each version is a zip in this folder containing the `.gba` ROM (e.g. `TiltEmerald_v10.6.zip`).
 Existing saves stay valid from v5 onward.
 
 ## v25

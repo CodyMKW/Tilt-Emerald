@@ -8,9 +8,9 @@ Tilt Emerald is a fan project built on top of the [pret/pokeemerald](https://git
 
 **Easiest:** open the project page (GitHub Pages) and use the in-browser builder. Drop in your own Pokémon Emerald (US) ROM and it builds Tilt Emerald for you, entirely locally. You can also grab `docs/patch/tilt-emerald.bps` and apply it to a clean Emerald ROM with any BPS patcher.
 
-Every version is in the [`releases/`](releases) folder as a zip containing `Tilt Emerald.gba` (older versions are named `TiltEmerald_vX.gba` inside the zip). The newest zip is the latest build.
+Build the ROM from the project page (see above), or apply `docs/patch/tilt-emerald.bps` to a clean Emerald ROM. No prebuilt ROMs are stored in the repo.
 
-- [`releases/CHANGELOG.md`](releases/CHANGELOG.md) lists what changed in each version.
+- [`CHANGELOG.md`](CHANGELOG.md) lists what changed in each version.
 - Run the `.gba` in any GBA emulator, a flash cart, or a 3DS GBA setup.
 - **Saves:** existing saves stay valid from v5 onward, so you can keep playing across updates.
 - The ROM uses 128 KB flash saves with a real-time clock, like the original Emerald. If your emulator or injector asks for a save type, pick 128K/1Mbit flash.
