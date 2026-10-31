@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v30
+- NEW WIZARD SERVICE: "Training" in the Pinball Wizard's menu (also reachable through the Pinball Phone). For 1500 COINS you pick any Pokemon in your party and it gets every EV maxed (252 each) and every IV maxed (31 each). If the Pokemon is already maxed you are not charged.
+
 ## v29
 - NEW AREA: Dream Island now has a small southern peninsula (a path leads south from the main grass field). After you have watched the Falcon vs Dax scene on Route 104, FALCON waits there for you. Walk up to him (or let him spot you) for a real 6-on-6 level 100 trainer battle with the same team he used against Dax: Metagross, Salamence, Gengar, Starmie, Tyranitar and Alakazam. Beating him gives a Master Ball and 5 Rare Candies. He is not there before you have seen the Route 104 scene.
 

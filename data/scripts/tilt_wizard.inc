@@ -29,7 +29,8 @@ TiltEmerald_EventScript_WizardMenu::
 	case 4, TiltEmerald_EventScript_Scores
 	case 5, TiltEmerald_EventScript_Daily
 	case 6, TiltEmerald_EventScript_Heal
-	case 7, TiltEmerald_EventScript_Bye
+	case 7, TiltEmerald_EventScript_Train
+	case 8, TiltEmerald_EventScript_Bye
 	case MULTI_B_PRESSED, TiltEmerald_EventScript_Bye
 	goto TiltEmerald_EventScript_Bye
 	end
@@ -132,6 +133,39 @@ TiltEmerald_EventScript_HealDo::
 	waitfanfare
 	fadescreen FADE_FROM_BLACK
 	msgbox TiltEmerald_Text_HealDone, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+@ ---- Training: max all EVs (252) and IVs (31) of one party Pokemon for 1500 coins ----
+
+TiltEmerald_EventScript_Train::
+	msgbox TiltEmerald_Text_TrainIntro, MSGBOX_DEFAULT
+	checkcoins VAR_RESULT
+	goto_if_lt VAR_RESULT, 1500, TiltEmerald_EventScript_TrainNoCoins
+	special ChoosePartyMon
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, TiltEmerald_EventScript_WizardMenu
+	specialvar VAR_RESULT, TiltSpecialMonIsMaxed
+	goto_if_eq VAR_RESULT, TRUE, TiltEmerald_EventScript_TrainAlready
+	msgbox TiltEmerald_Text_TrainAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_WizardMenu
+	removecoins 1500
+	msgbox TiltEmerald_Text_TrainStart, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	special TiltSpecialMaxMon
+	playfanfare MUS_LEVEL_UP
+	waitfanfare
+	fadescreen FADE_FROM_BLACK
+	msgbox TiltEmerald_Text_TrainDone, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_TrainNoCoins::
+	msgbox TiltEmerald_Text_TrainNoCoins, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_WizardMenu
+	end
+
+TiltEmerald_EventScript_TrainAlready::
+	msgbox TiltEmerald_Text_TrainAlready, MSGBOX_DEFAULT
 	goto TiltEmerald_EventScript_WizardMenu
 	end
 
@@ -672,3 +706,25 @@ TiltWizIntro_Text_4:
 	.string "the POKéMON CENTER, west of here.\p"
 	.string "Rules, a COIN SHOP and tune-ups.\n"
 	.string "Come play, {PLAYER}!$"
+
+TiltEmerald_Text_TrainIntro:
+	.string "My TRAINING service!\p"
+	.string "For 1500 COINS I'll max out every EV\n"
+	.string "and IV on one of your POKéMON.$"
+
+TiltEmerald_Text_TrainNoCoins:
+	.string "You need 1500 COINS for that.$"
+
+TiltEmerald_Text_TrainAsk:
+	.string "Max out {STR_VAR_1} for 1500 COINS?$"
+
+TiltEmerald_Text_TrainStart:
+	.string "Hold tight... this won't take long!$"
+
+TiltEmerald_Text_TrainDone:
+	.string "{STR_VAR_1} is now in peak condition!\n"
+	.string "All EVs and IVs are maxed out!$"
+
+TiltEmerald_Text_TrainAlready:
+	.string "{STR_VAR_1} is already maxed out!\n"
+	.string "No charge for that one.$"

@@ -786,6 +786,7 @@ static const u8 sText_TiltRules[] = _("Rules");
 static const u8 sText_TiltStats[] = _("Table stats");
 static const u8 sText_TiltShop[] = _("Coin shop");
 static const u8 sText_TiltHeal[] = _("Heal");
+static const u8 sText_TiltTrain[] = _("Training");
 static const u8 sText_TiltBuffs[] = _("Buffs");
 static const u8 sText_TiltScores[] = _("Score board");
 static const u8 sText_TiltDaily[] = _("Daily");
@@ -808,6 +809,7 @@ static const struct MenuAction MultichoiceList_TiltMain[] =
     {sText_TiltScores},
     {sText_TiltDaily},
     {sText_TiltHeal},
+    {sText_TiltTrain},
     {sText_TiltExit},
 };
 

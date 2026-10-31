@@ -341,6 +341,42 @@ void TiltSpecialLuckyRoute(void)
     ConvertIntToDecimalStringN(gStringVar1, 101 + GetLuckyRouteIndex(), STR_CONV_MODE_LEADING_ZEROS, 3);
 }
 
+// Wizard "Training" service: slot in gSpecialVar_0x8004. Returns TRUE if already fully maxed.
+static const u8 sTiltEvIvIds[6][2] = {
+    {MON_DATA_HP_EV, MON_DATA_HP_IV}, {MON_DATA_ATK_EV, MON_DATA_ATK_IV}, {MON_DATA_DEF_EV, MON_DATA_DEF_IV},
+    {MON_DATA_SPEED_EV, MON_DATA_SPEED_IV}, {MON_DATA_SPATK_EV, MON_DATA_SPATK_IV}, {MON_DATA_SPDEF_EV, MON_DATA_SPDEF_IV},
+};
+
+u16 TiltSpecialMonIsMaxed(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u8 i;
+
+    GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
+    StringGet_Nickname(gStringVar1);
+    for (i = 0; i < 6; i++)
+    {
+        if (GetMonData(mon, sTiltEvIvIds[i][0]) < 252 || GetMonData(mon, sTiltEvIvIds[i][1]) < 31)
+            return FALSE;
+    }
+    return TRUE;
+}
+
+void TiltSpecialMaxMon(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u8 i;
+    u8 ev = 252;
+    u8 iv = 31;
+
+    for (i = 0; i < 6; i++)
+    {
+        SetMonData(mon, sTiltEvIvIds[i][0], &ev);
+        SetMonData(mon, sTiltEvIvIds[i][1], &iv);
+    }
+    CalculateMonStats(mon);
+}
+
 static const u8 sDailyTargets[] = { 5, 8, 12, 15 };
 
 static u8 GetDailyTarget(void)
