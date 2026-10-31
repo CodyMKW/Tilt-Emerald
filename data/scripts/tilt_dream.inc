@@ -4,7 +4,18 @@
 @ Trainer slots reused from the unused RED / LEAF / BRENDAN placeholder entries (no new flag space).
 
 DreamIsland_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, DreamIsland_OnTransition
 	.byte 0
+
+@ Falcon only appears (south arena) once the Route 104 exhibition scene has been seen.
+DreamIsland_OnTransition:
+	goto_if_eq VAR_UNUSED_0x40FC, 1, DreamIsland_FalconAppear
+	setflag FLAG_UNUSED_0x044
+	end
+
+DreamIsland_FalconAppear:
+	clearflag FLAG_UNUSED_0x044
+	end
 
 @ ---------------- Sailor (Ever Grande City, near the Pokemon Center) ----------------
 
@@ -256,3 +267,35 @@ DreamIsland_Text_RematchAsk:
 DreamIsland_Text_TierUp:
 	.string "The leaders on DREAM ISLAND grew\n"
 	.string "stronger from the battle!$"
+
+@ ---------------- Falcon (south arena) ----------------
+
+DreamIsland_EventScript_Falcon::
+	trainerbattle_single TRAINER_TILT_FALCON, DreamIsland_Text_FalconIntro, DreamIsland_Text_FalconDefeat, DreamIsland_EventScript_FalconWon
+	msgbox DreamIsland_Text_FalconPost, MSGBOX_NPC
+	end
+
+DreamIsland_EventScript_FalconWon::
+	lockall
+	msgbox DreamIsland_Text_FalconPost, MSGBOX_DEFAULT
+	giveitem ITEM_MASTER_BALL, 1
+	giveitem ITEM_RARE_CANDY, 5
+	releaseall
+	end
+
+DreamIsland_Text_FalconIntro:
+	.string "FALCON: I figured you'd find your way\n"
+	.string "out here eventually.\p"
+	.string "I saw you watching my match on\n"
+	.string "ROUTE 104. Now it's your turn.\p"
+	.string "Six POKéMON, all level 100.\n"
+	.string "Show me what your combos can do!$"
+
+DreamIsland_Text_FalconDefeat:
+	.string "Incredible... I haven't lost in ages.$"
+
+DreamIsland_Text_FalconPost:
+	.string "FALCON: That was the best battle I've\n"
+	.string "had in a long time.\p"
+	.string "Keep your combos going, and keep\n"
+	.string "learning your types. Take these.$"

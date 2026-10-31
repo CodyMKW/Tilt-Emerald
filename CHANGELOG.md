@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v29
+- NEW AREA: Dream Island now has a small southern peninsula (a path leads south from the main grass field). After you have watched the Falcon vs Dax scene on Route 104, FALCON waits there for you. Walk up to him (or let him spot you) for a real 6-on-6 level 100 trainer battle with the same team he used against Dax: Metagross, Salamence, Gengar, Starmie, Tyranitar and Alakazam. Beating him gives a Master Ball and 5 Rare Candies. He is not there before you have seen the Route 104 scene.
+
 ## v28.1
 - Fixed: in the Falcon vs Dax scene the Pokemon pictures were on the wrong sides. Falcon's Pokemon now appear on the right (matching where he stands) and Dax's on the left.
 

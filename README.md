@@ -47,6 +47,7 @@ Every wild win or catch adds to a combo, and the combo drives the whole game.
 - **The Pinball Table dungeon:** a maze with bumpers, flippers and the TABLE KING.
 - **Dream Island:** a late-game island recreated from an old FireRed hack. Become Champion, then ask the Sailor next to the Ever Grande Pokémon Center for a ride. Three leaders (MrBean, Chadderz, Vantox) wait up the stairs, and starters from other regions roam the grass.
 - **Falcon vs Dax:** on Route 104, just west of Petalburg City, you can watch the famous trainer FALCON win a scripted 6-on-6 level 100 exhibition battle.
+- **Falcon on Dream Island:** after that scene, FALCON waits in a new area at the south end of Dream Island for a real level 100 battle (Master Ball + 5 Rare Candies for winning).
 - **Oldale Town** has a mini story, there is a Steven Stone cutscene on Route 102, and about 15 NPCs are scattered around Hoenn.
 
 ## Characters

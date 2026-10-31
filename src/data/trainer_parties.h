@@ -12659,6 +12659,51 @@ static const struct TrainerMonItemCustomMoves sParty_TiltMira[] = {
     },
 };
 
+static const struct TrainerMonItemCustomMoves sParty_TiltFalcon[] = {
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_METAGROSS,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_ICE_PUNCH, MOVE_EXPLOSION}
+    },
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_SALAMENCE,
+    .heldItem = ITEM_CHOICE_BAND,
+    .moves = {MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE, MOVE_FIRE_BLAST, MOVE_AERIAL_ACE}
+    },
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_GENGAR,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_SHADOW_BALL, MOVE_THUNDERBOLT, MOVE_ICE_PUNCH, MOVE_HYPNOSIS}
+    },
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_STARMIE,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_RECOVER}
+    },
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_TYRANITAR,
+    .heldItem = ITEM_CHOICE_BAND,
+    .moves = {MOVE_CRUNCH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_BLAST}
+    },
+    {
+    .iv = 255,
+    .lvl = 100,
+    .species = SPECIES_ALAKAZAM,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_PSYCHIC, MOVE_SHADOW_BALL, MOVE_RECOVER, MOVE_CALM_MIND}
+    },
+};
+
 static const struct TrainerMonItemCustomMoves sParty_TiltJoseph[] = {
     {
     .iv = 255,

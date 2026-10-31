@@ -4445,7 +4445,7 @@
       "id": "LAYOUT_DREAM_ISLAND",
       "name": "DreamIsland_Layout",
       "width": 20,
-      "height": 20,
+      "height": 30,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_EverGrande",
       "border_filepath": "data/layouts/DreamIsland/border.bin",
