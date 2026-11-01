@@ -542,7 +542,7 @@ gSpecials::
 	def_special CloseDeptStoreElevatorWindow
 	def_special TrySetBattleTowerLinkType
 	def_special TiltSpecialLuckyRoute
-	def_special TiltSpecialMonIsMaxed
+	def_special TiltSpecialTrainNames
 	def_special TiltSpecialMaxMon
 	def_special TiltSpecialDailyStatus
 	def_special TiltSpecialClaimDaily

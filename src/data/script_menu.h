@@ -836,6 +836,23 @@ static const u8 sText_TiltQuiz1[] = _("Bounce high, fly higher");
 static const u8 sText_TiltQuiz2[] = _("Burn bright, fly higher");
 static const u8 sText_TiltQuiz3[] = _("Dig deep, fly higher");
 
+static const u8 sText_TiltStatHp[] = _("HP");
+static const u8 sText_TiltStatAtk[] = _("Attack");
+static const u8 sText_TiltStatDef[] = _("Defense");
+static const u8 sText_TiltStatSpe[] = _("Speed");
+static const u8 sText_TiltStatSpa[] = _("Sp. Atk");
+static const u8 sText_TiltStatSpd[] = _("Sp. Def");
+
+static const struct MenuAction MultichoiceList_TiltStat[] =
+{
+    {sText_TiltStatHp},
+    {sText_TiltStatAtk},
+    {sText_TiltStatDef},
+    {sText_TiltStatSpe},
+    {sText_TiltStatSpa},
+    {sText_TiltStatSpd},
+};
+
 static const struct MenuAction MultichoiceList_TiltQuiz[] =
 {
     {sText_TiltQuiz0},
@@ -964,6 +981,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_TILT_SHOP]                  = MULTICHOICE(MultichoiceList_TiltShop),
     [MULTI_TILT_QUIZ]                  = MULTICHOICE(MultichoiceList_TiltQuiz),
     [MULTI_TILT_BUFF]                  = MULTICHOICE(MultichoiceList_TiltBuff),
+    [MULTI_TILT_STAT]                  = MULTICHOICE(MultichoiceList_TiltStat),
 };
 
 const u8 *const gStdStrings[] =

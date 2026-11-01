@@ -341,36 +341,35 @@ void TiltSpecialLuckyRoute(void)
     ConvertIntToDecimalStringN(gStringVar1, 101 + GetLuckyRouteIndex(), STR_CONV_MODE_LEADING_ZEROS, 3);
 }
 
-// Wizard "Training" service: slot in gSpecialVar_0x8004. Returns TRUE if already fully maxed.
+// Wizard "Training" service. gSpecialVar_0x8004 = party slot, 0x8005 / 0x8006 = the two chosen stats
+// (0 HP, 1 Atk, 2 Def, 3 Spe, 4 SpA, 5 SpD). 252 + 252 EVs fits the 510 EV cap; all IVs become 31.
 static const u8 sTiltEvIvIds[6][2] = {
     {MON_DATA_HP_EV, MON_DATA_HP_IV}, {MON_DATA_ATK_EV, MON_DATA_ATK_IV}, {MON_DATA_DEF_EV, MON_DATA_DEF_IV},
     {MON_DATA_SPEED_EV, MON_DATA_SPEED_IV}, {MON_DATA_SPATK_EV, MON_DATA_SPATK_IV}, {MON_DATA_SPDEF_EV, MON_DATA_SPDEF_IV},
 };
 
-u16 TiltSpecialMonIsMaxed(void)
-{
-    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
-    u8 i;
+static const u8 sTiltStatNames[6][11] = {
+    _("HP"), _("Attack"), _("Defense"), _("Speed"), _("Sp. Atk"), _("Sp. Def"),
+};
 
-    GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
+void TiltSpecialTrainNames(void)
+{
+    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar1);
     StringGet_Nickname(gStringVar1);
-    for (i = 0; i < 6; i++)
-    {
-        if (GetMonData(mon, sTiltEvIvIds[i][0]) < 252 || GetMonData(mon, sTiltEvIvIds[i][1]) < 31)
-            return FALSE;
-    }
-    return TRUE;
+    StringCopy(gStringVar2, sTiltStatNames[gSpecialVar_0x8005 % 6]);
+    StringCopy(gStringVar3, sTiltStatNames[gSpecialVar_0x8006 % 6]);
 }
 
 void TiltSpecialMaxMon(void)
 {
     struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
     u8 i;
-    u8 ev = 252;
+    u8 ev;
     u8 iv = 31;
 
     for (i = 0; i < 6; i++)
     {
+        ev = (i == gSpecialVar_0x8005 || i == gSpecialVar_0x8006) ? 252 : 0;
         SetMonData(mon, sTiltEvIvIds[i][0], &ev);
         SetMonData(mon, sTiltEvIvIds[i][1], &iv);
     }

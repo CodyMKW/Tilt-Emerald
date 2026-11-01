@@ -256,6 +256,7 @@ static const u32 sBirchSpeechShadowGfx[] = INCGFX_U32("graphics/birch_speech/sha
 static const u32 sBirchSpeechBgMap[] = INCGFX_U32("graphics/birch_speech/map.bin", ".lz");
 static const u16 sBirchSpeechBgGradientPal[] = INCGFX_U16("graphics/birch_speech/bg2.pal", ".gbapal");
 
+#define MAIN_MENU_BORDER_TILE   0x1D5
 #define MENU_LEFT 2
 #define MENU_TOP_WIN0 1
 #define MENU_TOP_WIN1 5
@@ -368,6 +369,16 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .paletteNum = 15,
         .baseBlock = 0x16D
     },
+    // Tilt Emerald version box (bottom right, shown on the NEW GAME / CONTINUE screens)
+    {
+        .bg = 0,
+        .tilemapLeft = 19,
+        .tilemapTop = 17,
+        .width = 9,
+        .height = 2,
+        .paletteNum = 15,
+        .baseBlock = 0x1DE
+    },
     DUMMY_WIN_TEMPLATE
 };
 
@@ -408,6 +419,18 @@ static const u16 sMainMenuTextPal[] = INCGFX_U16("graphics/interface/main_menu_t
 
 static const u8 sTextColor_Headers[] = {TEXT_DYNAMIC_COLOR_1, TEXT_DYNAMIC_COLOR_2, TEXT_DYNAMIC_COLOR_3};
 static const u8 sTextColor_MenuInfo[] = {TEXT_DYNAMIC_COLOR_1, TEXT_COLOR_WHITE, TEXT_DYNAMIC_COLOR_3};
+
+// Bump this every release.
+static const u8 sText_TiltVersion[] = _("Tilt v31");
+
+static void DrawTiltVersionBox(void)
+{
+    FillWindowPixelBuffer(8, PIXEL_FILL(0xA));
+    AddTextPrinterParameterized3(8, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, sText_TiltVersion);
+    PutWindowTilemap(8);
+    CopyWindowToVram(8, COPYWIN_GFX);
+    DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[8], MAIN_MENU_BORDER_TILE);
+}
 
 static const struct BgTemplate sMainMenuBgTemplates[] = {
     {
@@ -526,7 +549,6 @@ enum
     ACTION_INVALID
 };
 
-#define MAIN_MENU_BORDER_TILE   0x1D5
 #define BIRCH_DLG_BASE_TILE_NUM 0xFC
 
 static void CB2_MainMenu(void)
@@ -791,6 +813,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 CopyWindowToVram(1, COPYWIN_GFX);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[0], MAIN_MENU_BORDER_TILE);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[1], MAIN_MENU_BORDER_TILE);
+                DrawTiltVersionBox();
                 break;
             case HAS_SAVED_GAME:
                 FillWindowPixelBuffer(2, PIXEL_FILL(0xA));
@@ -809,6 +832,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[2], MAIN_MENU_BORDER_TILE);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[3], MAIN_MENU_BORDER_TILE);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[4], MAIN_MENU_BORDER_TILE);
+                DrawTiltVersionBox();
                 break;
             case HAS_MYSTERY_GIFT:
                 FillWindowPixelBuffer(2, PIXEL_FILL(0xA));

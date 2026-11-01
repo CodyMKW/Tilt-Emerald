@@ -2,6 +2,10 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31
+- CHANGED: the Wizard's Training service now lets you choose TWO stats to max (252 EVs each, the most the 510 EV cap allows). All other EVs are reset to 0 and every IV becomes 31. Still 1500 COINS.
+- NEW: the version number ("Tilt v31") now shows in a small box at the bottom right of the title menu (NEW GAME / CONTINUE screen).
+
 ## v30
 - NEW WIZARD SERVICE: "Training" in the Pinball Wizard's menu (also reachable through the Pinball Phone). For 1500 COINS you pick any Pokemon in your party and it gets every EV maxed (252 each) and every IV maxed (31 each). If the Pokemon is already maxed you are not charged.
 

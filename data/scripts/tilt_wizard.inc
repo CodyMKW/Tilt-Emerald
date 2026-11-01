@@ -136,7 +136,7 @@ TiltEmerald_EventScript_HealDo::
 	goto TiltEmerald_EventScript_WizardMenu
 	end
 
-@ ---- Training: max all EVs (252) and IVs (31) of one party Pokemon for 1500 coins ----
+@ ---- Training: 252 EVs in two chosen stats + all IVs 31 for one party Pokemon, 1500 coins ----
 
 TiltEmerald_EventScript_Train::
 	msgbox TiltEmerald_Text_TrainIntro, MSGBOX_DEFAULT
@@ -144,8 +144,20 @@ TiltEmerald_EventScript_Train::
 	goto_if_lt VAR_RESULT, 1500, TiltEmerald_EventScript_TrainNoCoins
 	special ChoosePartyMon
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, TiltEmerald_EventScript_WizardMenu
-	specialvar VAR_RESULT, TiltSpecialMonIsMaxed
-	goto_if_eq VAR_RESULT, TRUE, TiltEmerald_EventScript_TrainAlready
+TiltEmerald_EventScript_TrainPickFirst::
+	message TiltEmerald_Text_TrainPick1
+	waitmessage
+	multichoice 0, 0, MULTI_TILT_STAT, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, TiltEmerald_EventScript_WizardMenu
+	copyvar VAR_0x8005, VAR_RESULT
+TiltEmerald_EventScript_TrainPickSecond::
+	message TiltEmerald_Text_TrainPick2
+	waitmessage
+	multichoice 0, 0, MULTI_TILT_STAT, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, TiltEmerald_EventScript_TrainPickFirst
+	copyvar VAR_0x8006, VAR_RESULT
+	goto_if_eq VAR_0x8005, VAR_0x8006, TiltEmerald_EventScript_TrainSame
+	special TiltSpecialTrainNames
 	msgbox TiltEmerald_Text_TrainAsk, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, TiltEmerald_EventScript_WizardMenu
 	removecoins 1500
@@ -159,13 +171,13 @@ TiltEmerald_EventScript_Train::
 	goto TiltEmerald_EventScript_WizardMenu
 	end
 
-TiltEmerald_EventScript_TrainNoCoins::
-	msgbox TiltEmerald_Text_TrainNoCoins, MSGBOX_DEFAULT
-	goto TiltEmerald_EventScript_WizardMenu
+TiltEmerald_EventScript_TrainSame::
+	msgbox TiltEmerald_Text_TrainSame, MSGBOX_DEFAULT
+	goto TiltEmerald_EventScript_TrainPickSecond
 	end
 
-TiltEmerald_EventScript_TrainAlready::
-	msgbox TiltEmerald_Text_TrainAlready, MSGBOX_DEFAULT
+TiltEmerald_EventScript_TrainNoCoins::
+	msgbox TiltEmerald_Text_TrainNoCoins, MSGBOX_DEFAULT
 	goto TiltEmerald_EventScript_WizardMenu
 	end
 
@@ -709,22 +721,32 @@ TiltWizIntro_Text_4:
 
 TiltEmerald_Text_TrainIntro:
 	.string "My TRAINING service!\p"
-	.string "For 1500 COINS I'll max out every EV\n"
-	.string "and IV on one of your POKéMON.$"
+	.string "For 1500 COINS I'll max out two stats\n"
+	.string "of one POKéMON of your choice.\p"
+	.string "That's 252 EVs in each, and every IV\n"
+	.string "goes to 31.$"
 
 TiltEmerald_Text_TrainNoCoins:
 	.string "You need 1500 COINS for that.$"
 
+TiltEmerald_Text_TrainPick1:
+	.string "Which stat should be the first one?$"
+
+TiltEmerald_Text_TrainPick2:
+	.string "And the second one?$"
+
+TiltEmerald_Text_TrainSame:
+	.string "Pick two different stats!$"
+
 TiltEmerald_Text_TrainAsk:
-	.string "Max out {STR_VAR_1} for 1500 COINS?$"
+	.string "Max out {STR_VAR_2} and {STR_VAR_3}\n"
+	.string "on {STR_VAR_1} for 1500 COINS?\p"
+	.string "Its other EVs will be reset to 0.$"
 
 TiltEmerald_Text_TrainStart:
 	.string "Hold tight... this won't take long!$"
 
 TiltEmerald_Text_TrainDone:
 	.string "{STR_VAR_1} is now in peak condition!\n"
-	.string "All EVs and IVs are maxed out!$"
-
-TiltEmerald_Text_TrainAlready:
-	.string "{STR_VAR_1} is already maxed out!\n"
-	.string "No charge for that one.$"
+	.string "{STR_VAR_2} and {STR_VAR_3} are maxed,\l"
+	.string "and all IVs are 31!$"
