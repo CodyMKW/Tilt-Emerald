@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31.1
+- Tweak: STEVEN's original meeting in Granite Cave (the LETTER delivery) now acknowledges that you already met him on Route 102. He greets you like an old acquaintance, and his "you could become CHAMPION" and register-in-POKéNAV lines are reworded to match. If you somehow skip the Route 102 scene, the original vanilla dialogue is used.
+
 ## v31
 - CHANGED: the Wizard's Training service now lets you choose TWO stats to max (252 EVs each, the most the 510 EV cap allows). All other EVs are reset to 0 and every IV becomes 31. Still 1500 COINS.
 - NEW: the version number ("Tilt v31") now shows in a small box at the bottom right of the title menu (NEW GAME / CONTINUE screen).

@@ -4,14 +4,35 @@ GraniteCave_StevensRoom_MapScripts::
 GraniteCave_StevensRoom_EventScript_Steven::
 	lock
 	faceplayer
+	goto_if_eq VAR_UNUSED_0x40A8, 1, GraniteCave_StevensRoom_EventScript_StevenKnowsYou
 	msgbox GraniteCave_StevensRoom_Text_ImStevenLetterForMe, MSGBOX_DEFAULT
+	goto GraniteCave_StevensRoom_EventScript_StevenLetter
+	end
+
+@ Tilt Emerald: the player already met STEVEN on Route 102, so he greets them like an old acquaintance.
+GraniteCave_StevensRoom_EventScript_StevenKnowsYou::
+	msgbox GraniteCave_StevensRoom_Text_StevenKnowsYou, MSGBOX_DEFAULT
+	goto GraniteCave_StevensRoom_EventScript_StevenLetter
+	end
+
+GraniteCave_StevensRoom_EventScript_StevenLetter::
 	setvar VAR_0x8004, ITEM_LETTER
 	call Common_EventScript_PlayerHandedOverTheItem
 	setflag FLAG_DELIVERED_STEVEN_LETTER
 	msgbox GraniteCave_StevensRoom_Text_ThankYouTakeThis, MSGBOX_DEFAULT
 	giveitem ITEM_TM_STEEL_WING
 	call_if_eq VAR_RESULT, FALSE, GraniteCave_StevensRoom_EventScript_BagFull
+	goto_if_eq VAR_UNUSED_0x40A8, 1, GraniteCave_StevensRoom_EventScript_ChampionKnown
 	msgbox GraniteCave_StevensRoom_Text_CouldBecomeChampionLetsRegister, MSGBOX_DEFAULT
+	goto GraniteCave_StevensRoom_EventScript_RegisterSteven
+	end
+
+GraniteCave_StevensRoom_EventScript_ChampionKnown::
+	msgbox GraniteCave_StevensRoom_Text_ChampionKnown, MSGBOX_DEFAULT
+	goto GraniteCave_StevensRoom_EventScript_RegisterSteven
+	end
+
+GraniteCave_StevensRoom_EventScript_RegisterSteven::
 	closemessage
 	delay 30
 	playfanfare MUS_REGISTER_MATCH_CALL
@@ -84,6 +105,26 @@ GraniteCave_StevensRoom_Text_ImStevenLetterForMe:
 	.string "so I travel here and there.\p"
 	.string "Oh?\n"
 	.string "A LETTER for me?$"
+
+GraniteCave_StevensRoom_Text_StevenKnowsYou:
+	.string "STEVEN: Well, if it isn't {PLAYER}!\n"
+	.string "Fancy meeting you again, and in a cave\l"
+	.string "this deep, no less.\p"
+	.string "I told you my stones were rattling.\n"
+	.string "I came out here to look for more.\p"
+	.string "Oh? A LETTER for me?\n"
+	.string "You tracked me down to deliver it?$"
+
+GraniteCave_StevensRoom_Text_ChampionKnown:
+	.string "STEVEN: Your POKéMON look even\n"
+	.string "stronger than when we met on ROUTE 102.\p"
+	.string "If you keep training, you could even\n"
+	.string "become the CHAMPION of the POKéMON\l"
+	.string "LEAGUE one day. That's what I think.\p"
+	.string "Since we already know each other,\n"
+	.string "let's register one another in\l"
+	.string "our POKéNAVS.\p"
+	.string "… … … … … …$"
 
 GraniteCave_StevensRoom_Text_ThankYouTakeThis:
 	.string "STEVEN: Okay, thank you.\p"
