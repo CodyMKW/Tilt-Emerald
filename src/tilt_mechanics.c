@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "berry.h"
 #include "coins.h"
 #include "data.h"
 #include "event_data.h"
@@ -464,6 +465,7 @@ void TiltSpecialBerryJackpot(void)
     FlagClear(FLAG_TILT_BERRY);
     gSpecialVar_Result = sRareBerries[Random() % ARRAY_COUNT(sRareBerries)];
     AddBagItem(gSpecialVar_Result, 2);
+    GetBerryNameByBerryType(ItemIdToBerryType(gSpecialVar_Result), gStringVar1);
 }
 
 // Trainer level scaling (so over-leveling from Tilt combos can't trivialise trainers):

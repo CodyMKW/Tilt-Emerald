@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31.3
+- Fixed: the berry tree JACKPOT message showed "?????????" instead of the berry's name. It now names the berry (for example "2 bonus APICOT BERRIES!").
+
 ## v31.2 - the Claude update
 - NEW KEY ITEM: LUCKY DICE (custom icon). Use it from the bag or register it to SELECT. Each roll costs 100 COINS and can pay out nothing, your COINS back, Sitrus Berries, Ultra Balls, a PP Up, Rare Candies or a 500 COIN jackpot. You get it from CLAUDE, who stands in Slateport City.
 - NEW NPCs: 19 new people across Rustboro, Slateport, Mauville, Verdanturf, Fallarbor, Lavaridge, Fortree, Lilycove, Mossdeep and Sootopolis. Gift givers, lore NPCs (hints about Falcon and Dream Island), and 8 one-time challenge battles with prizes such as Mystic Water, Quick Claw, Charcoal, Dragon Scale, Metal Coat and Rare Candies.

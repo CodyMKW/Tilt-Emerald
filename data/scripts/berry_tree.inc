@@ -125,14 +125,13 @@ BerryTree_EventScript_PickBerry::
 	end
 
 BerryTree_EventScript_TiltJackpot::
-	bufferitemnameplural STR_VAR_1, VAR_RESULT, 2
 	msgbox BerryTree_Text_TiltJackpot, MSGBOX_DEFAULT
 	release
 	end
 
 BerryTree_Text_TiltJackpot:
 	.string "JACKPOT! The tree paid out\n"
-	.string "2 bonus {STR_VAR_1}!$"
+	.string "2 bonus {STR_VAR_1} BERRIES!$"
 
 BerryTree_EventScript_BerryPocketFull::
 	message BerryTree_Text_BerryPocketFull
