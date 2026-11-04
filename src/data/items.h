@@ -692,15 +692,17 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_PinballPhone,
     },
 
-    [ITEM_035] =
+    [ITEM_LUCKY_DICE] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("LUCKY DICE"),
+        .itemId = ITEM_LUCKY_DICE,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .description = sLuckyDiceDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_LuckyDice,
     },
 
     [ITEM_036] =

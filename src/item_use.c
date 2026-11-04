@@ -58,6 +58,7 @@ static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
 static void ItemUseOnFieldCB_PinballPhone(u8);
+static void ItemUseOnFieldCB_LuckyDice(u8);
 static void ItemUseOnFieldCB_Berry(u8);
 static void ItemUseOnFieldCB_WailmerPailBerry(u8);
 static void ItemUseOnFieldCB_WailmerPailSudowoodo(u8);
@@ -294,6 +295,22 @@ static void ItemUseOnFieldCB_PinballPhone(u8 taskId)
 {
     LockPlayerFieldControls();
     ScriptContext_SetupScript(TiltEmerald_EventScript_PhoneUse);
+    DestroyTask(taskId);
+}
+
+extern const u8 TiltClaude_EventScript_DiceUse[];
+
+// TILT: LUCKY DICE key item, roll for prizes (100 COINS a roll)
+void ItemUseOutOfBattle_LuckyDice(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_LuckyDice;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+static void ItemUseOnFieldCB_LuckyDice(u8 taskId)
+{
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(TiltClaude_EventScript_DiceUse);
     DestroyTask(taskId);
 }
 

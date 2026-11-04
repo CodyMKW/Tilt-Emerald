@@ -588,6 +588,8 @@ gStdScripts_End::
 	.include "data/scripts/tilt_story.inc"
 	.include "data/scripts/tilt_steven.inc"
 	.include "data/scripts/tilt_npcs.inc"
+	.include "data/scripts/tilt_claude.inc"
+	.include "data/scripts/tilt_claude_npcs.inc"
 	.include "data/scripts/tilt_gym.inc"
 	.include "data/scripts/tilt_pc.inc"
 	.include "data/scripts/tilt_joseph.inc"

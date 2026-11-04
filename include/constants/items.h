@@ -63,7 +63,7 @@ enum {
     ITEM_YELLOW_SHARD,
     ITEM_GREEN_SHARD,
     ITEM_PINBALL_PHONE, // TILT: key item, calls the Pinball Wizard from anywhere (was ITEM_034)
-    ITEM_035,
+    ITEM_LUCKY_DICE, // TILT: key item, roll for prizes (was ITEM_035)
     ITEM_036,
     ITEM_037,
     ITEM_038,

@@ -2,6 +2,12 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31.2 - the Claude update
+- NEW KEY ITEM: LUCKY DICE (custom icon). Use it from the bag or register it to SELECT. Each roll costs 100 COINS and can pay out nothing, your COINS back, Sitrus Berries, Ultra Balls, a PP Up, Rare Candies or a 500 COIN jackpot. You get it from CLAUDE, who stands in Slateport City.
+- NEW NPCs: 19 new people across Rustboro, Slateport, Mauville, Verdanturf, Fallarbor, Lavaridge, Fortree, Lilycove, Mossdeep and Sootopolis. Gift givers, lore NPCs (hints about Falcon and Dream Island), and 8 one-time challenge battles with prizes such as Mystic Water, Quick Claw, Charcoal, Dragon Scale, Metal Coat and Rare Candies.
+- NEW: a kind old woman at the Lavaridge hot springs heals your whole party for free, any time.
+- The title screen version box now reads "Tilt v31.2".
+
 ## v31.1
 - Tweak: STEVEN's original meeting in Granite Cave (the LETTER delivery) now acknowledges that you already met him on Route 102. He greets you like an old acquaintance, and his "you could become CHAMPION" and register-in-POKéNAV lines are reworded to match. If you somehow skip the Route 102 scene, the original vanilla dialogue is used.
 
