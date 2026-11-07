@@ -56,5 +56,7 @@ bool8 TiltNzAreaUsed(void);
 void TiltNzMarkArea(void);
 void TiltNzReleaseFainted(void);
 extern bool8 gTiltNzNoCatch;
+extern bool8 gTiltSafeMode;
+void TiltSafeClamp(u8 battler);
 
 #endif // GUARD_TILT_MECHANICS_H

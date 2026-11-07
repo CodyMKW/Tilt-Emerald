@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31.5
+- NEW QUALITY OF LIFE: SAFE MODE. On the move select screen in battle, press L to toggle it. While it is on, your attacks never knock out the opponent: they leave it at 1 HP, just like FALSE SWIPE, which makes catching much easier. The move screen's "TYPE/" label changes to "SAFE/" while it is on, and a different sound plays when you switch it. Press L again to turn it off and moves work normally. It is off every time you boot the game, only affects your own attacks (not poison, recoil or the opponent's moves), and is disabled in link battles. If you use the L=A button mode, L stays as A and SAFE MODE can't be toggled.
+
 ## v31.4
 - NEW QUALITY OF LIFE: HM moves work in the overworld without any Pokemon knowing them. If a Pokemon in your party CAN learn an HM (Cut, Fly, Surf, Strength, Flash, Rock Smash, Waterfall, Dive), it can use it in the field. Those moves show up in the party menu in blue, and trees, boulders, water and waterfalls react as if the move were known. A Pokemon that really knows the move is preferred. Badge requirements still apply, and the moves are not added to the Pokemon's moveset or usable in battle.
 

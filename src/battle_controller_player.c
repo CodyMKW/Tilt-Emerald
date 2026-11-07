@@ -597,6 +597,13 @@ static void HandleInputChooseMove(void)
             MoveSelectionDisplayMoveType();
         }
     }
+    else if (JOY_NEW(L_BUTTON) && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
+    {
+        // TILT: L toggles SAFE MODE (attacks leave the target at 1 HP)
+        gTiltSafeMode ^= TRUE;
+        PlaySE(gTiltSafeMode ? SE_PIN : SE_SELECT);
+        MoveSelectionDisplayMoveType();
+    }
     else if (JOY_NEW(SELECT_BUTTON))
     {
         if (gNumberOfMovesToChoose > 1 && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
@@ -1494,12 +1501,17 @@ static void MoveSelectionDisplayPPNumber(void)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP_REMAINING);
 }
 
+static const u8 sText_TiltSafeLabel[] = _("SAFE/");
+
 static void MoveSelectionDisplayMoveType(void)
 {
     u8 *txtPtr;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
 
-    txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
+    if (gTiltSafeMode && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
+        txtPtr = StringCopy(gDisplayedStringBattle, sText_TiltSafeLabel);
+    else
+        txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
     *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;
     *(txtPtr)++ = EXT_CTRL_CODE_FONT;
     *(txtPtr)++ = FONT_NORMAL;

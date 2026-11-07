@@ -333,6 +333,22 @@ bool8 TiltOnLuckyRoute(void)
     return gSaveBlock1Ptr->location.mapGroup == (map >> 8) && gSaveBlock1Ptr->location.mapNum == (map & 0xFF);
 }
 
+// SAFE MODE (toggled with L on the move select screen): the player's attacks never KO an opponent, they
+// leave it at 1 HP like FALSE SWIPE. Not saved; defaults to off every time the game boots.
+bool8 gTiltSafeMode;
+
+void TiltSafeClamp(u8 battler)
+{
+    if (!gTiltSafeMode || (gBattleTypeFlags & BATTLE_TYPE_LINK) || gBattleMoveDamage <= 0)
+        return;
+    if (GetBattlerSide(battler) != B_SIDE_OPPONENT || GetBattlerSide(gBattlerAttacker) != B_SIDE_PLAYER)
+        return;
+    if (gBattleMons[battler].status2 & STATUS2_SUBSTITUTE && gDisableStructs[battler].substituteHP)
+        return;
+    if (gBattleMoveDamage >= gBattleMons[battler].hp)
+        gBattleMoveDamage = gBattleMons[battler].hp - 1;
+}
+
 // HM anywhere: a party Pokemon that can LEARN an HM (but does not know it) may still use it in the field.
 // Returns TRUE only for the "can learn, doesn't know" case; callers check MonKnowsMove first.
 bool8 TiltMonCanUseHM(struct Pokemon *mon, u16 move)
