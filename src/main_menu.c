@@ -421,7 +421,7 @@ static const u8 sTextColor_Headers[] = {TEXT_DYNAMIC_COLOR_1, TEXT_DYNAMIC_COLOR
 static const u8 sTextColor_MenuInfo[] = {TEXT_DYNAMIC_COLOR_1, TEXT_COLOR_WHITE, TEXT_DYNAMIC_COLOR_3};
 
 // Bump this every release.
-static const u8 sText_TiltVersion[] = _("Tilt v31.3");
+static const u8 sText_TiltVersion[] = _("Tilt v31.4");
 
 static void DrawTiltVersionBox(void)
 {

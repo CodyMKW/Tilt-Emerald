@@ -51,6 +51,7 @@ u8 TiltOptMax(u8 id);
 void TiltOptSet(u8 id, u8 value);
 u8 TiltMultiballPeriod(void);
 u8 TiltLevelCap(void);
+bool8 TiltMonCanUseHM(struct Pokemon *mon, u16 move);
 bool8 TiltNzAreaUsed(void);
 void TiltNzMarkArea(void);
 void TiltNzReleaseFainted(void);

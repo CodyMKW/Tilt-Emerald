@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "main.h"
 #include "bike.h"
 #include "event_data.h"
@@ -1304,7 +1305,7 @@ bool8 PartyHasMonWithSurf(void)
         {
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
                 break;
-            if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
+            if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF) || TiltMonCanUseHM(&gPlayerParty[i], MOVE_SURF))
                 return TRUE;
         }
     }

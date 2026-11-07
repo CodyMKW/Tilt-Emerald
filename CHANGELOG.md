@@ -2,6 +2,9 @@
 
 Existing saves stay valid from v5 onward.
 
+## v31.4
+- NEW QUALITY OF LIFE: HM moves work in the overworld without any Pokemon knowing them. If a Pokemon in your party CAN learn an HM (Cut, Fly, Surf, Strength, Flash, Rock Smash, Waterfall, Dive), it can use it in the field. Those moves show up in the party menu in blue, and trees, boulders, water and waterfalls react as if the move were known. A Pokemon that really knows the move is preferred. Badge requirements still apply, and the moves are not added to the Pokemon's moveset or usable in battle.
+
 ## v31.3
 - Fixed: the berry tree JACKPOT message showed "?????????" instead of the berry's name. It now names the berry (for example "2 bonus APICOT BERRIES!").
 

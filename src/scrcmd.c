@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "frontier_util.h"
 #include "battle_setup.h"
 #include "berry.h"
@@ -1726,6 +1727,22 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
             break;
+        }
+    }
+    // TILT: HM anywhere. If nobody knows the move, a Pokemon that can learn the HM may use it.
+    if (gSpecialVar_Result == PARTY_SIZE)
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+            if (!species)
+                break;
+            if (TiltMonCanUseHM(&gPlayerParty[i], move))
+            {
+                gSpecialVar_Result = i;
+                gSpecialVar_0x8004 = species;
+                break;
+            }
         }
     }
     return FALSE;

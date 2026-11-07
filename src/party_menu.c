@@ -1,4 +1,5 @@
 #include "global.h"
+#include "tilt_mechanics.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -2622,6 +2623,23 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
                 break;
             }
         }
+    }
+
+    // TILT: HM anywhere. List HMs this Pokemon can learn but doesn't know (room is kept for Switch/Item/Cancel).
+    for (j = 0; sFieldMoves[j] != FIELD_MOVES_COUNT; j++)
+    {
+        u8 k;
+        bool8 listed = FALSE;
+
+        if (sPartyMenuInternal->numActions >= 5)
+            break;
+        for (k = 0; k < sPartyMenuInternal->numActions; k++)
+        {
+            if (sPartyMenuInternal->actions[k] == j + MENU_FIELD_MOVES)
+                listed = TRUE;
+        }
+        if (!listed && TiltMonCanUseHM(&mons[slotId], sFieldMoves[j]))
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
     }
 
     if (!InBattlePike())

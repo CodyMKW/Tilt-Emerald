@@ -333,6 +333,23 @@ bool8 TiltOnLuckyRoute(void)
     return gSaveBlock1Ptr->location.mapGroup == (map >> 8) && gSaveBlock1Ptr->location.mapNum == (map & 0xFF);
 }
 
+// HM anywhere: a party Pokemon that can LEARN an HM (but does not know it) may still use it in the field.
+// Returns TRUE only for the "can learn, doesn't know" case; callers check MonKnowsMove first.
+bool8 TiltMonCanUseHM(struct Pokemon *mon, u16 move)
+{
+    static const u16 sHms[] = { MOVE_CUT, MOVE_FLY, MOVE_SURF, MOVE_STRENGTH, MOVE_FLASH, MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_DIVE };
+    u8 i;
+
+    if (GetMonData(mon, MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+        return FALSE;
+    for (i = 0; i < ARRAY_COUNT(sHms); i++)
+    {
+        if (sHms[i] == move)
+            return CanMonLearnTMHM(mon, NUM_TECHNICAL_MACHINES + i) != 0;
+    }
+    return FALSE;
+}
+
 // --------------------------------------------------------------------------------------------
 // Specials used by the Wizard / scripts
 // --------------------------------------------------------------------------------------------

@@ -38,6 +38,7 @@ Every wild win or catch adds to a combo, and the combo drives the whole game.
 - **Training:** the Wizard's Training service costs 1500 COINS and lets you pick one party Pokémon and two stats: those two get 252 EVs each (the legal maximum) and every IV becomes 31.
 - **Lucky Dice:** a key item from CLAUDE in Slateport City. 100 COINS per roll for a chance at coins, berries, balls, PP Ups, Rare Candies or a 500 COIN jackpot.
 - **Town NPCs:** 19 new NPCs in Rustboro through Sootopolis: gifts, lore, one-time challenge battles, and a free-heal hot spring in Lavaridge.
+- **HM anywhere:** any party Pokémon that can learn an HM can use it in the overworld without knowing it (badges still required). No more HM slaves.
 - **Pinball Phone:** a key item from a side quest in Petalburg City (find three lost parts, then show the tinkerer a combo of 3+). Use it from the bag or register it to SELECT to open the Wizard's menu from anywhere, so you never have to run back to Littleroot.
 - **Pinball Phone:** a key item from a side quest in Petalburg City (find three lost parts, then show the tinkerer a combo of 3+). Use it from the bag or register it to SELECT to open the Wizard's menu from anywhere, so you never have to run back to Littleroot.
 - **Healing economy:** Pokémon Centers are broke, so a heal costs ¥1000 (Gold Card holders still heal free). The Wizard's tune-up costs 250 COINS, and a lucky combo hit can drop a HEAL TICKET that makes it free. Mom only restores HP up to half.
